@@ -206,49 +206,48 @@
             transform: scale(1.3);
         }
 
-        /* ===== ПЛАВАЮЩАЯ КНОПКА ===== */
-        .float-btn {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 500;
-            background: linear-gradient(90deg, #ff00ff, #00ffff);
-            padding: 12px 28px;
-            border-radius: 30px;
-            color: #000;
-            font-weight: bold;
-            font-size: 0.95rem;
-            text-decoration: none;
-            letter-spacing: 1px;
-            animation: pulse 2.5s ease-in-out infinite;
-            box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
-            white-space: nowrap;
-            will-change: transform, box-shadow;
-            border: none;
-            cursor: pointer;
-        }
-        .float-btn:hover {
-            animation: none;
-            transform: translateX(-50%) scale(1.05);
-            box-shadow: 0 0 50px rgba(255, 0, 255, 0.6);
-        }
-        .float-btn.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+      /* ===== ПЛАВАЮЩАЯ КНОПКА (СПРАВА ВНИЗУ) ===== */
+.float-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 500;
+    background: linear-gradient(90deg, #ff00ff, #00ffff);
+    padding: 14px 30px;
+    border-radius: 30px;
+    color: #000;
+    font-weight: bold;
+    font-size: 1rem;
+    text-decoration: none;
+    letter-spacing: 1px;
+    animation: pulse 2.5s ease-in-out infinite;
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
+    white-space: nowrap;
+    will-change: transform, box-shadow;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.float-btn:hover {
+    animation: none;
+    transform: scale(1.05);
+    box-shadow: 0 0 50px rgba(255, 0, 255, 0.6);
+}
+.float-btn.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
 
-        @keyframes pulse {
-            0%,
-            100% {
-                transform: translateX(-50%) scale(1);
-                box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
-            }
-            50% {
-                transform: translateX(-50%) scale(1.04);
-                box-shadow: 0 0 50px rgba(255, 0, 255, 0.7);
-            }
-        }
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
+    }
+    50% {
+        transform: scale(1.04);
+        box-shadow: 0 0 50px rgba(255, 0, 255, 0.7);
+    }
+}
 
         /* ===== СТРЕЛКИ ===== */
         .scroll-arrow {
