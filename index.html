@@ -17,6 +17,13 @@
             background: #0a0a0a;
             color: #fff;
             scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* ===== ПЛАВНЫЙ СКРОЛЛ ===== */
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
         }
 
         /* ===== КАЖДЫЙ БЛОК — НА ВСЮ ВЫСОТУ ЭКРАНА ===== */
@@ -30,6 +37,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            scroll-snap-align: start;
         }
 
         /* ===== ФОНОВЫЕ ЭФФЕКТЫ ДЛЯ РАЗНЫХ БЛОКОВ ===== */
@@ -80,6 +88,60 @@
             z-index: 2;
             max-width: 750px;
             width: 100%;
+        }
+
+        /* ===== БОКОВЫЕ ЭЛЕМЕНТЫ (декор 90-х) ===== */
+        .side-decor {
+            position: absolute;
+            z-index: 1;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            opacity: 0.3;
+            animation: floatSlow 6s ease-in-out infinite;
+            pointer-events: none;
+            user-select: none;
+            filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.2));
+        }
+        .side-decor:nth-child(1) {
+            top: 10%;
+            left: 3%;
+            animation-delay: 0s;
+        }
+        .side-decor:nth-child(2) {
+            top: 25%;
+            right: 3%;
+            animation-delay: 1s;
+        }
+        .side-decor:nth-child(3) {
+            bottom: 30%;
+            left: 2%;
+            animation-delay: 2s;
+        }
+        .side-decor:nth-child(4) {
+            bottom: 15%;
+            right: 2%;
+            animation-delay: 0.5s;
+        }
+        .side-decor:nth-child(5) {
+            top: 50%;
+            left: 1%;
+            animation-delay: 1.5s;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+        }
+        .side-decor:nth-child(6) {
+            top: 60%;
+            right: 1%;
+            animation-delay: 2.5s;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        @keyframes floatSlow {
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
         }
 
         /* ===== НЕОНОВЫЙ ЗАГОЛОВОК ===== */
@@ -174,7 +236,7 @@
             box-shadow: 0 0 15px rgba(255, 0, 255, 0.1);
         }
 
-        /* ===== КАРТА (iframe) ===== */
+        /* ===== КАРТА (Яндекс) ===== */
         .map-container {
             width: 100%;
             border-radius: 16px;
@@ -182,12 +244,33 @@
             margin-top: 15px;
             border: 2px solid rgba(0, 255, 255, 0.3);
             box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+            position: relative;
         }
         .map-container iframe {
             width: 100%;
             height: 250px;
             border: 0;
             display: block;
+        }
+
+        .map-button {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 12px 30px;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            border-radius: 30px;
+            color: #0a0a0a;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+        }
+        .map-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
         }
 
         /* ===== ФОРМА ===== */
@@ -256,7 +339,7 @@
             box-shadow: 0 0 40px rgba(255, 0, 255, 0.3);
         }
 
-        /* ===== АТРИБУТИКА 90-Х (SVG) ===== */
+        /* ===== ВЕРХНИЕ ИКОНКИ 90-Х ===== */
         .icon-90s {
             font-size: clamp(3rem, 8vw, 5rem);
             display: inline-block;
@@ -272,6 +355,12 @@
         }
         .icon-90s:nth-child(4) {
             animation-delay: 1.5s;
+        }
+        .icon-90s:nth-child(5) {
+            animation-delay: 2s;
+        }
+        .icon-90s:nth-child(6) {
+            animation-delay: 2.5s;
         }
         @keyframes float {
             0%,
@@ -308,6 +397,24 @@
             .form-card {
                 padding: 18px 12px;
             }
+            .side-decor {
+                display: none;
+            }
+        }
+
+        /* ===== СКРОЛЛБАР В СТИЛЕ 90-Х ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ff00ff, #00ffff);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #00ffff, #ff00ff);
         }
     </style>
 </head>
@@ -317,13 +424,23 @@
     <!-- БЛОК 1: ВСТУПЛЕНИЕ И АТМОСФЕРА 90-Х                       -->
     <!-- ============================================================ -->
     <section class="full-screen block-1">
+        <!-- БОКОВОЙ ДЕКОР -->
+        <div class="side-decor">📼</div>
+        <div class="side-decor">🎧</div>
+        <div class="side-decor">🕹️</div>
+        <div class="side-decor">📟</div>
+        <div class="side-decor">💿</div>
+        <div class="side-decor">📺</div>
+
         <div class="block-content">
-            <!-- SVG-иконки атрибутики 90-х -->
+            <!-- Иконки атрибутики 90-х -->
             <div style="margin-bottom: 15px;">
                 <span class="icon-90s">📼</span>
                 <span class="icon-90s">🎧</span>
                 <span class="icon-90s">🕹️</span>
                 <span class="icon-90s">📟</span>
+                <span class="icon-90s">💿</span>
+                <span class="icon-90s">📺</span>
             </div>
 
             <h1 class="neon-title">90-Е ВОЗВРАЩАЮТСЯ!</h1>
@@ -347,6 +464,13 @@
     <!-- БЛОК 2: ЧТО ЗА МЕРОПРИЯТИЕ                                 -->
     <!-- ============================================================ -->
     <section class="full-screen block-2">
+        <div class="side-decor">🎤</div>
+        <div class="side-decor">🪩</div>
+        <div class="side-decor">🎶</div>
+        <div class="side-decor">💃</div>
+        <div class="side-decor">🕺</div>
+        <div class="side-decor">🎸</div>
+
         <div class="block-content">
             <div class="glass-card">
                 <h2>📢 Что за мероприятие?</h2>
@@ -369,12 +493,19 @@
     <!-- БЛОК 3: ГДЕ И КОГДА + КАРТА                                -->
     <!-- ============================================================ -->
     <section class="full-screen block-3">
+        <div class="side-decor">📍</div>
+        <div class="side-decor">🗺️</div>
+        <div class="side-decor">🧭</div>
+        <div class="side-decor">🚇</div>
+        <div class="side-decor">🏠</div>
+        <div class="side-decor">☕</div>
+
         <div class="block-content">
             <div class="glass-card">
                 <h2>📍 Где и когда?</h2>
                 <p style="font-size: clamp(1.1rem, 2.2vw, 1.3rem);">
                     <span class="highlight">📅 Дата:</span> 12 сентября 2026 года<br>
-                    <span class="highlight">⏰ Время:</span> Сбор гостей в 18:00<br>
+                    <span class="highlight">⏰ Время:</span> Сбор гостей в <strong>16:00</strong><br>
                     <span class="highlight">🏠 Место:</span> Кафе «Ландринъ»<br>
                     <span style="color: #aaa; font-size: 0.95rem;">
                         г. Москва, ул. Сущёвская, д. 9, стр. 4
@@ -385,23 +516,39 @@
                     </span>
                 </p>
 
-                <!-- КАРТА С ГЕОПОЗИЦИЕЙ -->
+                <!-- КАРТА ЯНДЕКС С ТОЧКОЙ -->
                 <div class="map-container">
                     <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.171413244743!2d37.599071!3d55.779427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a403e9e9e4f%3A0x4b6d5e8e6e9b6b6b!2z0JDRgdGC0YDQvtC10L3QsNGB0LAg0JTQu9C10LrRgtGA0L7QvdC90YvRhSDQuCDQp9C10L3RgtGA0L7QstC90YvRhSDRg9C70L7QsdC90YvRhSDRg9C70L7QsdC90YvRhdC40LrQsNGFINC_0YDQvtCz0YDQsNC80Lwg0JDQvdC00YDQtdC5INCa0LDQv9C40YbRiw!5e0!3m2!1sru!2sru!4v1700000000000"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
+                    src="https://yandex.ru/map-widget/v1/?um=constructor%3A1a2b3c4d5e6f7g8h9i0j&source=constructor"
+                    allowfullscreen="true"
+                    loading="lazy">
                 </iframe>
             </div>
-        </div>
+
+            <!-- КНОПКА ДЛЯ ОТКРЫТИЯ В ЯНДЕКС КАРТАХ -->
+            <a href="https://yandex.ru/maps/?pt=37.601149,55.780496&z=18&l=map" 
+               target="_blank" 
+               class="map-button">
+               🗺️ Открыть в Яндекс Картах
+           </a>
+           <p style="color: #888; font-size: 0.8rem; margin-top: 8px;">
+            📍 Точка на карте: 55.780496, 37.601149
+        </p>
     </div>
+</div>
 </section>
 
 <!-- ============================================================ -->
-<!-- БЛОК 4: ДРЕСС-КОД И СТИЛЬ                                    -->
+<!-- БЛОК 4: ДРЕСС-КОД И СТИЛЬ + ЛОГОТИПЫ 90-Х                  -->
 <!-- ============================================================ -->
 <section class="full-screen block-4">
+    <div class="side-decor">👕</div>
+    <div class="side-decor">🧥</div>
+    <div class="side-decor">👖</div>
+    <div class="side-decor">🧢</div>
+    <div class="side-decor">🕶️</div>
+    <div class="side-decor">⛓️</div>
+
     <div class="block-content">
         <div class="glass-card">
             <h2>👕 Дресс-код и стиль</h2>
@@ -409,6 +556,17 @@
                 <span class="highlight">Стиль вечеринки:</span>
                 Эпоха 90-х — ярко, смело, безбашенно!
             </p>
+
+            <!-- ЛОГОТИПЫ 90-Х -->
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin: 20px 0; font-size: clamp(1.5rem, 3vw, 2.5rem);">
+                <span style="background: linear-gradient(90deg, #ff0000, #ff6600); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;">MTV</span>
+                <span style="color: #ff00ff; font-weight: bold;">TURBO</span>
+                <span style="color: #ffcc00; font-weight: bold;">LOVE IS</span>
+                <span style="color: #00ffff; font-weight: bold;">TERMINATOR</span>
+                <span style="color: #ff6600; font-weight: bold;">YUPPIE</span>
+                <span style="color: #ff0066; font-weight: bold;">DUNK</span>
+            </div>
+
             <div class="dress-grid">
                 <span class="dress-item">🔴 Малиновый пиджак</span>
                 <span class="dress-item">👖 Широкие джинсы</span>
@@ -430,6 +588,13 @@
 <!-- БЛОК 5: ОПРОСНИК (ФОРМА)                                     -->
 <!-- ============================================================ -->
 <section class="full-screen block-5">
+    <div class="side-decor">📝</div>
+    <div class="side-decor">✉️</div>
+    <div class="side-decor">📬</div>
+    <div class="side-decor">📨</div>
+    <div class="side-decor">📩</div>
+    <div class="side-decor">📪</div>
+
     <div class="block-content">
         <div class="form-card">
             <h2>📝 Подтверди участие</h2>
@@ -477,7 +642,6 @@
                     </select>
                 </div>
 
-                <!-- НОВЫЙ ПУНКТ: +ДЕТИ И КОЛИЧЕСТВО -->
                 <div class="form-group">
                     <label for="kids">👶 Дети с вами?</label>
                     <select id="kids" name="kids">
