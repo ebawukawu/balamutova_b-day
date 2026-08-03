@@ -599,6 +599,35 @@
             cursor: pointer;
             flex-shrink: 0;
             margin: 0;
+            /* Убираем стандартный вид чекбокса */
+            appearance: none;
+            -webkit-appearance: none;
+            /* Рисуем свой */
+            border: 2px solid #666;
+            border-radius: 50%;
+            background: transparent;
+            transition: all 0.2s;
+            position: relative;
+            outline: none;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked {
+            border-color: #ff00ff;
+            background: #ff00ff;
+            box-shadow: 0 0 12px rgba(255, 0, 255, 0.4);
+        }
+
+        .checkbox-item input[type="checkbox"]:checked::after {
+            content: '✓';
+            color: #000;
+            font-size: 12px;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            text-align: center;
         }
 
         .checkbox-item span {
@@ -1677,7 +1706,6 @@
         });
 
         form.addEventListener('submit', function(e) {
-            // Если ещё не помечено — помечаем
             if (!form.dataset.submitted) {
                 form.dataset.submitted = 'true';
                 const btn = document.getElementById('submitBtn');
