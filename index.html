@@ -1,434 +1,508 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎉 50 лет в стиле 90-х!</title>
-  <style>
-    /* ===== ОБЩИЙ СТИЛЬ ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 День рождения в стиле 90-х!</title>
+    <style>
+        /* ===== ГЛОБАЛЬНЫЕ СБРОСЫ И БАЗА ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Arial', sans-serif;
-      background: #0a0a0a;
-      color: #fff;
-      padding: 20px;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            scroll-behavior: smooth;
+        }
 
-    /* ===== ГЛАВНЫЙ КОНТЕЙНЕР ===== */
-    .container {
-      max-width: 650px;
-      width: 100%;
-      background: #1a1a2e;
-      padding: 30px 25px;
-      border-radius: 20px;
-      border: 3px solid #ff00ff;
-      box-shadow: 0 0 30px rgba(255, 0, 255, 0.3), 0 0 60px rgba(0, 255, 255, 0.2);
-      position: relative;
-      overflow: hidden;
-    }
+        /* ===== КАЖДЫЙ БЛОК — НА ВСЮ ВЫСОТУ ЭКРАНА ===== */
+        .full-screen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* ===== АНИМИРОВАННЫЙ ФОН (ЭФФЕКТ 90-Х) ===== */
-    .container::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 30px,
-        rgba(255, 0, 255, 0.03) 30px,
-        rgba(255, 0, 255, 0.03) 31px
-      );
-      animation: scan 8s linear infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
+        /* ===== ФОНОВЫЕ ЭФФЕКТЫ ДЛЯ РАЗНЫХ БЛОКОВ ===== */
+        .block-1 {
+            background: radial-gradient(circle at 20% 30%, #1a0a2e, #0a0a0a);
+        }
+        .block-1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(255, 0, 255, 0.03) 40px,
+                    rgba(255, 0, 255, 0.03) 41px);
+            animation: scan 10s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        @keyframes scan {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(80px);
+            }
+        }
 
-    @keyframes scan {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(60px); }
-    }
+        .block-2 {
+            background: radial-gradient(circle at 80% 70%, #1a1a2e, #0d0d1a);
+        }
+        .block-3 {
+            background: radial-gradient(circle at 50% 50%, #2a0a1a, #0a0a0a);
+        }
+        .block-4 {
+            background: radial-gradient(circle at 30% 80%, #0a1a2e, #0a0a0a);
+        }
+        .block-5 {
+            background: radial-gradient(circle at 70% 20%, #1a2a0a, #0a0a0a);
+        }
 
-    /* ===== ВСЁ, ЧТО ВНУТРИ КОНТЕЙНЕРА ===== */
-    .container > * {
-      position: relative;
-      z-index: 1;
-    }
+        /* Общий контейнер для контента поверх фона */
+        .block-content {
+            position: relative;
+            z-index: 2;
+            max-width: 750px;
+            width: 100%;
+        }
 
-    /* ===== ЗАГОЛОВКИ ===== */
-    h1 {
-      font-size: 2.8em;
-      text-align: center;
-      background: linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff);
-      background-size: 300%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientMove 3s ease infinite;
-      text-shadow: none;
-      letter-spacing: 3px;
-      margin-bottom: 5px;
-    }
+        /* ===== НЕОНОВЫЙ ЗАГОЛОВОК ===== */
+        .neon-title {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            background: linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 4s ease infinite;
+            letter-spacing: 5px;
+            text-shadow: 0 0 40px rgba(255, 0, 255, 0.2);
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        @keyframes gradientMove {
+            0% {
+                background-position: 0%;
+            }
+            50% {
+                background-position: 100%;
+            }
+            100% {
+                background-position: 0%;
+            }
+        }
 
-    @keyframes gradientMove {
-      0% { background-position: 0%; }
-      50% { background-position: 100%; }
-      100% { background-position: 0%; }
-    }
+        .sub-neon {
+            font-size: clamp(1rem, 2.5vw, 1.6rem);
+            color: #ffcc00;
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+        }
 
-    .subtitle {
-      text-align: center;
-      font-size: 1.3em;
-      color: #ffcc00;
-      text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
-      margin-bottom: 25px;
-      letter-spacing: 5px;
-      border-bottom: 2px dashed #ff00ff;
-      padding-bottom: 15px;
-    }
+        /* ===== ТЕКСТОВЫЕ БЛОКИ ===== */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            border-radius: 24px;
+            padding: 30px 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s;
+            width: 100%;
+        }
+        .glass-card:hover {
+            transform: scale(1.01);
+        }
 
-    /* ===== РАЗДЕЛЫ ===== */
-    .section {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      padding: 18px 20px;
-      margin-bottom: 20px;
-      border-left: 4px solid #00ffff;
-      backdrop-filter: blur(5px);
-      transition: transform 0.2s;
-    }
+        .glass-card h2 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: #00ffff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
 
-    .section:hover {
-      transform: scale(1.01);
-    }
+        .glass-card p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            line-height: 1.7;
+            color: #e0e0e0;
+        }
 
-    .section-title {
-      font-size: 1.2em;
-      color: #ff00ff;
-      font-weight: bold;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        .glass-card .highlight {
+            color: #ffcc00;
+            font-weight: bold;
+        }
 
-    .section-title .icon {
-      font-size: 1.5em;
-    }
+        .glass-card .accent {
+            color: #ff00ff;
+        }
 
-    .section-content {
-      font-size: 1.05em;
-      line-height: 1.6;
-      color: #ddd;
-    }
+        /* ===== ДРЕСС-КОД ===== */
+        .dress-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .dress-item {
+            background: rgba(255, 0, 255, 0.12);
+            border: 1px solid #ff00ff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: clamp(0.85rem, 1.5vw, 1rem);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.1);
+        }
 
-    .section-content strong {
-      color: #00ffff;
-    }
+        /* ===== КАРТА (iframe) ===== */
+        .map-container {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 15px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 250px;
+            border: 0;
+            display: block;
+        }
 
-    /* ===== ДРЕСС-КОД (СПИСОК) ===== */
-    .dresscode-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 8px;
-    }
+        /* ===== ФОРМА ===== */
+        .form-card {
+            background: rgba(0, 255, 255, 0.03);
+            border: 2px solid #ff00ff;
+            border-radius: 20px;
+            padding: 25px 20px;
+            width: 100%;
+        }
+        .form-card h2 {
+            color: #ffcc00;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
+        }
 
-    .dresscode-item {
-      background: rgba(255, 0, 255, 0.15);
-      border: 1px solid #ff00ff;
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 0.95em;
-      color: #fff;
-    }
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.95rem;
+            color: #00ffff;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #444;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff00ff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.15);
+        }
+        .form-group input::placeholder {
+            color: #666;
+        }
 
-    /* ===== ФОРМА ===== */
-    .form-section {
-      background: rgba(0, 255, 255, 0.05);
-      border: 2px solid #ff00ff;
-      border-radius: 15px;
-      padding: 20px;
-      margin-top: 10px;
-    }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0a0a0a;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        .submit-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(255, 0, 255, 0.3);
+        }
 
-    .form-section h2 {
-      text-align: center;
-      color: #ffcc00;
-      font-size: 1.5em;
-      margin-bottom: 18px;
-      text-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
-    }
+        /* ===== АТРИБУТИКА 90-Х (SVG) ===== */
+        .icon-90s {
+            font-size: clamp(3rem, 8vw, 5rem);
+            display: inline-block;
+            filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.3));
+            margin: 5px 10px;
+            animation: float 4s ease-in-out infinite;
+        }
+        .icon-90s:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        .icon-90s:nth-child(3) {
+            animation-delay: 1s;
+        }
+        .icon-90s:nth-child(4) {
+            animation-delay: 1.5s;
+        }
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
 
-    .form-group {
-      margin-bottom: 16px;
-    }
+        /* ===== ПОДВАЛ ===== */
+        .footer {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: #444;
+            border-top: 1px solid #222;
+            padding-top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .footer span {
+            color: #ff00ff;
+        }
 
-    .form-group label {
-      display: block;
-      font-size: 0.95em;
-      color: #00ffff;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 12px 15px;
-      border-radius: 10px;
-      border: 1px solid #444;
-      background: rgba(0, 0, 0, 0.5);
-      color: #fff;
-      font-size: 1em;
-      transition: border 0.3s;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: #ff00ff;
-      box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
-    }
-
-    .form-group input::placeholder {
-      color: #666;
-    }
-
-    .form-group select option {
-      background: #1a1a2e;
-      color: #fff;
-    }
-
-    /* ===== КНОПКА ОТПРАВКИ ===== */
-    .submit-btn {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(90deg, #ff00ff, #00ffff);
-      border: none;
-      border-radius: 10px;
-      font-size: 1.2em;
-      font-weight: bold;
-      color: #0a0a0a;
-      cursor: pointer;
-      transition: all 0.3s;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .submit-btn:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
-    }
-
-    .submit-btn:active {
-      transform: scale(0.98);
-    }
-
-    /* ===== СООБЩЕНИЕ ПОСЛЕ ОТПРАВКИ ===== */
-    .success-message {
-      display: none;
-      text-align: center;
-      padding: 20px;
-      background: rgba(0, 255, 100, 0.1);
-      border: 2px solid #00ff64;
-      border-radius: 10px;
-      color: #00ff64;
-      font-size: 1.2em;
-    }
-
-    .success-message.show {
-      display: block;
-    }
-
-    /* ===== ПОДВАЛ ===== */
-    .footer {
-      text-align: center;
-      margin-top: 25px;
-      font-size: 0.8em;
-      color: #555;
-      border-top: 1px solid #333;
-      padding-top: 15px;
-    }
-
-    .footer span {
-      color: #ff00ff;
-    }
-
-    /* ===== АДАПТАЦИЯ ПОД ТЕЛЕФОН ===== */
-    @media (max-width: 500px) {
-      .container {
-        padding: 20px 15px;
-      }
-      h1 {
-        font-size: 2em;
-      }
-      .subtitle {
-        font-size: 1em;
-      }
-      .section {
-        padding: 14px;
-      }
-    }
-  </style>
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 500px) {
+            .full-screen {
+                padding: 30px 15px;
+            }
+            .glass-card {
+                padding: 20px 15px;
+            }
+            .form-card {
+                padding: 18px 12px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
+    <!-- ============================================================ -->
+    <!-- БЛОК 1: ВСТУПЛЕНИЕ И АТМОСФЕРА 90-Х                       -->
+    <!-- ============================================================ -->
+    <section class="full-screen block-1">
+        <div class="block-content">
+            <!-- SVG-иконки атрибутики 90-х -->
+            <div style="margin-bottom: 15px;">
+                <span class="icon-90s">📼</span>
+                <span class="icon-90s">🎧</span>
+                <span class="icon-90s">🕹️</span>
+                <span class="icon-90s">📟</span>
+            </div>
 
-  <!-- ===== ЗАГОЛОВОК ===== -->
-  <h1>🎉 90-Е ВОЗВРАЩАЮТСЯ!</h1>
-  <div class="subtitle">★ 50 ЛЕТ — ТОЛЬКО НАЧАЛО ★</div>
+            <h1 class="neon-title">90-Е ВОЗВРАЩАЮТСЯ!</h1>
+            <div class="sub-neon">★ ДЕНЬ РОЖДЕНИЯ ★</div>
 
-  <!-- ===== РАЗДЕЛ 1: ЧТО ЗА МЕРОПРИЯТИЕ ===== -->
-  <div class="section">
-    <div class="section-title">
-      <span class="icon">📢</span> Что за мероприятие?
+            <div class="glass-card" style="margin-top: 20px;">
+                <h2>🎉 Дорогие друзья!</h2>
+                <p>
+                    Я приглашаю вас на свой день рождения, чтобы вместе
+                    <span class="highlight">окунуться в атмосферу лихих 90-х</span> —
+                    время, когда музыка звучала громче, наряды были ярче,
+                    а жизнь казалась большой дискотекой!<br><br>
+                    Будем вспоминать, танцевать и создавать новые воспоминания
+                    в лучших традициях эпохи. <span class="accent">Будет жарко!</span> 🔥
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- БЛОК 2: ЧТО ЗА МЕРОПРИЯТИЕ                                 -->
+    <!-- ============================================================ -->
+    <section class="full-screen block-2">
+        <div class="block-content">
+            <div class="glass-card">
+                <h2>📢 Что за мероприятие?</h2>
+                <p>
+                    <span class="highlight">Вечеринка в стиле 90-х</span> —
+                    это не просто день рождения, это настоящее путешествие во времени!
+                    <br><br>
+                    🎶 Музыка 90-х (от «Кар-Мэн» до «Сектора Газа»)<br>
+                    🕺 Танцевальный батл «как в клипах MTV»<br>
+                    📸 Фотозона с атрибутикой эпохи<br>
+                    🍹 Коктейли с названиями из 90-х<br><br>
+                    <span class="accent">Главное правило:</span> никаких скучных лиц,
+                    только драйв и ностальгия!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- БЛОК 3: ГДЕ И КОГДА + КАРТА                                -->
+    <!-- ============================================================ -->
+    <section class="full-screen block-3">
+        <div class="block-content">
+            <div class="glass-card">
+                <h2>📍 Где и когда?</h2>
+                <p style="font-size: clamp(1.1rem, 2.2vw, 1.3rem);">
+                    <span class="highlight">📅 Дата:</span> 12 сентября 2026 года<br>
+                    <span class="highlight">⏰ Время:</span> Сбор гостей в 18:00<br>
+                    <span class="highlight">🏠 Место:</span> Кафе «Ландринъ»<br>
+                    <span style="color: #aaa; font-size: 0.95rem;">
+                        г. Москва, ул. Сущёвская, д. 9, стр. 4
+                    </span>
+                    <br>
+                    <span style="color: #888; font-size: 0.85rem;">
+                        🚇 м. Новослободская — 1 минута пешком
+                    </span>
+                </p>
+
+                <!-- КАРТА С ГЕОПОЗИЦИЕЙ -->
+                <div class="map-container">
+                    <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.171413244743!2d37.599071!3d55.779427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a403e9e9e4f%3A0x4b6d5e8e6e9b6b6b!2z0JDRgdGC0YDQvtC10L3QsNGB0LAg0JTQu9C10LrRgtGA0L7QvdC90YvRhSDQuCDQp9C10L3RgtGA0L7QstC90YvRhSDRg9C70L7QsdC90YvRhSDRg9C70L7QsdC90YvRhdC40LrQsNGFINC_0YDQvtCz0YDQsNC80Lwg0JDQvdC00YDQtdC5INCa0LDQv9C40YbRiw!5e0!3m2!1sru!2sru!4v1700000000000"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
     </div>
-    <div class="section-content">
-      Друзья! Приглашаю вас на вечеринку в стиле <strong>лихих 90-х</strong>.<br>
-      Будем вспоминать время, когда кассеты были круче стриминга,<br>
-      а малиновые пиджаки — вершина стиля.<br>
-      <span style="color: #ffcc00;">Ждём вас на легендарный юбилей!</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- БЛОК 4: ДРЕСС-КОД И СТИЛЬ                                    -->
+<!-- ============================================================ -->
+<section class="full-screen block-4">
+    <div class="block-content">
+        <div class="glass-card">
+            <h2>👕 Дресс-код и стиль</h2>
+            <p>
+                <span class="highlight">Стиль вечеринки:</span>
+                Эпоха 90-х — ярко, смело, безбашенно!
+            </p>
+            <div class="dress-grid">
+                <span class="dress-item">🔴 Малиновый пиджак</span>
+                <span class="dress-item">👖 Широкие джинсы</span>
+                <span class="dress-item">🎽 Яркая футболка</span>
+                <span class="dress-item">⛓️ Массивные цепи</span>
+                <span class="dress-item">🧢 Бейсболка набекрень</span>
+                <span class="dress-item">🎧 Кассетный плеер</span>
+                <span class="dress-item">📼 Яркие лосины</span>
+                <span class="dress-item">🕶️ Очки-«капли»</span>
+            </div>
+            <p style="margin-top: 15px; color: #ff00ff; font-size: 0.95rem;">
+                💡 Главное — атмосфера, а не строгие правила!
+            </p>
+        </div>
     </div>
-  </div>
+</section>
 
-  <!-- ===== РАЗДЕЛ 2: ГДЕ И КОГДА ===== -->
-  <div class="section">
-    <div class="section-title">
-      <span class="icon">📍</span> Где и когда?
+<!-- ============================================================ -->
+<!-- БЛОК 5: ОПРОСНИК (ФОРМА)                                     -->
+<!-- ============================================================ -->
+<section class="full-screen block-5">
+    <div class="block-content">
+        <div class="form-card">
+            <h2>📝 Подтверди участие</h2>
+
+            <form id="rsvpForm" action="https://formspree.io/f/ВАШ_ИД_ФОРМЫ" method="POST">
+
+                <div class="form-group">
+                    <label for="name">👤 Как тебя зовут?</label>
+                    <input type="text" id="name" name="name" placeholder="Напиши своё имя" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="attendance">✅ Ты придёшь?</label>
+                    <select id="attendance" name="attendance" required>
+                        <option value="">Выбери вариант...</option>
+                        <option value="yes">🔥 Да, буду обязательно!</option>
+                        <option value="no">😢 Нет, не смогу</option>
+                        <option value="maybe">🤔 Пока не уверен(а)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="drink">🍻 Что будешь пить?</label>
+                    <select id="drink" name="drink">
+                        <option value="">Выбери напиток...</option>
+                        <option value="vodka">🥃 Водка</option>
+                        <option value="beer">🍺 Пиво</option>
+                        <option value="martini">🍸 Мартини</option>
+                        <option value="cola">🥤 Кола</option>
+                        <option value="champagne">🥂 Шампанское</option>
+                        <option value="other">🧃 Другое</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="companion">👫 С кем планируешь прийти?</label>
+                    <select id="companion" name="companion">
+                        <option value="">Выбери вариант...</option>
+                        <option value="alone">🕺 Один / одна</option>
+                        <option value="wife">💑 С женой / мужем</option>
+                        <option value="children">👨‍👩‍👧‍👦 С детьми</option>
+                        <option value="love">❤️ С любимым / любимой</option>
+                        <option value="brother">👬 С братом / сестрой</option>
+                        <option value="friends">👥 С друзьями</option>
+                    </select>
+                </div>
+
+                <!-- НОВЫЙ ПУНКТ: +ДЕТИ И КОЛИЧЕСТВО -->
+                <div class="form-group">
+                    <label for="kids">👶 Дети с вами?</label>
+                    <select id="kids" name="kids">
+                        <option value="0">Нет, без детей</option>
+                        <option value="1">1 ребёнок</option>
+                        <option value="2">2 ребёнка</option>
+                        <option value="3">3 ребёнка</option>
+                        <option value="4+">4 и более</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="comment">💬 Комментарий (пожелания, аллергии, вопросы)</label>
+                    <input type="text" id="comment" name="comment" placeholder="Напиши что-нибудь...">
+                </div>
+
+                <button type="submit" class="submit-btn">🎸 Отправить ответ</button>
+            </form>
+        </div>
+
+        <div class="footer">
+            <span>♥</span> Сделано с любовью к 90-м <span>♥</span>
+        </div>
     </div>
-    <div class="section-content">
-      <strong>📅 Дата:</strong> 3 августа 2026 года (понедельник)<br>
-      <strong>⏰ Время:</strong> Сбор гостей в 18:00<br>
-      <strong>🏠 Место:</strong> Ресторан "СССР", зал "Дискотека"<br>
-      <span style="color: #888; font-size: 0.9em;">(ул. Советская, 15, 2-й этаж)</span>
-    </div>
-  </div>
-
-  <!-- ===== РАЗДЕЛ 3: ДРЕСС-КОД ===== -->
-  <div class="section">
-    <div class="section-title">
-      <span class="icon">👕</span> Дресс-код и стиль
-    </div>
-    <div class="section-content">
-      <strong>Стиль вечеринки:</strong> Эпоха 90-х — ярко, смело, безбашенно!<br>
-      <div class="dresscode-list">
-        <span class="dresscode-item">🔴 Малиновый пиджак</span>
-        <span class="dresscode-item">👖 Широкие джинсы</span>
-        <span class="dresscode-item">🎽 Яркая футболка</span>
-        <span class="dresscode-item">⛓️ Массивные цепи</span>
-        <span class="dresscode-item">🧢 Бейсболка набекрень</span>
-        <span class="dresscode-item">🎧 Кассетный плеер (опционально)</span>
-      </div>
-      <span style="color: #ff00ff; font-size: 0.9em;">💡 Главное — атмосфера, а не строгие правила!</span>
-    </div>
-  </div>
-
-  <!-- ===== РАЗДЕЛ 4: ОПРОСНИК (ФОРМА) ===== -->
-  <div class="form-section">
-    <h2>📝 Подтверди участие</h2>
-
-    <!-- САМА ФОРМА -->
-    <form id="rsvpForm" action="https://formspree.io/f/ВАШ_ИД_ФОРМЫ" method="POST">
-      
-      <!-- Имя -->
-      <div class="form-group">
-        <label for="name">👤 Как тебя зовут?</label>
-        <input type="text" id="name" name="name" placeholder="Напиши своё имя" required>
-      </div>
-
-      <!-- Придёшь или нет -->
-      <div class="form-group">
-        <label for="attendance">✅ Ты придёшь?</label>
-        <select id="attendance" name="attendance" required>
-          <option value="">Выбери вариант...</option>
-          <option value="yes">🔥 Да, буду обязательно!</option>
-          <option value="no">😢 Нет, не смогу</option>
-          <option value="maybe">🤔 Пока не уверен(а)</option>
-        </select>
-      </div>
-
-      <!-- Что будешь пить -->
-      <div class="form-group">
-        <label for="drink">🍻 Что будешь пить?</label>
-        <select id="drink" name="drink">
-          <option value="">Выбери напиток...</option>
-          <option value="vodka">🥃 Водка (по-русски!)</option>
-          <option value="beer">🍺 Пиво</option>
-          <option value="martini">🍸 Мартини (для эстетов)</option>
-          <option value="cola">🥤 Кола (безалкогольная)</option>
-          <option value="champagne">🥂 Шампанское</option>
-          <option value="other">🧃 Другое (напишу в комментарии)</option>
-        </select>
-      </div>
-
-      <!-- С кем придёшь -->
-      <div class="form-group">
-        <label for="companion">👫 С кем планируешь прийти?</label>
-        <select id="companion" name="companion">
-          <option value="">Выбери вариант...</option>
-          <option value="alone">🕺 Один/одна</option>
-          <option value="wife">💑 С женой/мужем</option>
-          <option value="children">👨‍👩‍👧‍👦 С детьми</option>
-          <option value="love">❤️ С любимым/любимой (не супруг)</option>
-          <option value="brother">👬 С братом/сестрой</option>
-          <option value="friends">👥 С друзьями</option>
-          <option value="other">🤷 Другое (напишу в комментарии)</option>
-        </select>
-      </div>
-
-      <!-- Дополнительный комментарий -->
-      <div class="form-group">
-        <label for="comment">💬 Комментарий (пожелания, аллергии, вопросы)</label>
-        <input type="text" id="comment" name="comment" placeholder="Напиши что-нибудь...">
-      </div>
-
-      <!-- Кнопка отправки -->
-      <button type="submit" class="submit-btn">🎸 Отправить ответ</button>
-    </form>
-
-    <!-- Сообщение об успехе (скрыто по умолчанию) -->
-    <div class="success-message" id="successMessage">
-      ✅ Спасибо! Твой ответ отправлен.<br>
-      <span style="font-size: 0.9em; color: #aaa;">Ждём тебя на вечеринке! 🎉</span>
-    </div>
-  </div>
-
-  <!-- ===== ПОДВАЛ ===== -->
-  <div class="footer">
-    <span>♥</span> Сделано с любовью к 90-м <span>♥</span>
-  </div>
-
-</div>
-
-<!-- ===== JAVASCRIPT (для показа сообщения после отправки) ===== -->
-<script>
-  const form = document.getElementById('rsvpForm');
-  const successMsg = document.getElementById('successMessage');
-
-  form.addEventListener('submit', function(e) {
-    // Не блокируем отправку, просто показываем сообщение
-    // Форма отправится на FormSpree, и страница перезагрузится.
-    // Чтобы избежать перезагрузки, раскомментируйте строку ниже:
-    // e.preventDefault();
-
-    // Показываем сообщение (если форма всё же перезагрузится, это не отобразится)
-    successMsg.classList.add('show');
-    form.style.display = 'none';
-  });
-</script>
+</section>
 
 </body>
 </html>
