@@ -561,10 +561,10 @@
         .checkbox-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 6px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 12px;
-            padding: 12px;
+            padding: 10px;
             border: 1px solid rgba(255, 0, 255, 0.1);
         }
 
@@ -575,8 +575,8 @@
             font-size: 0.9rem;
             color: #ddd;
             cursor: pointer;
-            padding: 6px 10px;
-            border-radius: 8px;
+            padding: 4px 8px;
+            border-radius: 6px;
             transition: background 0.2s;
         }
 
@@ -590,6 +590,12 @@
             accent-color: #ff00ff;
             cursor: pointer;
             flex-shrink: 0;
+            margin: 0;
+        }
+
+        .checkbox-item span {
+            display: inline-block;
+            line-height: 1.2;
         }
 
         /* ===== МНОГОШАГОВАЯ ФОРМА ===== */
@@ -881,12 +887,12 @@
                 padding: 8px;
             }
             .checkbox-item {
-                font-size: 0.8rem;
-                padding: 4px 8px;
+                font-size: 0.85rem;
+                padding: 4px 6px;
             }
             .checkbox-item input[type="checkbox"] {
-                width: 16px;
-                height: 16px;
+                width: 18px;
+                height: 18px;
             }
 
             .success-screen h3 {
@@ -933,6 +939,13 @@
             .dress-item {
                 font-size: 0.6rem;
                 padding: 4px 10px;
+            }
+            .checkbox-item {
+                font-size: 0.75rem;
+            }
+            .checkbox-item input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
             }
         }
 
@@ -1168,7 +1181,7 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- БЛОК 5: ФОРМА-ОПРОСНИК (ОБНОВЛЁННЫЙ)                        -->
+    <!-- БЛОК 5: ФОРМА-ОПРОСНИК                                       -->
     <!-- ============================================================ -->
     <section class="full-screen block-5" id="block5">
         <div class="side-decor">📝</div>
@@ -1259,7 +1272,7 @@
                         </div>
                     </div>
 
-                    <!-- ===== ШАГ 2: Напитки (Алкоголь) ===== -->
+                    <!-- ===== ШАГ 2: Алкоголь ===== -->
                     <div class="form-step" id="step-1">
                         <p style="color:#ffcc00; margin-bottom:15px; font-size:0.9rem;">
                             🍻 Выбери, что будешь пить (можно несколько)
@@ -1270,35 +1283,41 @@
                             <div class="checkbox-grid">
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="alcohol" value="Водка">
-                                    🥃 Водка
+                                    <span>🥃 Водка</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="alcohol" value="Виски">
-                                    🥃 Виски
+                                    <span>🥃 Виски</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="alcohol" value="Коньяк">
-                                    🥃 Коньяк
+                                    <span>🥃 Коньяк</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="alcohol" value="Текила">
-                                    🍸 Текила
+                                    <span>🍸 Текила</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="alcohol" value="Шампанское">
-                                    🥂 Шампанское
+                                    <span>🥂 Шампанское</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="alcohol" value="Вино красное">
-                                    🍷 Вино красное
+                                    <span>🍷 Вино красное</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="alcohol" value="Вино белое">
-                                    🍷 Вино белое
+                                    <span>🍷 Вино белое</span>
                                 </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>🚫 Не пью алкоголь:</label>
+                            <div class="checkbox-grid" style="grid-template-columns:1fr; border-color:rgba(255,100,100,0.2);">
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Не пью алкоголь">
-                                    🚫 Не пью алкоголь
+                                    <input type="checkbox" name="no_alcohol" value="Не пью алкоголь">
+                                    <span>🚫 Не пью алкоголь</span>
                                 </label>
                             </div>
                         </div>
@@ -1311,6 +1330,7 @@
                                 <option value="Немного (для настроения)">🍷 Немного (для настроения)</option>
                                 <option value="Умеренно">🍻 Умеренно</option>
                                 <option value="Много (буду отрываться!)">🔥 Много (буду отрываться!)</option>
+                                <option value="Не пью алкоголь">🚫 Не пью алкоголь</option>
                                 <option value="Буду за рулём — только безалкогольное">🚗 Буду за рулём</option>
                             </select>
                         </div>
@@ -1336,35 +1356,41 @@
                             <div class="checkbox-grid">
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="nonalcohol" value="Сок">
-                                    🧃 Сок
+                                    <span>🧃 Сок</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="nonalcohol" value="Кола">
-                                    🥤 Кола
+                                    <span>🥤 Кола</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="nonalcohol" value="Тархун">
-                                    🍃 Тархун
+                                    <span>🍃 Тархун</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="nonalcohol" value="Морс">
-                                    🫐 Морс
+                                    <span>🍒 Морс</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="nonalcohol" value="Лимонад">
-                                    🍋 Лимонад
+                                    <span>🍋 Лимонад</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="nonalcohol" value="Компот">
-                                    🍎 Компот
+                                    <span>🍎 Компот</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="nonalcohol" value="Минералка">
-                                    💧 Минеральная вода
+                                    <span>💧 Минеральная вода</span>
                                 </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>🚫 Не пью безалкогольное:</label>
+                            <div class="checkbox-grid" style="grid-template-columns:1fr; border-color:rgba(255,100,100,0.2);">
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="nonalcohol" value="Не пью безалкогольное">
-                                    🚫 Не пью безалкогольное
+                                    <input type="checkbox" name="no_nonalcohol" value="Не пью безалкогольное">
+                                    <span>🚫 Не пью безалкогольное</span>
                                 </label>
                             </div>
                         </div>
