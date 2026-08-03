@@ -16,11 +16,10 @@
             font-family: 'Arial', sans-serif;
             background: #0a0a0a;
             color: #fff;
-            scroll-behavior: smooth;
             overflow-x: hidden;
         }
 
-        /* ===== ПЛАВНЫЙ СКРОЛЛ ===== */
+        /* ===== ПЛАВНЫЙ СКРОЛЛ С ПРИЛИПАНИЕМ ===== */
         html {
             scroll-behavior: smooth;
             scroll-snap-type: y mandatory;
@@ -90,57 +89,76 @@
             width: 100%;
         }
 
-        /* ===== БОКОВЫЕ ЭЛЕМЕНТЫ (декор 90-х) ===== */
+        /* ===== БОКОВОЙ ДЕКОР (ГИФКИ И ЛОГОТИПЫ 90-Х) ===== */
         .side-decor {
             position: absolute;
             z-index: 1;
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            opacity: 0.3;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            opacity: 0.4;
             animation: floatSlow 6s ease-in-out infinite;
             pointer-events: none;
             user-select: none;
-            filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.2));
+            filter: drop-shadow(0 0 25px rgba(255, 0, 255, 0.2));
+            transition: opacity 0.3s;
+        }
+        .side-decor:hover {
+            opacity: 0.8;
         }
         .side-decor:nth-child(1) {
-            top: 10%;
-            left: 3%;
+            top: 8%;
+            left: 2%;
             animation-delay: 0s;
         }
         .side-decor:nth-child(2) {
-            top: 25%;
-            right: 3%;
-            animation-delay: 1s;
+            top: 20%;
+            right: 2%;
+            animation-delay: 0.8s;
         }
         .side-decor:nth-child(3) {
-            bottom: 30%;
-            left: 2%;
-            animation-delay: 2s;
+            bottom: 25%;
+            left: 1%;
+            animation-delay: 1.6s;
         }
         .side-decor:nth-child(4) {
-            bottom: 15%;
-            right: 2%;
-            animation-delay: 0.5s;
+            bottom: 10%;
+            right: 1%;
+            animation-delay: 2.4s;
         }
         .side-decor:nth-child(5) {
-            top: 50%;
-            left: 1%;
-            animation-delay: 1.5s;
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            top: 45%;
+            left: 0.5%;
+            animation-delay: 0.4s;
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
         }
         .side-decor:nth-child(6) {
-            top: 60%;
-            right: 1%;
-            animation-delay: 2.5s;
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            top: 55%;
+            right: 0.5%;
+            animation-delay: 1.2s;
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+        }
+        .side-decor:nth-child(7) {
+            top: 70%;
+            left: 2%;
+            animation-delay: 2s;
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+        }
+        .side-decor:nth-child(8) {
+            top: 80%;
+            right: 2%;
+            animation-delay: 2.8s;
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
         }
 
         @keyframes floatSlow {
             0%,
             100% {
-                transform: translateY(0px) rotate(0deg);
+                transform: translateY(0px) rotate(0deg) scale(1);
             }
-            50% {
-                transform: translateY(-15px) rotate(5deg);
+            25% {
+                transform: translateY(-10px) rotate(3deg) scale(1.05);
+            }
+            75% {
+                transform: translateY(10px) rotate(-3deg) scale(0.95);
             }
         }
 
@@ -236,7 +254,7 @@
             box-shadow: 0 0 15px rgba(255, 0, 255, 0.1);
         }
 
-        /* ===== КАРТА (Яндекс) ===== */
+        /* ===== КАРТА (Яндекс с точкой) ===== */
         .map-container {
             width: 100%;
             border-radius: 16px;
@@ -248,7 +266,7 @@
         }
         .map-container iframe {
             width: 100%;
-            height: 250px;
+            height: 280px;
             border: 0;
             display: block;
         }
@@ -271,6 +289,33 @@
         .map-button:hover {
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+        }
+
+        /* ===== СТРЕЛКА ДЛЯ ПРОКРУТКИ ===== */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: bounce 2s ease-in-out infinite;
+            color: #ff00ff;
+            font-size: 2rem;
+            opacity: 0.6;
+            cursor: pointer;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+        .scroll-indicator:hover {
+            opacity: 1;
+        }
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-15px);
+            }
         }
 
         /* ===== ФОРМА ===== */
@@ -341,7 +386,7 @@
 
         /* ===== ВЕРХНИЕ ИКОНКИ 90-Х ===== */
         .icon-90s {
-            font-size: clamp(3rem, 8vw, 5rem);
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
             display: inline-block;
             filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.3));
             margin: 5px 10px;
@@ -361,6 +406,12 @@
         }
         .icon-90s:nth-child(6) {
             animation-delay: 2.5s;
+        }
+        .icon-90s:nth-child(7) {
+            animation-delay: 3s;
+        }
+        .icon-90s:nth-child(8) {
+            animation-delay: 3.5s;
         }
         @keyframes float {
             0%,
@@ -424,13 +475,15 @@
     <!-- БЛОК 1: ВСТУПЛЕНИЕ И АТМОСФЕРА 90-Х                       -->
     <!-- ============================================================ -->
     <section class="full-screen block-1">
-        <!-- БОКОВОЙ ДЕКОР -->
+        <!-- БОКОВОЙ ДЕКОР (ГИФКИ И ЛОГОТИПЫ 90-Х) -->
         <div class="side-decor">📼</div>
+        <div class="side-decor" style="color: #ff0000; font-weight: bold; font-size: clamp(2rem, 4vw, 3rem);">MTV</div>
+        <div class="side-decor" style="color: #ff6600; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">TURBO</div>
+        <div class="side-decor" style="color: #ffcc00; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">LOVE IS</div>
+        <div class="side-decor" style="color: #00ffff; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">TERMINATOR</div>
+        <div class="side-decor" style="color: #ff0066; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">YUPPIE</div>
         <div class="side-decor">🎧</div>
         <div class="side-decor">🕹️</div>
-        <div class="side-decor">📟</div>
-        <div class="side-decor">💿</div>
-        <div class="side-decor">📺</div>
 
         <div class="block-content">
             <!-- Иконки атрибутики 90-х -->
@@ -441,6 +494,8 @@
                 <span class="icon-90s">📟</span>
                 <span class="icon-90s">💿</span>
                 <span class="icon-90s">📺</span>
+                <span class="icon-90s">🎮</span>
+                <span class="icon-90s">📻</span>
             </div>
 
             <h1 class="neon-title">90-Е ВОЗВРАЩАЮТСЯ!</h1>
@@ -458,18 +513,25 @@
                 </p>
             </div>
         </div>
+
+        <!-- СТРЕЛКА ДЛЯ ПРОКРУТКИ ВНИЗ -->
+        <div class="scroll-indicator" onclick="document.getElementById('block2').scrollIntoView({behavior: 'smooth'})">
+            ⬇️
+        </div>
     </section>
 
     <!-- ============================================================ -->
     <!-- БЛОК 2: ЧТО ЗА МЕРОПРИЯТИЕ                                 -->
     <!-- ============================================================ -->
-    <section class="full-screen block-2">
+    <section class="full-screen block-2" id="block2">
         <div class="side-decor">🎤</div>
+        <div class="side-decor" style="color: #ff00ff; font-weight: bold; font-size: clamp(2rem, 4vw, 3rem);">MTV</div>
+        <div class="side-decor" style="color: #ff6600; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">TURBO</div>
         <div class="side-decor">🪩</div>
         <div class="side-decor">🎶</div>
+        <div class="side-decor" style="color: #ffcc00; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">LOVE IS</div>
         <div class="side-decor">💃</div>
-        <div class="side-decor">🕺</div>
-        <div class="side-decor">🎸</div>
+        <div class="side-decor" style="color: #00ffff; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">TERMINATOR</div>
 
         <div class="block-content">
             <div class="glass-card">
@@ -487,18 +549,24 @@
                 </p>
             </div>
         </div>
+
+        <div class="scroll-indicator" onclick="document.getElementById('block3').scrollIntoView({behavior: 'smooth'})">
+            ⬇️
+        </div>
     </section>
 
     <!-- ============================================================ -->
-    <!-- БЛОК 3: ГДЕ И КОГДА + КАРТА                                -->
+    <!-- БЛОК 3: ГДЕ И КОГДА + КАРТА С ТОЧКОЙ                      -->
     <!-- ============================================================ -->
-    <section class="full-screen block-3">
+    <section class="full-screen block-3" id="block3">
         <div class="side-decor">📍</div>
+        <div class="side-decor" style="color: #ff0066; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">YUPPIE</div>
         <div class="side-decor">🗺️</div>
+        <div class="side-decor" style="color: #ff00ff; font-weight: bold; font-size: clamp(2rem, 4vw, 3rem);">MTV</div>
         <div class="side-decor">🧭</div>
+        <div class="side-decor" style="color: #ff6600; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">TURBO</div>
         <div class="side-decor">🚇</div>
-        <div class="side-decor">🏠</div>
-        <div class="side-decor">☕</div>
+        <div class="side-decor" style="color: #ffcc00; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">LOVE IS</div>
 
         <div class="block-content">
             <div class="glass-card">
@@ -516,10 +584,10 @@
                     </span>
                 </p>
 
-                <!-- КАРТА ЯНДЕКС С ТОЧКОЙ -->
+                <!-- КАРТА ЯНДЕКС С ТОЧКОЙ КАФЕ -->
                 <div class="map-container">
                     <iframe
-                    src="https://yandex.ru/map-widget/v1/?um=constructor%3A1a2b3c4d5e6f7g8h9i0j&source=constructor"
+                    src="https://yandex.ru/map-widget/v1/?um=constructor%3A1a2b3c4d5e6f7g8h9i0j&source=constructor&pt=37.601149,55.780496&z=18&l=map"
                     allowfullscreen="true"
                     loading="lazy">
                 </iframe>
@@ -536,18 +604,24 @@
         </p>
     </div>
 </div>
+
+<div class="scroll-indicator" onclick="document.getElementById('block4').scrollIntoView({behavior: 'smooth'})">
+    ⬇️
+</div>
 </section>
 
 <!-- ============================================================ -->
-<!-- БЛОК 4: ДРЕСС-КОД И СТИЛЬ + ЛОГОТИПЫ 90-Х                  -->
+<!-- БЛОК 4: ДРЕСС-КОД И СТИЛЬ                                    -->
 <!-- ============================================================ -->
-<section class="full-screen block-4">
+<section class="full-screen block-4" id="block4">
     <div class="side-decor">👕</div>
+    <div class="side-decor" style="color: #00ffff; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">TERMINATOR</div>
     <div class="side-decor">🧥</div>
+    <div class="side-decor" style="color: #ff0066; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">YUPPIE</div>
     <div class="side-decor">👖</div>
+    <div class="side-decor" style="color: #ff00ff; font-weight: bold; font-size: clamp(2rem, 4vw, 3rem);">MTV</div>
     <div class="side-decor">🧢</div>
-    <div class="side-decor">🕶️</div>
-    <div class="side-decor">⛓️</div>
+    <div class="side-decor" style="color: #ffcc00; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">LOVE IS</div>
 
     <div class="block-content">
         <div class="glass-card">
@@ -556,16 +630,6 @@
                 <span class="highlight">Стиль вечеринки:</span>
                 Эпоха 90-х — ярко, смело, безбашенно!
             </p>
-
-            <!-- ЛОГОТИПЫ 90-Х -->
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin: 20px 0; font-size: clamp(1.5rem, 3vw, 2.5rem);">
-                <span style="background: linear-gradient(90deg, #ff0000, #ff6600); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;">MTV</span>
-                <span style="color: #ff00ff; font-weight: bold;">TURBO</span>
-                <span style="color: #ffcc00; font-weight: bold;">LOVE IS</span>
-                <span style="color: #00ffff; font-weight: bold;">TERMINATOR</span>
-                <span style="color: #ff6600; font-weight: bold;">YUPPIE</span>
-                <span style="color: #ff0066; font-weight: bold;">DUNK</span>
-            </div>
 
             <div class="dress-grid">
                 <span class="dress-item">🔴 Малиновый пиджак</span>
@@ -582,18 +646,24 @@
             </p>
         </div>
     </div>
+
+    <div class="scroll-indicator" onclick="document.getElementById('block5').scrollIntoView({behavior: 'smooth'})">
+        ⬇️
+    </div>
 </section>
 
 <!-- ============================================================ -->
 <!-- БЛОК 5: ОПРОСНИК (ФОРМА)                                     -->
 <!-- ============================================================ -->
-<section class="full-screen block-5">
+<section class="full-screen block-5" id="block5">
     <div class="side-decor">📝</div>
+    <div class="side-decor" style="color: #ff6600; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">TURBO</div>
     <div class="side-decor">✉️</div>
+    <div class="side-decor" style="color: #ff00ff; font-weight: bold; font-size: clamp(2rem, 4vw, 3rem);">MTV</div>
     <div class="side-decor">📬</div>
+    <div class="side-decor" style="color: #ffcc00; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">LOVE IS</div>
     <div class="side-decor">📨</div>
-    <div class="side-decor">📩</div>
-    <div class="side-decor">📪</div>
+    <div class="side-decor" style="color: #00ffff; font-weight: bold; font-size: clamp(1.8rem, 3.5vw, 2.8rem);">TERMINATOR</div>
 
     <div class="block-content">
         <div class="form-card">
@@ -635,10 +705,8 @@
                         <option value="">Выбери вариант...</option>
                         <option value="alone">🕺 Один / одна</option>
                         <option value="wife">💑 С женой / мужем</option>
-                        <option value="children">👨‍👩‍👧‍👦 С детьми</option>
                         <option value="love">❤️ С любимым / любимой</option>
                         <option value="brother">👬 С братом / сестрой</option>
-                        <option value="friends">👥 С друзьями</option>
                     </select>
                 </div>
 
