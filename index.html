@@ -1248,7 +1248,7 @@
                            tabindex="-1"
                            autocomplete="off">
 
-                    <!-- ===== ШАГ 1: Кто ты? (ВСЕ ПОЛЯ ОБЯЗАТЕЛЬНЫЕ) ===== -->
+                    <!-- ===== ШАГ 1: Кто ты? ===== -->
                     <div class="form-step active" id="step-0">
                         <div class="form-group">
                             <label for="name">👤 Как тебя зовут? <span style="color:#ff4444;">*</span></label>
@@ -1319,14 +1319,14 @@
                         </div>
                     </div>
 
-                    <!-- ===== ШАГ 2: Алкоголь (ОБЯЗАТЕЛЬНЫЙ ВЫБОР) ===== -->
+                    <!-- ===== ШАГ 2: Алкоголь (с коктейлями) ===== -->
                     <div class="form-step" id="step-1">
                         <p style="color:#ffcc00; margin-bottom:15px; font-size:0.9rem;">
                             🍻 Выбери, что будешь пить (можно несколько) <span style="color:#ff4444;">*</span>
                         </p>
 
                         <div class="form-group" id="alcoholGroup">
-                            <label>🥃 Алкогольные напитки:</label>
+                            <label>🥃 Крепкий алкоголь:</label>
                             <div class="checkbox-grid">
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="alcohol" value="Водка" onchange="checkAlcoholNone()">
@@ -1344,6 +1344,12 @@
                                     <input type="checkbox" name="alcohol" value="Текила" onchange="checkAlcoholNone()">
                                     <span>🍸 Текила</span>
                                 </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>🍷 Вино и шампанское:</label>
+                            <div class="checkbox-grid">
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="alcohol" value="Шампанское" onchange="checkAlcoholNone()">
                                     <span>🥂 Шампанское</span>
@@ -1355,6 +1361,24 @@
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="alcohol" value="Вино белое" onchange="checkAlcoholNone()">
                                     <span>🍷 Вино белое</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>🍸 Коктейли:</label>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="alcohol" value="Белый русский" onchange="checkAlcoholNone()">
+                                    <span>🍸 Белый русский</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="alcohol" value="Мартини с соком" onchange="checkAlcoholNone()">
+                                    <span>🍸 Мартини с соком</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="alcohol" value="Джин-тоник" onchange="checkAlcoholNone()">
+                                    <span>🍸 Джин-тоник</span>
                                 </label>
                             </div>
                         </div>
@@ -1396,7 +1420,7 @@
                         </div>
                     </div>
 
-                    <!-- ===== ШАГ 3: Безалкогольное + Вода (ОБЯЗАТЕЛЬНЫЕ) ===== -->
+                    <!-- ===== ШАГ 3: Безалкогольное + Вода ===== -->
                     <div class="form-step" id="step-2">
                         <p style="color:#ffcc00; margin-bottom:15px; font-size:0.9rem;">
                             🥤 Безалкогольные напитки (можно несколько) <span style="color:#ff4444;">*</span>
