@@ -36,13 +36,11 @@
 
         html {
             scroll-behavior: smooth;
-            scroll-snap-type: y mandatory;
         }
 
         /* ===== КАЖДЫЙ БЛОК — НА ВСЮ ВЫСОТУ ЭКРАНА ===== */
         .full-screen {
-            height: 100svh;
-            min-height: 600px;
+            min-height: 100svh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -51,12 +49,12 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            scroll-snap-align: start;
         }
 
         /* ===== ФОНОВЫЕ ЭФФЕКТЫ ===== */
         .block-1 {
             background: radial-gradient(circle at 20% 30%, #1a0a2e, #0a0a0a);
+            min-height: 100svh;
         }
         .block-1::before {
             content: '';
@@ -93,7 +91,7 @@
             background: radial-gradient(circle at 70% 20%, #1a2a0a, #0a0a0a);
         }
 
-        /* ===== КОНТЕЙНЕР КОНТЕНТА (БЕЗ ВНУТРЕННЕГО СКРОЛЛА) ===== */
+        /* ===== КОНТЕЙНЕР КОНТЕНТА ===== */
         .block-content {
             position: relative;
             z-index: 2;
@@ -123,8 +121,8 @@
         .side-decor {
             position: absolute;
             z-index: 1;
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            opacity: 0.25;
+            font-size: clamp(1.5rem, 3vw, 3.5rem);
+            opacity: 0.2;
             animation: floatSlow 6s ease-in-out infinite;
             pointer-events: none;
             user-select: none;
@@ -155,13 +153,13 @@
             top: 50%;
             left: 1%;
             animation-delay: 1.5s;
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-size: clamp(1.2rem, 2vw, 2rem);
         }
         .side-decor:nth-child(6) {
             top: 60%;
             right: 1%;
             animation-delay: 2.5s;
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-size: clamp(1.2rem, 2vw, 2rem);
         }
 
         @keyframes floatSlow {
@@ -202,7 +200,7 @@
             transform: scale(1.3);
         }
 
-        /* ===== ПЛАВАЮЩАЯ КНОПКА (СПРАВА ВНИЗУ) ===== */
+        /* ===== ПЛАВАЮЩАЯ КНОПКА ===== */
         .float-btn {
             position: fixed;
             bottom: 30px;
@@ -247,11 +245,12 @@
             }
         }
 
-        /* ===== СТРЕЛКИ (СЛЕВА) ===== */
+        /* ===== СТРЕЛКИ ===== */
         .scroll-arrow {
             position: absolute;
-            bottom: 30px;
-            left: 30px;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 10;
             display: flex;
             flex-direction: column;
@@ -284,14 +283,14 @@
         @keyframes bounce {
             0%,
             100% {
-                transform: translateX(0) translateY(0);
+                transform: translateX(-50%) translateY(0);
             }
             50% {
-                transform: translateX(0) translateY(6px);
+                transform: translateX(-50%) translateY(6px);
             }
         }
 
-        /* ===== КАРТОЧКИ (НЕ ПЕРЕХВАТЫВАЮТ СКРОЛЛ) ===== */
+        /* ===== КАРТОЧКИ ===== */
         .glass-card,
         .form-card,
         .map-preview {
@@ -399,7 +398,7 @@
             color: #ff00ff;
         }
 
-        /* ===== ИКОНКИ 90-Х ===== */
+        /* ===== ИКОНКИ 90-Х (на десктопе большие) ===== */
         .icon-90s {
             font-size: clamp(2.5rem, 7vw, 4.5rem);
             display: inline-block;
@@ -695,21 +694,88 @@
             color: #ff00ff;
         }
 
-        /* ===== АДАПТИВ ===== */
-        @media (max-width: 500px) {
+        /* ============================================================ */
+        /* ===== АДАПТИВ ДЛЯ ТЕЛЕФОНОВ =====                            */
+        /* ============================================================ */
+        @media (max-width: 600px) {
             .full-screen {
-                padding: 50px 15px 30px;
-                min-height: 500px;
+                padding: 45px 15px 30px;
+                min-height: 100svh;
             }
+
+            /* ===== ПЕРВЫЙ БЛОК — только размеры, ТЕКСТ НЕ ТРОГАЕМ! ===== */
+            .block-1 {
+                padding: 40px 15px 25px;
+            }
+            .block-1 .glass-card {
+                padding: 18px 15px;
+            }
+            .block-1 .glass-card h2 {
+                font-size: 1.1rem;
+                margin-bottom: 8px;
+            }
+            .block-1 .glass-card p {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            /* УМЕНЬШАЕМ ИКОНКИ В ПЕРВОМ БЛОКЕ */
+            .block-1 .icon-90s {
+                font-size: 2rem !important;
+                margin: 3px 5px;
+            }
+
+            /* УМЕНЬШАЕМ ОБРАТНЫЙ ОТСЧЁТ В ПЕРВОМ БЛОКЕ */
+            .block-1 .countdown {
+                gap: 8px;
+                margin: 12px 0;
+            }
+            .block-1 .countdown-num {
+                font-size: 1.2rem;
+                min-width: 40px;
+                padding: 5px 8px;
+            }
+            .block-1 .countdown-label {
+                font-size: 0.5rem;
+            }
+
+            /* УМЕНЬШАЕМ ЗАГОЛОВКИ В ПЕРВОМ БЛОКЕ */
+            .block-1 .neon-title {
+                font-size: 1.3rem;
+                letter-spacing: 2px;
+                margin-bottom: 6px;
+            }
+            .block-1 .sub-neon {
+                font-size: 0.7rem;
+                letter-spacing: 4px;
+                margin-bottom: 10px;
+            }
+
+            /* ===== ОСТАЛЬНЫЕ БЛОКИ — тоже адаптируем ===== */
             .glass-card {
+                padding: 18px 15px;
+            }
+            .glass-card h2 {
+                font-size: 1.1rem;
+            }
+            .glass-card p {
+                font-size: 0.85rem;
+                line-height: 1.5;
+            }
+
+            .form-card {
                 padding: 18px 14px;
             }
-            .form-card {
-                padding: 18px 12px;
+            .form-card h2 {
+                font-size: 1.1rem;
             }
+
+            /* УБИРАЕМ БОКОВОЙ ДЕКОР НА ТЕЛЕФОНАХ */
             .side-decor {
                 display: none;
             }
+
+            /* НАВИГАЦИЯ */
             .nav-dots {
                 right: 8px;
                 gap: 8px;
@@ -718,44 +784,122 @@
                 width: 8px;
                 height: 8px;
             }
+
+            /* КНОПКА */
             .float-btn {
                 padding: 10px 18px;
                 font-size: 0.8rem;
                 bottom: 15px;
                 right: 15px;
             }
+
+            /* СТРЕЛКА */
             .scroll-arrow {
-                bottom: 15px;
-                left: 15px;
+                bottom: 12px;
             }
             .scroll-arrow span {
                 width: 12px;
                 height: 12px;
             }
-            .countdown {
-                gap: 8px;
+            .scroll-arrow span:nth-child(2) {
+                margin-top: -6px;
             }
-            .countdown-num {
-                min-width: 40px;
-                font-size: clamp(1rem, 4vw, 1.5rem);
-                padding: 5px 8px;
+            .scroll-arrow span:nth-child(3) {
+                margin-top: -6px;
             }
-            .btn-row {
-                flex-direction: column;
-                gap: 8px;
+
+            /* КАРТА */
+            .map-preview img {
+                height: 160px;
+                object-fit: cover;
+            }
+            .map-button {
+                padding: 9px 20px;
+                font-size: 0.8rem;
+            }
+
+            /* ДРЕСС-КОД */
+            .dress-item {
+                padding: 5px 12px;
+                font-size: 0.7rem;
+            }
+            .dress-grid {
+                gap: 6px;
+            }
+
+            /* ФОРМА */
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            .form-group label {
+                font-size: 0.8rem;
             }
             .btn-next,
             .btn-back,
             .submit-btn {
-                width: 100%;
-                padding: 12px;
+                padding: 10px 20px;
+                font-size: 0.85rem;
             }
-            .block-content {
-                max-height: none;
+            .btn-row {
+                gap: 8px;
             }
-            .map-preview img {
-                height: 180px;
-                object-fit: cover;
+            .progress-dot {
+                width: 25px;
+                height: 3px;
+            }
+            .progress-bar {
+                gap: 8px;
+                margin-bottom: 14px;
+            }
+
+            .success-screen h3 {
+                font-size: 1.3rem;
+            }
+            .success-screen p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ===== ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ТЕЛЕФОНОВ (до 400px) ===== */
+        @media (max-width: 400px) {
+            .block-1 .icon-90s {
+                font-size: 1.5rem !important;
+                margin: 2px 3px;
+            }
+            .block-1 .glass-card {
+                padding: 14px 12px;
+            }
+            .block-1 .glass-card p {
+                font-size: 0.8rem;
+            }
+            .block-1 .countdown-num {
+                font-size: 1rem;
+                min-width: 32px;
+                padding: 3px 5px;
+            }
+            .block-1 .neon-title {
+                font-size: 1.1rem;
+            }
+
+            .full-screen {
+                padding: 35px 12px 20px;
+            }
+            .glass-card {
+                padding: 14px 12px;
+            }
+            .glass-card h2 {
+                font-size: 0.95rem;
+            }
+            .glass-card p {
+                font-size: 0.75rem;
+                line-height: 1.4;
+            }
+            .dress-item {
+                font-size: 0.6rem;
+                padding: 4px 10px;
             }
         }
 
@@ -795,7 +939,7 @@
     <a href="#block5" class="float-btn" id="floatBtn">✅ Иду!</a>
 
     <!-- ============================================================ -->
-    <!-- БЛОК 1: ВСТУПЛЕНИЕ                                           -->
+    <!-- БЛОК 1: ВСТУПЛЕНИЕ (ТЕКСТ ПОЛНЫЙ, иконки уменьшены)         -->
     <!-- ============================================================ -->
     <section class="full-screen block-1" id="block1">
         <div class="side-decor">📼</div>
@@ -806,7 +950,7 @@
         <div class="side-decor" style="color:#ff0066; font-weight:bold;">YUPPIE</div>
 
         <div class="block-content">
-            <div style="margin-bottom:15px;">
+            <div style="margin-bottom:10px;">
                 <span class="icon-90s">📼</span>
                 <span class="icon-90s">🎧</span>
                 <span class="icon-90s">🕹️</span>
