@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎉 50 лет в стиле 90-х!</title>
+  <style>
+    /* ===== ОБЩИЙ СТИЛЬ ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* ===== ГЛАВНЫЙ КОНТЕЙНЕР ===== */
+    .container {
+      max-width: 650px;
+      width: 100%;
+      background: #1a1a2e;
+      padding: 30px 25px;
+      border-radius: 20px;
+      border: 3px solid #ff00ff;
+      box-shadow: 0 0 30px rgba(255, 0, 255, 0.3), 0 0 60px rgba(0, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ===== АНИМИРОВАННЫЙ ФОН (ЭФФЕКТ 90-Х) ===== */
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 30px,
+        rgba(255, 0, 255, 0.03) 30px,
+        rgba(255, 0, 255, 0.03) 31px
+      );
+      animation: scan 8s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes scan {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(60px); }
+    }
+
+    /* ===== ВСЁ, ЧТО ВНУТРИ КОНТЕЙНЕРА ===== */
+    .container > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== ЗАГОЛОВКИ ===== */
+    h1 {
+      font-size: 2.8em;
+      text-align: center;
+      background: linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff);
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 3s ease infinite;
+      text-shadow: none;
+      letter-spacing: 3px;
+      margin-bottom: 5px;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0%; }
+      50% { background-position: 100%; }
+      100% { background-position: 0%; }
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 1.3em;
+      color: #ffcc00;
+      text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+      margin-bottom: 25px;
+      letter-spacing: 5px;
+      border-bottom: 2px dashed #ff00ff;
+      padding-bottom: 15px;
+    }
+
+    /* ===== РАЗДЕЛЫ ===== */
+    .section {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid #00ffff;
+      backdrop-filter: blur(5px);
+      transition: transform 0.2s;
+    }
+
+    .section:hover {
+      transform: scale(1.01);
+    }
+
+    .section-title {
+      font-size: 1.2em;
+      color: #ff00ff;
+      font-weight: bold;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title .icon {
+      font-size: 1.5em;
+    }
+
+    .section-content {
+      font-size: 1.05em;
+      line-height: 1.6;
+      color: #ddd;
+    }
+
+    .section-content strong {
+      color: #00ffff;
+    }
+
+    /* ===== ДРЕСС-КОД (СПИСОК) ===== */
+    .dresscode-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .dresscode-item {
+      background: rgba(255, 0, 255, 0.15);
+      border: 1px solid #ff00ff;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.95em;
+      color: #fff;
+    }
+
+    /* ===== ФОРМА ===== */
+    .form-section {
+      background: rgba(0, 255, 255, 0.05);
+      border: 2px solid #ff00ff;
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 10px;
+    }
+
+    .form-section h2 {
+      text-align: center;
+      color: #ffcc00;
+      font-size: 1.5em;
+      margin-bottom: 18px;
+      text-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.95em;
+      color: #00ffff;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 10px;
+      border: 1px solid #444;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      font-size: 1em;
+      transition: border 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #ff00ff;
+      box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+    }
+
+    .form-group input::placeholder {
+      color: #666;
+    }
+
+    .form-group select option {
+      background: #1a1a2e;
+      color: #fff;
+    }
+
+    /* ===== КНОПКА ОТПРАВКИ ===== */
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #ff00ff, #00ffff);
+      border: none;
+      border-radius: 10px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #0a0a0a;
+      cursor: pointer;
+      transition: all 0.3s;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .submit-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* ===== СООБЩЕНИЕ ПОСЛЕ ОТПРАВКИ ===== */
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 255, 100, 0.1);
+      border: 2px solid #00ff64;
+      border-radius: 10px;
+      color: #00ff64;
+      font-size: 1.2em;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    /* ===== ПОДВАЛ ===== */
+    .footer {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 0.8em;
+      color: #555;
+      border-top: 1px solid #333;
+      padding-top: 15px;
+    }
+
+    .footer span {
+      color: #ff00ff;
+    }
+
+    /* ===== АДАПТАЦИЯ ПОД ТЕЛЕФОН ===== */
+    @media (max-width: 500px) {
+      .container {
+        padding: 20px 15px;
+      }
+      h1 {
+        font-size: 2em;
+      }
+      .subtitle {
+        font-size: 1em;
+      }
+      .section {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ===== ЗАГОЛОВОК ===== -->
+  <h1>🎉 90-Е ВОЗВРАЩАЮТСЯ!</h1>
+  <div class="subtitle">★ 50 ЛЕТ — ТОЛЬКО НАЧАЛО ★</div>
+
+  <!-- ===== РАЗДЕЛ 1: ЧТО ЗА МЕРОПРИЯТИЕ ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon">📢</span> Что за мероприятие?
+    </div>
+    <div class="section-content">
+      Друзья! Приглашаю вас на вечеринку в стиле <strong>лихих 90-х</strong>.<br>
+      Будем вспоминать время, когда кассеты были круче стриминга,<br>
+      а малиновые пиджаки — вершина стиля.<br>
+      <span style="color: #ffcc00;">Ждём вас на легендарный юбилей!</span>
+    </div>
+  </div>
+
+  <!-- ===== РАЗДЕЛ 2: ГДЕ И КОГДА ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon">📍</span> Где и когда?
+    </div>
+    <div class="section-content">
+      <strong>📅 Дата:</strong> 3 августа 2026 года (понедельник)<br>
+      <strong>⏰ Время:</strong> Сбор гостей в 18:00<br>
+      <strong>🏠 Место:</strong> Ресторан "СССР", зал "Дискотека"<br>
+      <span style="color: #888; font-size: 0.9em;">(ул. Советская, 15, 2-й этаж)</span>
+    </div>
+  </div>
+
+  <!-- ===== РАЗДЕЛ 3: ДРЕСС-КОД ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon">👕</span> Дресс-код и стиль
+    </div>
+    <div class="section-content">
+      <strong>Стиль вечеринки:</strong> Эпоха 90-х — ярко, смело, безбашенно!<br>
+      <div class="dresscode-list">
+        <span class="dresscode-item">🔴 Малиновый пиджак</span>
+        <span class="dresscode-item">👖 Широкие джинсы</span>
+        <span class="dresscode-item">🎽 Яркая футболка</span>
+        <span class="dresscode-item">⛓️ Массивные цепи</span>
+        <span class="dresscode-item">🧢 Бейсболка набекрень</span>
+        <span class="dresscode-item">🎧 Кассетный плеер (опционально)</span>
+      </div>
+      <span style="color: #ff00ff; font-size: 0.9em;">💡 Главное — атмосфера, а не строгие правила!</span>
+    </div>
+  </div>
+
+  <!-- ===== РАЗДЕЛ 4: ОПРОСНИК (ФОРМА) ===== -->
+  <div class="form-section">
+    <h2>📝 Подтверди участие</h2>
+
+    <!-- САМА ФОРМА -->
+    <form id="rsvpForm" action="https://formspree.io/f/ВАШ_ИД_ФОРМЫ" method="POST">
+      
+      <!-- Имя -->
+      <div class="form-group">
+        <label for="name">👤 Как тебя зовут?</label>
+        <input type="text" id="name" name="name" placeholder="Напиши своё имя" required>
+      </div>
+
+      <!-- Придёшь или нет -->
+      <div class="form-group">
+        <label for="attendance">✅ Ты придёшь?</label>
+        <select id="attendance" name="attendance" required>
+          <option value="">Выбери вариант...</option>
+          <option value="yes">🔥 Да, буду обязательно!</option>
+          <option value="no">😢 Нет, не смогу</option>
+          <option value="maybe">🤔 Пока не уверен(а)</option>
+        </select>
+      </div>
+
+      <!-- Что будешь пить -->
+      <div class="form-group">
+        <label for="drink">🍻 Что будешь пить?</label>
+        <select id="drink" name="drink">
+          <option value="">Выбери напиток...</option>
+          <option value="vodka">🥃 Водка (по-русски!)</option>
+          <option value="beer">🍺 Пиво</option>
+          <option value="martini">🍸 Мартини (для эстетов)</option>
+          <option value="cola">🥤 Кола (безалкогольная)</option>
+          <option value="champagne">🥂 Шампанское</option>
+          <option value="other">🧃 Другое (напишу в комментарии)</option>
+        </select>
+      </div>
+
+      <!-- С кем придёшь -->
+      <div class="form-group">
+        <label for="companion">👫 С кем планируешь прийти?</label>
+        <select id="companion" name="companion">
+          <option value="">Выбери вариант...</option>
+          <option value="alone">🕺 Один/одна</option>
+          <option value="wife">💑 С женой/мужем</option>
+          <option value="children">👨‍👩‍👧‍👦 С детьми</option>
+          <option value="love">❤️ С любимым/любимой (не супруг)</option>
+          <option value="brother">👬 С братом/сестрой</option>
+          <option value="friends">👥 С друзьями</option>
+          <option value="other">🤷 Другое (напишу в комментарии)</option>
+        </select>
+      </div>
+
+      <!-- Дополнительный комментарий -->
+      <div class="form-group">
+        <label for="comment">💬 Комментарий (пожелания, аллергии, вопросы)</label>
+        <input type="text" id="comment" name="comment" placeholder="Напиши что-нибудь...">
+      </div>
+
+      <!-- Кнопка отправки -->
+      <button type="submit" class="submit-btn">🎸 Отправить ответ</button>
+    </form>
+
+    <!-- Сообщение об успехе (скрыто по умолчанию) -->
+    <div class="success-message" id="successMessage">
+      ✅ Спасибо! Твой ответ отправлен.<br>
+      <span style="font-size: 0.9em; color: #aaa;">Ждём тебя на вечеринке! 🎉</span>
+    </div>
+  </div>
+
+  <!-- ===== ПОДВАЛ ===== -->
+  <div class="footer">
+    <span>♥</span> Сделано с любовью к 90-м <span>♥</span>
+  </div>
+
+</div>
+
+<!-- ===== JAVASCRIPT (для показа сообщения после отправки) ===== -->
+<script>
+  const form = document.getElementById('rsvpForm');
+  const successMsg = document.getElementById('successMessage');
+
+  form.addEventListener('submit', function(e) {
+    // Не блокируем отправку, просто показываем сообщение
+    // Форма отправится на FormSpree, и страница перезагрузится.
+    // Чтобы избежать перезагрузки, раскомментируйте строку ниже:
+    // e.preventDefault();
+
+    // Показываем сообщение (если форма всё же перезагрузится, это не отобразится)
+    successMsg.classList.add('show');
+    form.style.display = 'none';
+  });
+</script>
+
+</body>
+</html>
