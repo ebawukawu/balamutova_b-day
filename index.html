@@ -557,6 +557,14 @@
             padding-right: 40px;
         }
 
+        /* ===== СКРЫТЫЕ БЛОКИ ===== */
+        .hidden-block {
+            display: none;
+        }
+        .hidden-block.show {
+            display: block;
+        }
+
         /* ===== ЧЕКБОКСЫ (МНОЖЕСТВЕННЫЙ ВЫБОР) ===== */
         .checkbox-grid {
             display: grid;
@@ -1231,7 +1239,8 @@
                             <label for="attendance">✅ Ты придёшь?</label>
                             <select id="attendance"
                                     name="entry.2222222222"
-                                    required>
+                                    required
+                                    onchange="toggleAttendanceFields()">
                                 <option value="">Выбери вариант...</option>
                                 <option value="Да, буду обязательно!">🔥 Да, буду обязательно!</option>
                                 <option value="Нет, не смогу">😢 Нет, не смогу</option>
@@ -1239,7 +1248,15 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
+                        <!-- Поле для причины, если не придёт -->
+                        <div class="form-group hidden-block" id="reasonField">
+                            <label for="reason">💬 Почему не сможешь прийти?</label>
+                            <textarea id="reason"
+                                      name="entry.8888888888"
+                                      placeholder="Напиши причину..."></textarea>
+                        </div>
+
+                        <div class="form-group" id="guestDetails">
                             <label for="companion">👫 С кем придёшь?</label>
                             <select id="companion"
                                     name="entry.3333333333">
@@ -1253,7 +1270,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" id="kidsField">
                             <label for="kids">👶 Дети с вами?</label>
                             <select id="kids"
                                     name="entry.4444444444">
@@ -1282,31 +1299,31 @@
                             <label>🥃 Алкогольные напитки:</label>
                             <div class="checkbox-grid">
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Водка">
+                                    <input type="checkbox" name="alcohol" value="Водка" onchange="checkAlcoholNone()">
                                     <span>🥃 Водка</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Виски">
+                                    <input type="checkbox" name="alcohol" value="Виски" onchange="checkAlcoholNone()">
                                     <span>🥃 Виски</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Коньяк">
+                                    <input type="checkbox" name="alcohol" value="Коньяк" onchange="checkAlcoholNone()">
                                     <span>🥃 Коньяк</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Текила">
+                                    <input type="checkbox" name="alcohol" value="Текила" onchange="checkAlcoholNone()">
                                     <span>🍸 Текила</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Шампанское">
+                                    <input type="checkbox" name="alcohol" value="Шампанское" onchange="checkAlcoholNone()">
                                     <span>🥂 Шампанское</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Вино красное">
+                                    <input type="checkbox" name="alcohol" value="Вино красное" onchange="checkAlcoholNone()">
                                     <span>🍷 Вино красное</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Вино белое">
+                                    <input type="checkbox" name="alcohol" value="Вино белое" onchange="checkAlcoholNone()">
                                     <span>🍷 Вино белое</span>
                                 </label>
                             </div>
@@ -1316,13 +1333,13 @@
                             <label>🚫 Не пью алкоголь:</label>
                             <div class="checkbox-grid" style="grid-template-columns:1fr; border-color:rgba(255,100,100,0.2);">
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="no_alcohol" value="Не пью алкоголь">
+                                    <input type="checkbox" id="noAlcoholCheck" name="no_alcohol" value="Не пью алкоголь" onchange="checkAlcoholNone()">
                                     <span>🚫 Не пью алкоголь</span>
                                 </label>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" id="drinkAmountField">
                             <label for="drink_amount">🍺 Много ли вы планируете пить?</label>
                             <select id="drink_amount"
                                     name="entry.5555555555">
@@ -1330,7 +1347,6 @@
                                 <option value="Немного (для настроения)">🍷 Немного (для настроения)</option>
                                 <option value="Умеренно">🍻 Умеренно</option>
                                 <option value="Много (буду отрываться!)">🔥 Много (буду отрываться!)</option>
-                                <option value="Не пью алкоголь">🚫 Не пью алкоголь</option>
                                 <option value="Буду за рулём — только безалкогольное">🚗 Буду за рулём</option>
                             </select>
                         </div>
@@ -1551,6 +1567,14 @@
         }
 
         function nextStep(step) {
+            // Проверяем, не выбрал ли пользователь "Не приду"
+            const attendance = document.getElementById('attendance').value;
+            if (attendance === 'Нет, не смогу') {
+                // Если "Не приду" — отправляем сразу
+                submitForm();
+                return;
+            }
+
             const currentInputs = document.querySelectorAll('#step-' + currentStep + ' [required]');
             let valid = true;
             currentInputs.forEach(input => {
@@ -1581,8 +1605,62 @@
 
 
         /* ============================================================
-           4. ОТПРАВКА ФОРМЫ
+           4. ЛОГИКА: "НЕ ПРИДУ" → ПОЛЕ ДЛЯ ПРИЧИНЫ
            ============================================================ */
+        function toggleAttendanceFields() {
+            const attendance = document.getElementById('attendance').value;
+            const reasonField = document.getElementById('reasonField');
+            const guestDetails = document.getElementById('guestDetails');
+            const kidsField = document.getElementById('kidsField');
+            const btnNext = document.querySelector('#step-0 .btn-next');
+
+            if (attendance === 'Нет, не смогу') {
+                reasonField.classList.add('show');
+                guestDetails.style.display = 'none';
+                kidsField.style.display = 'none';
+                btnNext.textContent = '📤 Отправить ответ';
+                // Убираем required с других полей
+                document.getElementById('companion').removeAttribute('required');
+            } else {
+                reasonField.classList.remove('show');
+                guestDetails.style.display = 'block';
+                kidsField.style.display = 'block';
+                btnNext.textContent = 'Далее →';
+            }
+        }
+
+
+        /* ============================================================
+           5. ЛОГИКА: "НЕ ПЬЮ АЛКОГОЛЬ" → СКРЫВАЕМ "СКОЛЬКО"
+           ============================================================ */
+        function checkAlcoholNone() {
+            const noAlcoholCheck = document.getElementById('noAlcoholCheck');
+            const drinkAmountField = document.getElementById('drinkAmountField');
+
+            if (noAlcoholCheck.checked) {
+                drinkAmountField.style.display = 'none';
+                // Снимаем все другие чекбоксы алкоголя
+                document.querySelectorAll('input[name="alcohol"]').forEach(cb => {
+                    cb.checked = false;
+                });
+            } else {
+                drinkAmountField.style.display = 'block';
+            }
+        }
+
+
+        /* ============================================================
+           6. ОТПРАВКА ФОРМЫ
+           ============================================================ */
+        function submitForm() {
+            const form = document.getElementById('rsvpForm');
+            form.dataset.submitted = 'true';
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Отправляем...';
+            form.submit();
+        }
+
         const form = document.getElementById('rsvpForm');
         const successScreen = document.getElementById('successScreen');
         const formProgress = document.getElementById('formProgress');
@@ -1599,11 +1677,18 @@
         });
 
         form.addEventListener('submit', function(e) {
-            form.dataset.submitted = 'true';
-            const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
-            btn.textContent = '⏳ Отправляем...';
+            // Если ещё не помечено — помечаем
+            if (!form.dataset.submitted) {
+                form.dataset.submitted = 'true';
+                const btn = document.getElementById('submitBtn');
+                btn.disabled = true;
+                btn.textContent = '⏳ Отправляем...';
+            }
         });
+
+        // Инициализация
+        toggleAttendanceFields();
+        checkAlcoholNone();
     </script>
 
 </body>
