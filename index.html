@@ -39,15 +39,9 @@
         }
 
         /* ===== КАЖДЫЙ БЛОК — НА ВСЮ ВЫСОТУ ЭКРАНА ===== */
-        /* 
-            ФИКС: используем 100svh вместо min-height: 100vh
-            На мобильных 100vh включает адресную строку браузера
-            и контент обрезается. svh = small viewport height = 
-            высота без браузерного UI — работает корректно.
-        */
         .full-screen {
-            height: 100svh; /* ← ФИКС для мобильных */
-            min-height: 600px; /* запасной минимум для старых браузеров */
+            height: 100svh;
+            min-height: 600px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -67,28 +61,37 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 40px,
-                rgba(255, 0, 255, 0.03) 40px,
-                rgba(255, 0, 255, 0.03) 41px
-            );
+            background: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(255, 0, 255, 0.03) 40px,
+                    rgba(255, 0, 255, 0.03) 41px);
             animation: scan 10s linear infinite;
             pointer-events: none;
             z-index: 0;
         }
         @keyframes scan {
-            0%   { transform: translateY(0); }
-            100% { transform: translateY(80px); }
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(80px);
+            }
         }
 
-        .block-2 { background: radial-gradient(circle at 80% 70%, #1a1a2e, #0d0d1a); }
-        .block-3 { background: radial-gradient(circle at 50% 50%, #2a0a1a, #0a0a0a); }
-        .block-4 { background: radial-gradient(circle at 30% 80%, #0a1a2e, #0a0a0a); }
-        .block-5 { background: radial-gradient(circle at 70% 20%, #1a2a0a, #0a0a0a); }
+        .block-2 {
+            background: radial-gradient(circle at 80% 70%, #1a1a2e, #0d0d1a);
+        }
+        .block-3 {
+            background: radial-gradient(circle at 50% 50%, #2a0a1a, #0a0a0a);
+        }
+        .block-4 {
+            background: radial-gradient(circle at 30% 80%, #0a1a2e, #0a0a0a);
+        }
+        .block-5 {
+            background: radial-gradient(circle at 70% 20%, #1a2a0a, #0a0a0a);
+        }
 
-        /* Контент поверх фона */
         .block-content {
             position: relative;
             z-index: 2;
@@ -96,44 +99,20 @@
             width: 100%;
             max-height: calc(100svh - 100px);
             overflow-y: auto;
-            /* скрываем скроллбар внутри блока, но скролл работает */
             scrollbar-width: none;
         }
-        .block-content::-webkit-scrollbar { display: none; }
-
-        /* ===== БОКОВЫЕ ЭЛЕМЕНТЫ (декор 90-х) ===== */
-        .side-decor {
-            position: absolute;
-            z-index: 1;
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            opacity: 0.25;
-            animation: floatSlow 6s ease-in-out infinite;
-            pointer-events: none;
-            user-select: none;
-            filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.2));
-            /* ОПТИМИЗАЦИЯ: подсказка браузеру что будет анимация */
-            will-change: transform;
-        }
-        .side-decor:nth-child(1) { top: 10%;    left: 3%;   animation-delay: 0s; }
-        .side-decor:nth-child(2) { top: 25%;    right: 3%;  animation-delay: 1s; }
-        .side-decor:nth-child(3) { bottom: 30%; left: 2%;   animation-delay: 2s; }
-        .side-decor:nth-child(4) { bottom: 15%; right: 2%;  animation-delay: 0.5s; }
-        .side-decor:nth-child(5) { top: 50%;    left: 1%;   animation-delay: 1.5s; font-size: clamp(1.5rem, 3vw, 2.5rem); }
-        .side-decor:nth-child(6) { top: 60%;    right: 1%;  animation-delay: 2.5s; font-size: clamp(1.5rem, 3vw, 2.5rem); }
-
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0px)   rotate(0deg); }
-            50%       { transform: translateY(-15px) rotate(5deg); }
+        .block-content::-webkit-scrollbar {
+            display: none;
         }
 
-        /* ===== БЕГУЩАЯ СТРОКА (привет из 90-х!) ===== */
+        /* ===== БЕГУЩАЯ СТРОКА ===== */
         .marquee-bar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0, 0, 0, 0.85);
             border-bottom: 1px solid #ff00ff;
             padding: 6px 0;
             overflow: hidden;
@@ -144,7 +123,62 @@
             letter-spacing: 2px;
         }
 
-        /* ===== НАВИГАЦИОННЫЕ ТОЧКИ (боковые) ===== */
+        /* ===== БОКОВОЙ ДЕКОР ===== */
+        .side-decor {
+            position: absolute;
+            z-index: 1;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            opacity: 0.25;
+            animation: floatSlow 6s ease-in-out infinite;
+            pointer-events: none;
+            user-select: none;
+            filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.2));
+            will-change: transform;
+        }
+        .side-decor:nth-child(1) {
+            top: 10%;
+            left: 3%;
+            animation-delay: 0s;
+        }
+        .side-decor:nth-child(2) {
+            top: 25%;
+            right: 3%;
+            animation-delay: 1s;
+        }
+        .side-decor:nth-child(3) {
+            bottom: 30%;
+            left: 2%;
+            animation-delay: 2s;
+        }
+        .side-decor:nth-child(4) {
+            bottom: 15%;
+            right: 2%;
+            animation-delay: 0.5s;
+        }
+        .side-decor:nth-child(5) {
+            top: 50%;
+            left: 1%;
+            animation-delay: 1.5s;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+        }
+        .side-decor:nth-child(6) {
+            top: 60%;
+            right: 1%;
+            animation-delay: 2.5s;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        @keyframes floatSlow {
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+        }
+
+        /* ===== НАВИГАЦИОННЫЕ ТОЧКИ ===== */
         .nav-dots {
             position: fixed;
             right: 15px;
@@ -172,7 +206,7 @@
             transform: scale(1.3);
         }
 
-        /* ===== ПЛАВАЮЩАЯ КНОПКА «ИДУ!» ===== */
+        /* ===== ПЛАВАЮЩАЯ КНОПКА ===== */
         .float-btn {
             position: fixed;
             bottom: 25px;
@@ -191,27 +225,32 @@
             box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
             white-space: nowrap;
             will-change: transform, box-shadow;
+            border: none;
+            cursor: pointer;
         }
         .float-btn:hover {
             animation: none;
             transform: translateX(-50%) scale(1.05);
             box-shadow: 0 0 50px rgba(255, 0, 255, 0.6);
         }
-        /* Скрываем кнопку когда пользователь на блоке с формой */
-        .float-btn.hidden { opacity: 0; pointer-events: none; }
+        .float-btn.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
 
         @keyframes pulse {
-            0%, 100% { 
+            0%,
+            100% {
                 transform: translateX(-50%) scale(1);
                 box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
             }
-            50% { 
+            50% {
                 transform: translateX(-50%) scale(1.04);
                 box-shadow: 0 0 50px rgba(255, 0, 255, 0.7);
             }
         }
 
-        /* ===== СТРЕЛКИ НАВИГАЦИИ МЕЖДУ БЛОКАМИ ===== */
+        /* ===== СТРЕЛКИ ===== */
         .scroll-arrow {
             position: absolute;
             bottom: 20px;
@@ -236,11 +275,22 @@
             transform: rotate(45deg);
             opacity: 0.7;
         }
-        .scroll-arrow span:nth-child(2) { opacity: 0.4; margin-top: -8px; }
-        .scroll-arrow span:nth-child(3) { opacity: 0.2; margin-top: -8px; }
+        .scroll-arrow span:nth-child(2) {
+            opacity: 0.4;
+            margin-top: -8px;
+        }
+        .scroll-arrow span:nth-child(3) {
+            opacity: 0.2;
+            margin-top: -8px;
+        }
         @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50%       { transform: translateX(-50%) translateY(6px); }
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(6px);
+            }
         }
 
         /* ===== ОБРАТНЫЙ ОТСЧЁТ ===== */
@@ -291,9 +341,15 @@
             will-change: background-position;
         }
         @keyframes gradientMove {
-            0%   { background-position: 0%; }
-            50%  { background-position: 100%; }
-            100% { background-position: 0%; }
+            0% {
+                background-position: 0%;
+            }
+            50% {
+                background-position: 100%;
+            }
+            100% {
+                background-position: 0%;
+            }
         }
 
         .sub-neon {
@@ -315,7 +371,6 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             width: 100%;
         }
-
         .glass-card h2 {
             font-size: clamp(1.3rem, 3.5vw, 2rem);
             color: #00ffff;
@@ -330,10 +385,15 @@
             line-height: 1.8;
             color: #e0e0e0;
         }
-        .glass-card .highlight { color: #ffcc00; font-weight: bold; }
-        .glass-card .accent    { color: #ff00ff; }
+        .glass-card .highlight {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+        .glass-card .accent {
+            color: #ff00ff;
+        }
 
-        /* ===== ИКОНКИ АТРИБУТИКИ ===== */
+        /* ===== ИКОНКИ 90-Х ===== */
         .icon-90s {
             font-size: clamp(2.5rem, 7vw, 4.5rem);
             display: inline-block;
@@ -342,14 +402,29 @@
             animation: float 4s ease-in-out infinite;
             will-change: transform;
         }
-        .icon-90s:nth-child(2) { animation-delay: 0.5s; }
-        .icon-90s:nth-child(3) { animation-delay: 1s; }
-        .icon-90s:nth-child(4) { animation-delay: 1.5s; }
-        .icon-90s:nth-child(5) { animation-delay: 2s; }
-        .icon-90s:nth-child(6) { animation-delay: 2.5s; }
+        .icon-90s:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        .icon-90s:nth-child(3) {
+            animation-delay: 1s;
+        }
+        .icon-90s:nth-child(4) {
+            animation-delay: 1.5s;
+        }
+        .icon-90s:nth-child(5) {
+            animation-delay: 2s;
+        }
+        .icon-90s:nth-child(6) {
+            animation-delay: 2.5s;
+        }
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50%       { transform: translateY(-12px); }
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
         }
 
         /* ===== ДРЕСС-КОД ===== */
@@ -395,26 +470,510 @@
             font-weight: bold;
             text-decoration: none;
             font-size: 0.95rem;
-            transition:
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .map-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+        }
+
+        /* ===== ФОРМА ===== */
+        .form-card {
+            background: rgba(0, 255, 255, 0.03);
+            border: 2px solid #ff00ff;
+            border-radius: 20px;
+            padding: 25px 20px;
+            width: 100%;
+        }
+        .form-card h2 {
+            color: #ffcc00;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.95rem;
+            color: #00ffff;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #444;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 1rem;
+            transition: border 0.3s;
+            font-family: inherit;
+        }
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff00ff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.15);
+        }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #666;
+        }
+
+        /* ===== МНОГОШАГОВАЯ ФОРМА ===== */
+        .form-step {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .form-step.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-next,
+        .btn-back {
+            padding: 10px 28px;
+            border-radius: 30px;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-next {
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            color: #0a0a0a;
+        }
+        .btn-next:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+        }
+        .btn-back {
+            background: rgba(255, 255, 255, 0.08);
+            color: #aaa;
+        }
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .submit-btn {
+            padding: 10px 28px;
+            border-radius: 30px;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            color: #0a0a0a;
+        }
+        .submit-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+        }
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ===== ПРОГРЕСС ФОРМЫ ===== */
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .progress-dot {
+            width: 35px;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        .progress-dot.active {
+            background: #ff00ff;
+            box-shadow: 0 0 12px rgba(255, 0, 255, 0.4);
+        }
+        .progress-dot.done {
+            background: #00ffff;
+        }
+
+        /* ===== ЭКРАН УСПЕХА ===== */
+        .success-screen {
+            display: none;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .success-screen.show {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+        .success-emoji {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+        .success-screen h3 {
+            font-size: 1.8rem;
+            color: #ffcc00;
+            margin-bottom: 12px;
+        }
+        .success-screen p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ddd;
+        }
+
+        /* ===== ПОДВАЛ ===== */
+        .footer {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: #444;
+            border-top: 1px solid #222;
+            padding-top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .footer span {
+            color: #ff00ff;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 500px) {
+            .full-screen {
+                padding: 50px 15px 30px;
+                min-height: 500px;
+            }
+            .glass-card {
+                padding: 18px 14px;
+            }
+            .form-card {
+                padding: 18px 12px;
+            }
+            .side-decor {
+                display: none;
+            }
+            .nav-dots {
+                right: 8px;
+                gap: 8px;
+            }
+            .nav-dot {
+                width: 8px;
+                height: 8px;
+            }
+            .float-btn {
+                padding: 10px 18px;
+                font-size: 0.8rem;
+                bottom: 15px;
+            }
+            .scroll-arrow {
+                bottom: 10px;
+            }
+            .countdown {
+                gap: 8px;
+            }
+            .countdown-num {
+                min-width: 40px;
+                font-size: clamp(1rem, 4vw, 1.5rem);
+                padding: 5px 8px;
+            }
+            .btn-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .btn-next,
+            .btn-back,
+            .submit-btn {
+                width: 100%;
+                padding: 12px;
+            }
+        }
+
+        /* ===== СКРОЛЛБАР ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ff00ff, #00ffff);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== БЕГУЩАЯ СТРОКА ===== -->
+    <div class="marquee-bar">
+        <marquee behavior="scroll" direction="left">
+            ★ 12 сентября 2026 ★ Кафе Ландринъ ★ Дресс-код: 90-е ★ Ждём тебя! ★
+            🎶 Музыка 90-х ★ Фотозона ★ Танцы ★ Будет жарко! ★
+        </marquee>
+    </div>
+
+    <!-- ===== НАВИГАЦИОННЫЕ ТОЧКИ ===== -->
+    <div class="nav-dots">
+        <a href="#block1" class="nav-dot active"></a>
+        <a href="#block2" class="nav-dot"></a>
+        <a href="#block3" class="nav-dot"></a>
+        <a href="#block4" class="nav-dot"></a>
+        <a href="#block5" class="nav-dot"></a>
+    </div>
+
+    <!-- ===== ПЛАВАЮЩАЯ КНОПКА ===== -->
+    <a href="#block5" class="float-btn" id="floatBtn">✅ Иду!</a>
+
+    <!-- ============================================================ -->
+    <!-- БЛОК 1: ВСТУПЛЕНИЕ                                           -->
+    <!-- ============================================================ -->
+    <section class="full-screen block-1" id="block1">
+        <div class="side-decor">📼</div>
+        <div class="side-decor" style="color:#ff0000; font-weight:bold;">MTV</div>
+        <div class="side-decor" style="color:#ff6600; font-weight:bold;">TURBO</div>
+        <div class="side-decor" style="color:#ffcc00; font-weight:bold;">LOVE IS</div>
+        <div class="side-decor" style="color:#00ffff; font-weight:bold;">TERMINATOR</div>
+        <div class="side-decor" style="color:#ff0066; font-weight:bold;">YUPPIE</div>
+
+        <div class="block-content">
+            <div style="margin-bottom:15px;">
+                <span class="icon-90s">📼</span>
+                <span class="icon-90s">🎧</span>
+                <span class="icon-90s">🕹️</span>
+                <span class="icon-90s">📟</span>
+                <span class="icon-90s">💿</span>
+                <span class="icon-90s">📺</span>
+            </div>
+
+            <h1 class="neon-title">90-Е ВОЗВРАЩАЮТСЯ!</h1>
+            <div class="sub-neon">★ ДЕНЬ РОЖДЕНИЯ ★</div>
+
+            <!-- ОБРАТНЫЙ ОТСЧЁТ -->
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-num" id="cd-days">000</div>
+                    <div class="countdown-label">Дней</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-num" id="cd-hours">00</div>
+                    <div class="countdown-label">Часов</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-num" id="cd-mins">00</div>
+                    <div class="countdown-label">Минут</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-num" id="cd-secs">00</div>
+                    <div class="countdown-label">Секунд</div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h2>🎉 Дорогие друзья!</h2>
+                <p>
+                    Я приглашаю вас на свой день рождения, чтобы вместе
+                    <span class="highlight">окунуться в атмосферу лихих 90-х</span> —
+                    время, когда музыка звучала громче, наряды были ярче,
+                    а жизнь казалась большой дискотекой!<br><br>
+                    Будем вспоминать, танцевать и создавать новые воспоминания
+                    в лучших традициях эпохи. <span class="accent">Будет жарко!</span> 🔥
+                </p>
+            </div>
+        </div>
+
+        <a href="#block2" class="scroll-arrow">
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- БЛОК 2: ЧТО ЗА МЕРОПРИЯТИЕ                                 -->
+    <!-- ============================================================ -->
+    <section class="full-screen block-2" id="block2">
+        <div class="side-decor">🎤</div>
+        <div class="side-decor" style="color:#ff00ff; font-weight:bold;">MTV</div>
+        <div class="side-decor" style="color:#ff6600; font-weight:bold;">TURBO</div>
+        <div class="side-decor">🪩</div>
+        <div class="side-decor" style="color:#ffcc00; font-weight:bold;">LOVE IS</div>
+        <div class="side-decor">🎶</div>
+
+        <div class="block-content">
+            <div class="glass-card">
+                <h2>📢 Что за мероприятие?</h2>
+                <p>
+                    <span class="highlight">Вечеринка в стиле 90-х</span> —
+                    это не просто день рождения, это настоящее путешествие во времени!
+                    <br><br>
+                    🎶 Музыка 90-х (от «Кар-Мэн» до «Сектора Газа»)<br>
+                    🕺 Танцевальный батл «как в клипах MTV»<br>
+                    📸 Фотозона с атрибутикой эпохи<br>
+                    🍹 Коктейли с названиями из 90-х<br><br>
+                    <span class="accent">Главное правило:</span> никаких скучных лиц,
+                    только драйв и ностальгия!
+                </p>
+            </div>
+        </div>
+
+        <a href="#block3" class="scroll-arrow">
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- БЛОК 3: ГДЕ И КОГДА + КАРТА                                -->
+    <!-- ============================================================ -->
+    <section class="full-screen block-3" id="block3">
+        <div class="side-decor">📍</div>
+        <div class="side-decor" style="color:#ff0066; font-weight:bold;">YUPPIE</div>
+        <div class="side-decor">🗺️</div>
+        <div class="side-decor" style="color:#ff00ff; font-weight:bold;">MTV</div>
+        <div class="side-decor" style="color:#ff6600; font-weight:bold;">TURBO</div>
+        <div class="side-decor" style="color:#ffcc00; font-weight:bold;">LOVE IS</div>
+
+        <div class="block-content">
+            <div class="glass-card">
+                <h2>📍 Где и когда?</h2>
+                <p style="font-size:clamp(1rem,2vw,1.2rem);">
+                    <span class="highlight">📅 Дата:</span> 12 сентября 2026 года<br>
+                    <span class="highlight">⏰ Время:</span> Сбор гостей в <strong>16:00</strong><br>
+                    <span class="highlight">🏠 Место:</span> Кафе «Ландринъ»<br>
+                    <span style="color:#aaa; font-size:0.9rem;">
+                        г. Москва, ул. Сущёвская, д. 9, стр. 4
+                    </span>
+                    <br>
+                    <span style="color:#888; font-size:0.8rem;">
+                        🚇 м. Новослободская — 1 минута пешком
+                    </span>
+                </p>
+
+                <!-- КАРТА ЯНДЕКС С ТОЧКОЙ -->
+                <div class="map-container">
+                    <iframe
+                    src="https://yandex.ru/maps/?pt=37.601149,55.780496&z=17&l=map&mode=whatshere"
+                    allowfullscreen="true"
+                    loading="lazy">
+                </iframe>
+            </div>
+
+            <a href="https://yandex.ru/maps/?pt=37.601149,55.780496&z=18&l=map"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="map-button">
+               🗺️ Открыть в Яндекс Картах
+           </a>
+           <p style="color:#888; font-size:0.75rem; margin-top:6px;">
+            📍 55.780496, 37.601149
+        </p>
+    </div>
+</div>
+
+<a href="#block4" class="scroll-arrow">
+    <span></span>
+    <span></span>
+    <span></span>
+</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- БЛОК 4: ДРЕСС-КОД                                            -->
+<!-- ============================================================ -->
+<section class="full-screen block-4" id="block4">
+    <div class="side-decor">👕</div>
+    <div class="side-decor" style="color:#00ffff; font-weight:bold;">TERMINATOR</div>
+    <div class="side-decor">🧥</div>
+    <div class="side-decor" style="color:#ff0066; font-weight:bold;">YUPPIE</div>
+    <div class="side-decor">👖</div>
+    <div class="side-decor" style="color:#ff00ff; font-weight:bold;">MTV</div>
+
+    <div class="block-content">
+        <div class="glass-card">
+            <h2>👕 Дресс-код и стиль</h2>
+            <p>
+                <span class="highlight">Стиль вечеринки:</span>
+                Эпоха 90-х — ярко, смело, безбашенно!
+            </p>
+
+            <div class="dress-grid">
+                <span class="dress-item">🔴 Малиновый пиджак</span>
+                <span class="dress-item">👖 Широкие джинсы</span>
+                <span class="dress-item">🎽 Яркая футболка</span>
+                <span class="dress-item">⛓️ Массивные цепи</span>
+                <span class="dress-item">🧢 Бейсболка набекрень</span>
+                <span class="dress-item">🎧 Кассетный плеер</span>
+                <span class="dress-item">📼 Яркие лосины</span>
+                <span class="dress-item">🕶️ Очки-«капли»</span>
+            </div>
+            <p style="margin-top:15px; color:#ff00ff; font-size:0.9rem;">
+                💡 Главное — атмосфера, а не строгие правила!
+            </p>
+        </div>
+    </div>
+
+    <a href="#block5" class="scroll-arrow">
+        <span></span>
+        <span></span>
+        <span></span>
+    </a>
+</section>
+
+<!-- ============================================================ -->
+<!-- БЛОК 5: ФОРМА-ОПРОСНИК                                       -->
+<!-- ============================================================ -->
+<section class="full-screen block-5" id="block5">
+    <div class="side-decor">📝</div>
+    <div class="side-decor" style="color:#ff6600; font-weight:bold;">TURBO</div>
+    <div class="side-decor">✉️</div>
+    <div class="side-decor" style="color:#ff00ff; font-weight:bold;">MTV</div>
+    <div class="side-decor" style="color:#ffcc00; font-weight:bold;">LOVE IS</div>
+    <div class="side-decor" style="color:#00ffff; font-weight:bold;">TERMINATOR</div>
+
+    <div class="block-content">
+        <div class="form-card">
+
+            <!-- ПРОГРЕСС ФОРМЫ -->
+            <div class="progress-bar" id="formProgress">
+                <div class="progress-dot active" id="dot-0"></div>
+                <div class="progress-dot" id="dot-1"></div>
                 <div class="progress-dot" id="dot-2"></div>
             </div>
 
             <h2 id="formTitle">📝 Подтверди участие</h2>
 
-            <!--
-            ╔══════════════════════════════════════════════════════╗
-            ║  КАК ПОДКЛЮЧИТЬ GOOGLE FORMS:                        ║
-            ║                                                      ║
-            ║  1. Создай форму на forms.google.com                 ║
-            ║  2. Нажми «Ещё» (три точки) → «Получить ссылку»     ║
-            ║  3. Открой ссылку в браузере → F12 → Elements       ║
-            ║  4. Найди тег <form action="...">                    ║
-            ║  5. Скопируй action URL → вставь ниже               ║
-            ║  6. У каждого input найди name="entry.XXXXXXXXX"     ║
-            ║  7. Замени entry.111..., entry.222... и т.д.         ║
-            ║     на реальные ID из твоей формы                    ║
-            ╚══════════════════════════════════════════════════════╝
-            -->
             <form id="rsvpForm"
                   action="https://docs.google.com/forms/d/e/СЮДА_ВСТАВЬ_ТВОЙ_ID/formResponse"
                   method="POST"
@@ -427,7 +986,7 @@
                        tabindex="-1"
                        autocomplete="off">
 
-                <!-- ШАГ 1: Кто ты? -->
+                <!-- ШАГ 1 -->
                 <div class="form-step active" id="step-0">
                     <div class="form-group">
                         <label for="name">👤 Как тебя зовут?</label>
@@ -438,7 +997,6 @@
                                required
                                pattern=".*\S.*"
                                title="Введи имя">
-                        <!-- ↑ замени entry.1111111111 на свой ID -->
                     </div>
 
                     <div class="form-group">
@@ -446,7 +1004,6 @@
                         <select id="attendance"
                                 name="entry.2222222222"
                                 required>
-                            <!-- ↑ замени entry.2222222222 на свой ID -->
                             <option value="">Выбери вариант...</option>
                             <option value="Да, буду обязательно!">🔥 Да, буду обязательно!</option>
                             <option value="Нет, не смогу">😢 Нет, не смогу</option>
@@ -461,13 +1018,12 @@
                     </div>
                 </div>
 
-                <!-- ШАГ 2: Детали -->
+                <!-- ШАГ 2 -->
                 <div class="form-step" id="step-1">
                     <div class="form-group">
                         <label for="companion">👫 С кем придёшь?</label>
                         <select id="companion"
                                 name="entry.3333333333">
-                            <!-- ↑ замени entry.3333333333 на свой ID -->
                             <option value="">Выбери вариант...</option>
                             <option value="Один / одна">🕺 Один / одна</option>
                             <option value="С женой / мужем">💑 С женой / мужем</option>
@@ -482,7 +1038,6 @@
                         <label for="kids">👶 Дети с вами?</label>
                         <select id="kids"
                                 name="entry.4444444444">
-                            <!-- ↑ замени entry.4444444444 на свой ID -->
                             <option value="Без детей">Нет, без детей</option>
                             <option value="1 ребёнок">1 ребёнок</option>
                             <option value="2 ребёнка">2 ребёнка</option>
@@ -495,7 +1050,6 @@
                         <label for="drink">🍻 Что будешь пить?</label>
                         <select id="drink"
                                 name="entry.5555555555">
-                            <!-- ↑ замени entry.5555555555 на свой ID -->
                             <option value="">Выбери напиток...</option>
                             <option value="Водка">🥃 Водка</option>
                             <option value="Пиво">🍺 Пиво</option>
@@ -516,15 +1070,13 @@
                     </div>
                 </div>
 
-                <!-- ШАГ 3: Комментарий и отправка -->
+                <!-- ШАГ 3 -->
                 <div class="form-step" id="step-2">
                     <div class="form-group">
                         <label for="comment">💬 Пожелания, аллергии, вопросы</label>
                         <textarea id="comment"
                                   name="entry.6666666666"
-                                  placeholder="Необязательно, но будет здорово узнать...">
-                        </textarea>
-                        <!-- ↑ замени entry.6666666666 на свой ID -->
+                                  placeholder="Необязательно, но будет здорово узнать..."></textarea>
                     </div>
 
                     <div class="form-group" style="
@@ -552,17 +1104,11 @@
 
             </form>
 
-            <!-- 
-                Скрытый iframe — форма отправляется в него,
-                чтобы страница НЕ перезагружалась после отправки.
-                Google Forms это поддерживает.
-            -->
             <iframe name="hidden_iframe"
                     id="hidden_iframe"
                     style="display:none">
             </iframe>
 
-            <!-- ЭКРАН УСПЕХА (показывается после отправки) -->
             <div class="success-screen" id="successScreen">
                 <span class="success-emoji">🎉</span>
                 <h3>Ты в списке!</h3>
@@ -574,15 +1120,13 @@
                 </p>
             </div>
 
-        </div><!-- /form-card -->
+        </div>
 
         <div class="footer">
             <span>♥</span> Сделано с любовью к 90-м <span>♥</span>
         </div>
-
-    </div><!-- /block-content -->
+    </div>
 </section>
-
 
 <!-- ============================================================ -->
 <!-- СКРИПТЫ                                                      -->
@@ -592,53 +1136,46 @@
        1. ОБРАТНЫЙ ОТСЧЁТ
        ============================================================ */
     function updateCountdown() {
-        // Дата вечеринки: 12 сентября 2026, 16:00, Москва (UTC+3)
         const target = new Date('2026-09-12T16:00:00+03:00');
-        const now    = new Date();
-        const diff   = target - now;
+        const now = new Date();
+        const diff = target - now;
 
         if (diff <= 0) {
-            // Уже началось!
-            document.getElementById('cd-days').textContent  = '00';
+            document.getElementById('cd-days').textContent = '00';
             document.getElementById('cd-hours').textContent = '00';
-            document.getElementById('cd-mins').textContent  = '00';
-            document.getElementById('cd-secs').textContent  = '00';
+            document.getElementById('cd-mins').textContent = '00';
+            document.getElementById('cd-secs').textContent = '00';
             return;
         }
 
-        const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
-        document.getElementById('cd-days').textContent  = String(days).padStart(3, '0');
+        document.getElementById('cd-days').textContent = String(days).padStart(3, '0');
         document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
-        document.getElementById('cd-mins').textContent  = String(mins).padStart(2, '0');
-        document.getElementById('cd-secs').textContent  = String(secs).padStart(2, '0');
+        document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+        document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
     }
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
 
     /* ============================================================
-       2. НАВИГАЦИОННЫЕ ТОЧКИ — подсвечиваются при скролле
+       2. НАВИГАЦИОННЫЕ ТОЧКИ
        ============================================================ */
     const sections = document.querySelectorAll('.full-screen');
-    const dots     = document.querySelectorAll('.nav-dot');
+    const dots = document.querySelectorAll('.nav-dot');
     const floatBtn = document.getElementById('floatBtn');
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (!entry.isIntersecting) return;
-
             const idx = Array.from(sections).indexOf(entry.target);
-
-            // Обновляем точки
             dots.forEach((d, i) => {
                 d.classList.toggle('active', i === idx);
             });
-
-            // Скрываем кнопку «Подтвердить участие» на блоке с формой
             floatBtn.classList.toggle('hidden', idx === sections.length - 1);
         });
     }, { threshold: 0.5 });
@@ -655,40 +1192,29 @@
     function updateProgress(step) {
         for (let i = 0; i < totalSteps; i++) {
             const dot = document.getElementById('dot-' + i);
-            if (i < step)       { dot.className = 'progress-dot done'; }
-            else if (i === step){ dot.className = 'progress-dot active'; }
-            else                { dot.className = 'progress-dot'; }
+            if (i < step) { dot.className = 'progress-dot done'; } else if (i === step) { dot
+                    .className = 'progress-dot active'; } else { dot.className = 'progress-dot'; }
         }
-
-        const titles = [
-            '📝 Подтверди участие',
-            '📋 Детали',
-            '💬 Почти готово!'
-        ];
+        const titles = ['📝 Подтверди участие', '📋 Детали', '💬 Почти готово!'];
         document.getElementById('formTitle').textContent = titles[step];
     }
 
     function nextStep(step) {
-        // Валидация текущего шага
-        const currentInputs = document.querySelectorAll(
-            '#step-' + currentStep + ' [required]'
-        );
+        const currentInputs = document.querySelectorAll('#step-' + currentStep + ' [required]');
         let valid = true;
         currentInputs.forEach(input => {
             if (!input.value.trim()) {
                 input.style.borderColor = '#ff4444';
-                input.style.boxShadow   = '0 0 15px rgba(255,68,68,0.3)';
+                input.style.boxShadow = '0 0 15px rgba(255,68,68,0.3)';
                 valid = false;
-                // Убираем красный бордер через 2 секунды
                 setTimeout(() => {
-                    input.style.borderColor = '#333';
-                    input.style.boxShadow   = 'none';
+                    input.style.borderColor = '#444';
+                    input.style.boxShadow = 'none';
                 }, 2000);
             }
         });
         if (!valid) return;
 
-        // Скрываем текущий шаг, показываем следующий
         document.getElementById('step-' + currentStep).classList.remove('active');
         document.getElementById('step-' + step).classList.add('active');
         currentStep = step;
@@ -704,58 +1230,28 @@
 
 
     /* ============================================================
-       4. ОТПРАВКА ФОРМЫ В GOOGLE FORMS
-          Отправляем в скрытый iframe → страница не перезагружается
-          → показываем экран успеха.
+       4. ОТПРАВКА ФОРМЫ
        ============================================================ */
-    const form          = document.getElementById('rsvpForm');
+    const form = document.getElementById('rsvpForm');
     const successScreen = document.getElementById('successScreen');
-    const formProgress  = document.getElementById('formProgress');
-    const formTitle     = document.getElementById('formTitle');
-    const hiddenIframe  = document.getElementById('hidden_iframe');
+    const formProgress = document.getElementById('formProgress');
+    const formTitle = document.getElementById('formTitle');
+    const hiddenIframe = document.getElementById('hidden_iframe');
 
-    // Когда iframe загрузился (= форма отправлена) — показываем успех
     hiddenIframe.addEventListener('load', function() {
-        // Первая загрузка iframe пустая, игнорируем
         if (!form.dataset.submitted) return;
-
-        // Прячем форму, прогресс и заголовок
-        form.style.display           = 'none';
-        formProgress.style.display   = 'none';
-        formTitle.style.display      = 'none';
-
-        // Показываем экран успеха
+        form.style.display = 'none';
+        formProgress.style.display = 'none';
+        formTitle.style.display = 'none';
         successScreen.classList.add('show');
-
-        // Скрываем плавающую кнопку
         floatBtn.classList.add('hidden');
     });
 
     form.addEventListener('submit', function(e) {
-        // Помечаем что отправка произошла намеренно
         form.dataset.submitted = 'true';
-
-        // Блокируем кнопку чтобы не отправили дважды
         const btn = document.getElementById('submitBtn');
-        btn.disabled     = true;
-        btn.textContent  = '⏳ Отправляем...';
-
-        // form отправится в hidden_iframe через target="hidden_iframe"
-        // ничего больше не нужно — просто даём форме отправиться
-    });
-
-
-    /* ============================================================
-       5. ПЛАВНАЯ ПРОКРУТКА ДЛЯ СТРЕЛОК И ТОЧЕК
-          (на случай если scroll-behavior:smooth не сработал)
-       ============================================================ */
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            const target = document.querySelector(this.getAttribute('href'));
-            if (!target) return;
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth' });
-        });
+        btn.disabled = true;
+        btn.textContent = '⏳ Отправляем...';
     });
 </script>
 
