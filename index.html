@@ -398,7 +398,7 @@
             color: #ff00ff;
         }
 
-        /* ===== ИКОНКИ 90-Х (на десктопе большие) ===== */
+        /* ===== ИКОНКИ 90-Х ===== */
         .icon-90s {
             font-size: clamp(2.5rem, 7vw, 4.5rem);
             display: inline-block;
@@ -557,6 +557,41 @@
             padding-right: 40px;
         }
 
+        /* ===== ЧЕКБОКСЫ (МНОЖЕСТВЕННЫЙ ВЫБОР) ===== */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid rgba(255, 0, 255, 0.1);
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #ddd;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background: rgba(255, 0, 255, 0.08);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #ff00ff;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
         /* ===== МНОГОШАГОВАЯ ФОРМА ===== */
         .form-step {
             display: none;
@@ -703,7 +738,6 @@
                 min-height: 100svh;
             }
 
-            /* ===== ПЕРВЫЙ БЛОК — только размеры, ТЕКСТ НЕ ТРОГАЕМ! ===== */
             .block-1 {
                 padding: 40px 15px 25px;
             }
@@ -718,14 +752,10 @@
                 font-size: 0.9rem;
                 line-height: 1.5;
             }
-
-            /* УМЕНЬШАЕМ ИКОНКИ В ПЕРВОМ БЛОКЕ */
             .block-1 .icon-90s {
                 font-size: 2rem !important;
                 margin: 3px 5px;
             }
-
-            /* УМЕНЬШАЕМ ОБРАТНЫЙ ОТСЧЁТ В ПЕРВОМ БЛОКЕ */
             .block-1 .countdown {
                 gap: 8px;
                 margin: 12px 0;
@@ -738,8 +768,6 @@
             .block-1 .countdown-label {
                 font-size: 0.5rem;
             }
-
-            /* УМЕНЬШАЕМ ЗАГОЛОВКИ В ПЕРВОМ БЛОКЕ */
             .block-1 .neon-title {
                 font-size: 1.3rem;
                 letter-spacing: 2px;
@@ -751,7 +779,6 @@
                 margin-bottom: 10px;
             }
 
-            /* ===== ОСТАЛЬНЫЕ БЛОКИ — тоже адаптируем ===== */
             .glass-card {
                 padding: 18px 15px;
             }
@@ -770,12 +797,10 @@
                 font-size: 1.1rem;
             }
 
-            /* УБИРАЕМ БОКОВОЙ ДЕКОР НА ТЕЛЕФОНАХ */
             .side-decor {
                 display: none;
             }
 
-            /* НАВИГАЦИЯ */
             .nav-dots {
                 right: 8px;
                 gap: 8px;
@@ -785,7 +810,6 @@
                 height: 8px;
             }
 
-            /* КНОПКА */
             .float-btn {
                 padding: 10px 18px;
                 font-size: 0.8rem;
@@ -793,7 +817,6 @@
                 right: 15px;
             }
 
-            /* СТРЕЛКА */
             .scroll-arrow {
                 bottom: 12px;
             }
@@ -808,7 +831,6 @@
                 margin-top: -6px;
             }
 
-            /* КАРТА */
             .map-preview img {
                 height: 160px;
                 object-fit: cover;
@@ -818,7 +840,6 @@
                 font-size: 0.8rem;
             }
 
-            /* ДРЕСС-КОД */
             .dress-item {
                 padding: 5px 12px;
                 font-size: 0.7rem;
@@ -827,7 +848,6 @@
                 gap: 6px;
             }
 
-            /* ФОРМА */
             .form-group input,
             .form-group select,
             .form-group textarea {
@@ -855,6 +875,20 @@
                 margin-bottom: 14px;
             }
 
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+                gap: 4px;
+                padding: 8px;
+            }
+            .checkbox-item {
+                font-size: 0.8rem;
+                padding: 4px 8px;
+            }
+            .checkbox-item input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
+            }
+
             .success-screen h3 {
                 font-size: 1.3rem;
             }
@@ -863,7 +897,6 @@
             }
         }
 
-        /* ===== ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ТЕЛЕФОНОВ (до 400px) ===== */
         @media (max-width: 400px) {
             .block-1 .icon-90s {
                 font-size: 1.5rem !important;
@@ -939,7 +972,7 @@
     <a href="#block5" class="float-btn" id="floatBtn">✅ Иду!</a>
 
     <!-- ============================================================ -->
-    <!-- БЛОК 1: ВСТУПЛЕНИЕ (ТЕКСТ ПОЛНЫЙ, иконки уменьшены)         -->
+    <!-- БЛОК 1: ВСТУПЛЕНИЕ                                           -->
     <!-- ============================================================ -->
     <section class="full-screen block-1" id="block1">
         <div class="side-decor">📼</div>
@@ -962,7 +995,6 @@
             <h1 class="neon-title">90-Е ВОЗВРАЩАЮТСЯ!</h1>
             <div class="sub-neon">★ ДЕНЬ РОЖДЕНИЯ ★</div>
 
-            <!-- ОБРАТНЫЙ ОТСЧЁТ -->
             <div class="countdown">
                 <div class="countdown-item">
                     <div class="countdown-num" id="cd-days">000</div>
@@ -1064,7 +1096,6 @@
                     </span>
                 </p>
 
-                <!-- ===== КАРТА ===== -->
                 <a href="https://yandex.ru/maps/?pt=37.601149,55.780496&z=17&l=map"
                    target="_blank"
                    rel="noopener noreferrer"
@@ -1137,7 +1168,7 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- БЛОК 5: ФОРМА                                                -->
+    <!-- БЛОК 5: ФОРМА-ОПРОСНИК (ОБНОВЛЁННЫЙ)                        -->
     <!-- ============================================================ -->
     <section class="full-screen block-5" id="block5">
         <div class="side-decor">📝</div>
@@ -1154,6 +1185,7 @@
                     <div class="progress-dot active" id="dot-0"></div>
                     <div class="progress-dot" id="dot-1"></div>
                     <div class="progress-dot" id="dot-2"></div>
+                    <div class="progress-dot" id="dot-3"></div>
                 </div>
 
                 <h2 id="formTitle">📝 Подтверди участие</h2>
@@ -1169,7 +1201,7 @@
                            tabindex="-1"
                            autocomplete="off">
 
-                    <!-- ШАГ 1 -->
+                    <!-- ===== ШАГ 1: Кто ты? ===== -->
                     <div class="form-step active" id="step-0">
                         <div class="form-group">
                             <label for="name">👤 Как тебя зовут?</label>
@@ -1194,15 +1226,6 @@
                             </select>
                         </div>
 
-                        <div class="btn-row">
-                            <button type="button" class="btn-next" onclick="nextStep(1)">
-                                Далее →
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- ШАГ 2 -->
-                    <div class="form-step" id="step-1">
                         <div class="form-group">
                             <label for="companion">👫 С кем придёшь?</label>
                             <select id="companion"
@@ -1229,17 +1252,66 @@
                             </select>
                         </div>
 
+                        <div class="btn-row">
+                            <button type="button" class="btn-next" onclick="nextStep(1)">
+                                Далее →
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ===== ШАГ 2: Напитки (Алкоголь) ===== -->
+                    <div class="form-step" id="step-1">
+                        <p style="color:#ffcc00; margin-bottom:15px; font-size:0.9rem;">
+                            🍻 Выбери, что будешь пить (можно несколько)
+                        </p>
+
                         <div class="form-group">
-                            <label for="drink">🍻 Что будешь пить?</label>
-                            <select id="drink"
+                            <label>🥃 Алкогольные напитки:</label>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="alcohol" value="Водка">
+                                    🥃 Водка
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="alcohol" value="Виски">
+                                    🥃 Виски
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="alcohol" value="Коньяк">
+                                    🥃 Коньяк
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="alcohol" value="Текила">
+                                    🍸 Текила
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="alcohol" value="Шампанское">
+                                    🥂 Шампанское
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="alcohol" value="Вино красное">
+                                    🍷 Вино красное
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="alcohol" value="Вино белое">
+                                    🍷 Вино белое
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="alcohol" value="Не пью алкоголь">
+                                    🚫 Не пью алкоголь
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="drink_amount">🍺 Много ли вы планируете пить?</label>
+                            <select id="drink_amount"
                                     name="entry.5555555555">
-                                <option value="">Выбери напиток...</option>
-                                <option value="Водка">🥃 Водка</option>
-                                <option value="Пиво">🍺 Пиво</option>
-                                <option value="Мартини">🍸 Мартини</option>
-                                <option value="Шампанское">🥂 Шампанское</option>
-                                <option value="Кола / безалкогольное">🥤 Кола / безалкогольное</option>
-                                <option value="Другое">🧃 Другое</option>
+                                <option value="">Выбери вариант...</option>
+                                <option value="Немного (для настроения)">🍷 Немного (для настроения)</option>
+                                <option value="Умеренно">🍻 Умеренно</option>
+                                <option value="Много (буду отрываться!)">🔥 Много (буду отрываться!)</option>
+                                <option value="Буду за рулём — только безалкогольное">🚗 Буду за рулём</option>
                             </select>
                         </div>
 
@@ -1253,13 +1325,78 @@
                         </div>
                     </div>
 
-                    <!-- ШАГ 3 -->
+                    <!-- ===== ШАГ 3: Безалкогольное + Вода ===== -->
                     <div class="form-step" id="step-2">
+                        <p style="color:#ffcc00; margin-bottom:15px; font-size:0.9rem;">
+                            🥤 Безалкогольные напитки (можно несколько)
+                        </p>
+
+                        <div class="form-group">
+                            <label>🧃 Безалкогольные напитки:</label>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="nonalcohol" value="Сок">
+                                    🧃 Сок
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="nonalcohol" value="Кола">
+                                    🥤 Кола
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="nonalcohol" value="Тархун">
+                                    🍃 Тархун
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="nonalcohol" value="Морс">
+                                    🫐 Морс
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="nonalcohol" value="Лимонад">
+                                    🍋 Лимонад
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="nonalcohol" value="Компот">
+                                    🍎 Компот
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="nonalcohol" value="Минералка">
+                                    💧 Минеральная вода
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="nonalcohol" value="Не пью безалкогольное">
+                                    🚫 Не пью безалкогольное
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="water">💧 Вода:</label>
+                            <select id="water"
+                                    name="entry.6666666666">
+                                <option value="">Выбери вариант...</option>
+                                <option value="Газированная">🫧 Газированная</option>
+                                <option value="Негазированная">💧 Негазированная</option>
+                                <option value="Всё равно">🤷 Всё равно</option>
+                            </select>
+                        </div>
+
+                        <div class="btn-row">
+                            <button type="button" class="btn-back" onclick="prevStep(1)">
+                                ← Назад
+                            </button>
+                            <button type="button" class="btn-next" onclick="nextStep(3)">
+                                Далее →
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ===== ШАГ 4: Комментарий и отправка ===== -->
+                    <div class="form-step" id="step-3">
                         <div class="form-group">
                             <label for="comment">💬 Пожелания, аллергии, вопросы</label>
                             <textarea id="comment"
-                                      name="entry.6666666666"
-                                      placeholder="Необязательно, но будет здорово узнать..."></textarea>
+                                      name="entry.7777777777"
+                                      placeholder="Напиши что-нибудь..."></textarea>
                         </div>
 
                         <div class="form-group" style="
@@ -1276,7 +1413,7 @@
                         </div>
 
                         <div class="btn-row">
-                            <button type="button" class="btn-back" onclick="prevStep(1)">
+                            <button type="button" class="btn-back" onclick="prevStep(2)">
                                 ← Назад
                             </button>
                             <button type="submit" class="submit-btn" id="submitBtn">
@@ -1370,7 +1507,7 @@
            3. МНОГОШАГОВАЯ ФОРМА
            ============================================================ */
         let currentStep = 0;
-        const totalSteps = 3;
+        const totalSteps = 4;
 
         function updateProgress(step) {
             for (let i = 0; i < totalSteps; i++) {
@@ -1378,7 +1515,12 @@
                 if (i < step) { dot.className = 'progress-dot done'; } else if (i === step) { dot
                         .className = 'progress-dot active'; } else { dot.className = 'progress-dot'; }
             }
-            const titles = ['📝 Подтверди участие', '📋 Детали', '💬 Почти готово!'];
+            const titles = [
+                '📝 Кто ты?',
+                '🍻 Алкоголь',
+                '🥤 Безалкогольное',
+                '💬 Почти готово!'
+            ];
             document.getElementById('formTitle').textContent = titles[step];
         }
 
