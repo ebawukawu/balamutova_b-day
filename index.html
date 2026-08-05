@@ -916,6 +916,67 @@
             pointer-events: none;
         }
 
+        /* ===== КОНЦОВКА ДЛЯ "НЕ ПРИДУ" ===== */
+        .success-screen-away {
+            display: none;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .success-screen-away.show {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .success-screen-away .sad-emoji {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 15px;
+            animation: shake 2s ease-in-out infinite;
+        }
+
+        .success-screen-away h3 {
+            font-size: 1.8rem;
+            color: #ff6699;
+            margin-bottom: 12px;
+        }
+
+        .success-screen-away p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ddd;
+        }
+
+        .success-screen-away .accent {
+            color: #ff00ff;
+        }
+
+        .success-screen-away .btn-return {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(90deg, #ff6699, #ff3366);
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .success-screen-away .btn-return:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255,51,102,0.5);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
         /* ===== КНОПКИ ===== */
         .btn-row {
             display: flex;
@@ -1005,7 +1066,7 @@
             background: #00ffff;
         }
 
-        /* ===== ЭКРАН УСПЕХА ===== */
+        /* ===== ЭКРАН УСПЕХА (обычный) ===== */
         .success-screen {
             display: none;
             text-align: center;
@@ -1226,6 +1287,17 @@
             .success-screen p {
                 font-size: 0.85rem;
             }
+            .success-screen-away h3 {
+                font-size: 1.2rem;
+            }
+            .success-screen-away p {
+                font-size: 0.85rem;
+            }
+            .success-screen-away .btn-return {
+                font-size: 0.6rem;
+                padding: 10px 20px;
+            }
+
             .calendar-btn {
                 padding: 8px 16px;
                 font-size: 0.75rem;
@@ -1328,6 +1400,10 @@
             .block-content {
                 max-height: calc(100svh - 70px);
             }
+            .success-screen-away .btn-return {
+                font-size: 0.5rem;
+                padding: 8px 16px;
+            }
         }
 
         /* ===== СКРОЛЛБАР ===== */
@@ -1371,59 +1447,78 @@
     </div>
 
     <!-- ============================================================ -->
-<!-- БЛОК 1.5: POLAROID-ФОТО МАШИ ИЗ 90-Х                        -->
-<!-- ============================================================ -->
-<section class="full-screen block-photo" id="block-photo" style="
-    background: radial-gradient(circle at 30% 70%, #1a0a2e, #0a0a0a);
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 60px 20px 40px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    scroll-snap-align: start;
-    -webkit-scroll-snap-align: start;
-">
-    <div class="logo-decor" style="top:10%; left:3%; animation-delay:0.5s;">
-        <div style="font-size:2.5rem;">📸</div>
-    </div>
-    <div class="logo-decor" style="bottom:20%; right:3%; animation-delay:1.5s;">
-        <div style="font-size:2.5rem;">🎞️</div>
-    </div>
-    <div class="logo-decor" style="top:30%; right:5%; animation-delay:2.5s;">
-        <div style="font-size:2rem;">🎬</div>
-    </div>
-
-    <div class="block-content" style="max-width:750px; width:100%;">
-        <div class="glass-card" style="padding:15px; background:rgba(0,0,0,0.8); border:2px solid rgba(255,0,255,0.3);">
-            <div style="position:relative; border-radius:12px; overflow:hidden; border:4px solid #ffcc00; box-shadow: 0 0 40px rgba(255,204,0,0.2);">
-                <img src="images/masha-90s.png" 
-                     alt="Маша в 90-х" 
-                     style="width:100%; max-height:70vh; object-fit:contain; display:block;"
-                     loading="lazy"
-                     onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'padding:40px; color:#ffcc00; font-size:1.2rem;\'>📸 Маша в 90-х</div>';">
-            </div>
-            <div style="display:flex; justify-content:space-between; margin-top:12px; padding:0 8px; flex-wrap:wrap; gap:5px;">
-                <span style="color:#ffcc00; font-size:0.8rem;">📼 90-е</span>
-                <span style="color:#ff6699; font-size:0.8rem; font-weight:bold;">❤️ Маша Балагурова</span>
-                <span style="color:#ffcc00; font-size:0.8rem;">🎞️</span>
-            </div>
-            <p style="color:#888; font-size:0.7rem; margin-top:8px; font-style:italic;">
-                «Вспоминаем лучшие годы...»
-            </p>
+    <!-- БЛОК 1: ВСТУПЛЕНИЕ                                           -->
+    <!-- ============================================================ -->
+    <section class="full-screen block-1" id="block1">
+        <div class="logo-decor" style="top:8%; left:2%; animation-delay:0s;">
+            <div style="font-size:2.5rem;">📼</div>
         </div>
-    </div>
+        <div class="logo-decor" style="top:22%; right:3%; animation-delay:1s;">
+            <div class="logo-mtv"><span>MTV</span></div>
+        </div>
+        <div class="logo-decor" style="bottom:32%; left:2%; animation-delay:2s;">
+            <div class="logo-turbo">TURBO</div>
+        </div>
+        <div class="logo-decor" style="bottom:18%; right:2%; animation-delay:0.5s;">
+            <div class="logo-love-is">
+                <span class="love-heart">❤️</span>
+                <span class="love-text">Love Is</span>
+                <span class="love-sub">...sharing</span>
+            </div>
+        </div>
 
-    <a href="#block2" class="scroll-arrow" aria-label="Пролистать вниз">
-        <span></span>
-        <span></span>
-        <span></span>
-    </a>
-</section>
-    
+        <div class="block-content">
+            <div style="margin-bottom:8px;">
+                <span class="icon-90s">📼</span>
+                <span class="icon-90s">🎧</span>
+                <span class="icon-90s">🕹️</span>
+                <span class="icon-90s">📟</span>
+                <span class="icon-90s">💿</span>
+                <span class="icon-90s">📺</span>
+            </div>
+
+            <h1 class="neon-title" data-text="90-Е ВОЗВРАЩАЮТСЯ!">90-Е ВОЗВРАЩАЮТСЯ!</h1>
+            <div class="sub-neon">★ ДЕНЬ РОЖДЕНИЯ <span class="name-glow">МАШИ БАЛАГУРОВОЙ</span> ★</div>
+
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-num" id="cd-days">000</div>
+                    <div class="countdown-label">Дней</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-num" id="cd-hours">00</div>
+                    <div class="countdown-label">Часов</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-num" id="cd-mins">00</div>
+                    <div class="countdown-label">Минут</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-num" id="cd-secs">00</div>
+                    <div class="countdown-label">Секунд</div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h2>🎉 Дорогие друзья!</h2>
+                <p>
+                    <span class="highlight-name">Маша Балагурова</span> приглашает вас на свой день рождения, чтобы вместе
+                    <span class="highlight">окунуться в атмосферу лихих 90-х</span> —
+                    время, когда музыка звучала громче, наряды были ярче,
+                    а жизнь казалась большой дискотекой!<br><br>
+                    Будем вспоминать, танцевать и создавать новые воспоминания
+                    в лучших традициях эпохи. <span class="accent">Будет жарко!</span> 🔥
+                </p>
+            </div>
+        </div>
+
+        <a href="#block2" class="scroll-arrow" aria-label="Пролистать вниз к следующему блоку">
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+    </section>
+
     <!-- ============================================================ -->
     <!-- БЛОК 2: ЧТО ЗА МЕРОПРИЯТИЕ                                   -->
     <!-- ============================================================ -->
@@ -1648,14 +1743,14 @@
                     <!-- ===== ШАГ 1: Кто ты? ===== -->
                     <div class="form-step active" id="step-0">
                         <div class="form-group">
-                            <label for="name">👤 Как к тебе обращаться, легенда? <span style="color:#ff4444;">*</span></label>
+                            <label for="name">👤 Как к тебе обращаться, легенда?<br><span style="font-size:0.75rem; color:#888; font-weight:normal;">Обязательно указывай Имя и Фамилию, например: <span style="color:#ff00ff;">Маша Балагурова</span></span> <span style="color:#ff4444;">*</span></label>
                             <input type="text"
                                    id="name"
                                    name="entry.2102718633"
-                                   placeholder="Напиши своё имя"
+                                   placeholder="Напиши своё имя и фамилию"
                                    required
                                    pattern=".*\S.*"
-                                   title="Введи имя"
+                                   title="Введи имя и фамилию"
                                    autocomplete="off">
                         </div>
 
@@ -1681,30 +1776,12 @@
                         </div>
 
                         <div class="form-group" id="guestDetails">
-                            <label for="companion">👫 Ты и кто ещё? <span style="color:#ff4444;">*</span></label>
-                            <select id="companion"
-                                    name="entry.541886931"
-                                    required>
-                                <option value="">Выбери вариант...</option>
-                                <option value="Один / одна">🕺 Один / одна</option>
-                                <option value="С женой / мужем">💑 С женой / мужем</option>
-                                <option value="С любимым / любимой">❤️ С любимым / любимой</option>
-                                <option value="С братом / сестрой">👬 С братом / сестрой</option>
-                                <option value="С детьми">👨‍👩‍👧‍👦 С детьми</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group" id="kidsField">
-                            <label for="kids">👶 Берёшь мелких? (мы только за!) <span style="color:#ff4444;">*</span></label>
-                            <select id="kids"
-                                    name="entry.1477753363"
-                                    required>
-                                <option value="">Выбери вариант...</option>
-                                <option value="Без детей">Нет, без детей</option>
-                                <option value="1 ребёнок">1 ребёнок</option>
-                                <option value="2 ребёнка">2 ребёнка</option>
-                                <option value="3 и более">3 и более</option>
-                            </select>
+                            <label for="companion">👫 Ты и кто ещё? <span style="color:#ff4444;">*</span><br><span style="font-size:0.75rem; color:#888; font-weight:normal;">Напиши свободно, например: <span style="color:#ff00ff;">Приду с любовницей, тещей и сыном</span></span></label>
+                            <textarea id="companion"
+                                      name="entry.541886931"
+                                      placeholder="Напиши, с кем придёшь..."
+                                      required
+                                      style="min-height:60px;"></textarea>
                         </div>
 
                         <div class="btn-row">
@@ -1940,6 +2017,7 @@
                         style="display:none">
                 </iframe>
 
+                <!-- ===== ОБЫЧНАЯ КОНЦОВКА (пришёл) ===== -->
                 <div class="success-screen" id="successScreen">
                     <span class="success-emoji">🎉</span>
                     <h3>Ты в списке!</h3>
@@ -1952,6 +2030,25 @@
                     <button class="calendar-btn" onclick="downloadICS()" style="margin-top:12px;">
                         📅 Добавить в календарь
                     </button>
+                </div>
+
+                <!-- ===== КОНЦОВКА ДЛЯ "НЕ ПРИДУ" ===== -->
+                <div class="success-screen-away" id="successScreenAway">
+                    <span class="sad-emoji">😢</span>
+                    <h3>Ты нас покидаешь!</h3>
+                    <p>
+                        Ну и ладно! 🥺<br>
+                        <span class="accent">Маша</span> всё равно будет танцевать до утра!<br><br>
+                        🎵 Музыка 90-х<br>
+                        🕺 Танцы<br>
+                        🍹 Коктейли<br>
+                        ...а тебя не будет 😏<br><br>
+                        <span style="color:#ff6699; font-size:0.9rem;">
+                            💡 У тебя есть время одуматься!<br>
+                            Маша прощает, если передумаешь 😉
+                        </span>
+                    </p>
+                    <button class="btn-return" onclick="location.reload();">🔄 Вернуться и передумать</button>
                 </div>
 
                 <!-- Сообщение об ошибке отправки -->
@@ -2129,26 +2226,21 @@
             const attendance = document.getElementById('attendance').value;
             const reasonField = document.getElementById('reasonField');
             const guestDetails = document.getElementById('guestDetails');
-            const kidsField = document.getElementById('kidsField');
             const btnNext = document.querySelector('#step-0 .btn-next');
             const reasonInput = document.getElementById('reason');
 
             if (attendance === 'Нет, не смогу') {
                 reasonField.classList.add('show');
                 guestDetails.style.display = 'none';
-                kidsField.style.display = 'none';
                 btnNext.textContent = '📤 Отправить ответ';
                 reasonInput.setAttribute('required', 'required');
                 document.getElementById('companion').removeAttribute('required');
-                document.getElementById('kids').removeAttribute('required');
             } else {
                 reasonField.classList.remove('show');
                 guestDetails.style.display = 'block';
-                kidsField.style.display = 'block';
                 btnNext.textContent = 'Выбрать напитки → 🍻';
                 reasonInput.removeAttribute('required');
                 document.getElementById('companion').setAttribute('required', 'required');
-                document.getElementById('kids').setAttribute('required', 'required');
             }
         }
 
@@ -2309,7 +2401,6 @@
 
             if (isSubmitted) return;
 
-            // Honeypot: если бот заполнил скрытое поле — тихо не отправляем
             const gotcha = form.querySelector('input[name="_gotcha"]');
             const honeypot = form.querySelector('input[name="_honeypot"]');
             if ((gotcha && gotcha.value) || (honeypot && honeypot.value)) {
@@ -2321,7 +2412,6 @@
                 return;
             }
 
-            // Блокируем все кнопки
             isSubmitted = true;
             form.dataset.submitted = 'true';
 
@@ -2334,7 +2424,6 @@
                 btn.textContent = '⏳ Отправляем...';
             }
 
-            // Сразу скрываем форму и показываем "Отправляется..."
             const formElements = document.getElementById('rsvpForm');
             const formProgress = document.getElementById('formProgress');
             const formTitle = document.getElementById('formTitle');
@@ -2345,7 +2434,6 @@
             if (formTitle) formTitle.style.display = 'none';
             if (stepIndicator) stepIndicator.style.display = 'none';
 
-            // Показываем промежуточное сообщение
             const loadingMsg = document.getElementById('loadingMessage') || (function() {
                 const div = document.createElement('div');
                 div.id = 'loadingMessage';
@@ -2358,21 +2446,18 @@
                 return div;
             })();
 
-            // Отправляем форму
             form.submit();
 
-            // Таймаут-фоллбек: если через 30 секунд нет ответа — показываем ошибку
             if (submitTimeout) clearTimeout(submitTimeout);
             submitTimeout = setTimeout(function() {
-                if (isSubmitted && !document.getElementById('successScreen').classList.contains('show')) {
+                if (isSubmitted && !document.getElementById('successScreen').classList.contains('show') && !document
+                    .getElementById('successScreenAway').classList.contains('show')) {
                     const loadingMsg = document.getElementById('loadingMessage');
                     if (loadingMsg) loadingMsg.style.display = 'none';
                     document.getElementById('submitError').style.display = 'block';
-                    // Разблокируем кнопки для повторной попытки
                     isSubmitted = false;
                     const allButtons = document.querySelectorAll('.btn-next, .btn-back, .submit-btn');
                     allButtons.forEach(btn => btn.disabled = false);
-                    // Показываем форму обратно
                     if (formElements) formElements.style.display = '';
                     if (formProgress) formProgress.style.display = '';
                     if (formTitle) formTitle.style.display = '';
@@ -2383,6 +2468,7 @@
 
         const form = document.getElementById('rsvpForm');
         const successScreen = document.getElementById('successScreen');
+        const successScreenAway = document.getElementById('successScreenAway');
         const formProgress = document.getElementById('formProgress');
         const formTitle = document.getElementById('formTitle');
         const stepIndicator = document.getElementById('stepIndicator');
@@ -2405,11 +2491,21 @@
             if (formProgress) formProgress.style.display = 'none';
             if (formTitle) formTitle.style.display = 'none';
             if (stepIndicator) stepIndicator.style.display = 'none';
-            successScreen.classList.add('show');
+
+            const attendance = document.getElementById('attendance').value;
+            const isAway = (attendance === 'Нет, не смогу');
+
+            if (isAway) {
+                successScreenAway.classList.add('show');
+            } else {
+                successScreen.classList.add('show');
+            }
+
             floatBtn.classList.add('hidden');
 
             setTimeout(() => {
-                successScreen.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                const target = isAway ? successScreenAway : successScreen;
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 300);
         });
 
@@ -2452,6 +2548,7 @@
             if (formTitle) formTitle.style.display = '';
             if (stepIndicator) stepIndicator.style.display = '';
             successScreen.classList.remove('show');
+            successScreenAway.classList.remove('show');
             floatBtn.classList.remove('hidden');
             document.getElementById('submitError').style.display = 'none';
 
@@ -2472,7 +2569,6 @@
             checkNonalcoholNone();
             updateProgress(0);
 
-            // При обновлении — в начало
             document.getElementById('block1').scrollIntoView({ behavior: 'auto' });
         });
 
