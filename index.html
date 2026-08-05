@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>🎉 День рождения Маши Балагуровой в стиле 90-х!</title>
 
     <!-- ===== OG-ТЕГИ ===== -->
@@ -22,14 +22,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
     <style>
-        /* ===== КОРНЕВЫЕ ПЕРЕМЕННЫЕ ДЛЯ АДАПТИВНОЙ ТИПОГРАФИКИ ===== */
+        /* ===== КОРНЕВЫЕ ПЕРЕМЕННЫЕ ===== */
         :root {
             --fs-body: clamp(0.95rem, 3.2vw, 1.15rem);
             --fs-body-sm: clamp(0.85rem, 2.8vw, 1rem);
             --fs-h2: clamp(1.2rem, 4.5vw, 2rem);
             --fs-title: clamp(1.5rem, 6vw, 3rem);
             --fs-label: clamp(0.85rem, 2.6vw, 0.95rem);
-            --fs-small: clamp(0.65rem, 1.8vw, 0.8rem);
             --card-pad: clamp(16px, 4vw, 28px);
             --gap: clamp(8px, 2.5vw, 16px);
         }
@@ -47,12 +46,12 @@
             color: #fff;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
+            /* Естественная прокрутка страницы — без сломанного snap */
         }
 
         html {
             scroll-behavior: smooth;
-            scroll-snap-type: y proximity;
-            -webkit-scroll-snap-type: y proximity;
+            /* Убираем scroll-snap полностью — он конфликтует с длинными блоками */
         }
 
         /* ===== УВАЖАЕМ ПРЕДПОЧТЕНИЯ ПОЛЬЗОВАТЕЛЕЙ ===== */
@@ -65,42 +64,48 @@
             }
         }
 
-        /* ===== БЛОКИ — НЕ ФИКСИРОВАННАЯ ВЫСОТА ===== */
+        /* ===== БЛОКИ — РАСТУТ ЕСТЕСТВЕННО ===== */
         .full-screen {
-            min-height: 100vh;
-            min-height: 100svh;
-            height: auto;
+            min-height: 100vh;      /* fallback для старых браузеров */
+            min-height: 100dvh;     /* dynamic viewport height — лучший вариант для мобильных */
+            height: auto;           /* блок растёт, если контент не влезает */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: clamp(50px, 8vh, 70px) clamp(12px, 4vw, 20px) clamp(25px, 5vh, 40px);
+            padding: max(clamp(50px, 8vh, 70px), env(safe-area-inset-top)) 
+                     clamp(12px, 4vw, 20px) 
+                     max(clamp(25px, 5vh, 40px), env(safe-area-inset-bottom));
             text-align: center;
             position: relative;
             overflow: hidden;
-            scroll-snap-align: start;
-            -webkit-scroll-snap-align: start;
+            /* scroll-snap удалён — конфликтует с длинными блоками */
         }
 
-        /* ===== ДЛИННЫЕ БЛОКИ (3 и 5) ===== */
+        /* ===== ДЛИННЫЕ БЛОКИ (3 и 5) — БЕЗ ВНУТРЕННЕЙ ПРОКРУТКИ ===== */
         .block-3,
         .block-5 {
             min-height: 100vh;
-            min-height: 100svh;
+            min-height: 100dvh;
             height: auto;
             justify-content: flex-start;
-            padding-top: clamp(60px, 9vh, 70px);
-            overflow-y: auto;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-        .block-3::-webkit-scrollbar,
-        .block-5::-webkit-scrollbar {
-            display: none;
+            padding-top: max(clamp(60px, 9vh, 70px), env(safe-area-inset-top));
+            padding-bottom: max(clamp(40px, 5vh, 60px), env(safe-area-inset-bottom));
+            /* Убираем overflow-y: auto — прокрутка на уровне страницы */
         }
 
+        /* ===== КОНТЕЙНЕР КОНТЕНТА — БЕЗ ВНУТРЕННЕЙ ПРОКРУТКИ! ===== */
+        .block-content {
+            position: relative;
+            z-index: 2;
+            max-width: 750px;
+            width: 100%;
+            /* Убираем max-height и overflow-y — контент растёт естественно */
+        }
+
+        /* БЕЗОПАСНЫЙ ОТСТУП СНИЗУ ДЛЯ ФОРМЫ — ЧТОБЫ НЕ ПЕРЕКРЫВАЛИ КНОПКИ */
         .block-5 .block-content {
-            padding-bottom: clamp(70px, 12vh, 100px);
+            padding-bottom: clamp(80px, 12vh, 120px);
         }
 
         /* ===== ФОНОВЫЕ ЭФФЕКТЫ ===== */
@@ -121,6 +126,7 @@
             z-index: 0;
         }
 
+        /* VHS-шум — отключаем на мобилке для производительности */
         .block-1::after,
         .block-2::after,
         .block-3::after,
@@ -162,21 +168,6 @@
         }
         .block-5 {
             background: radial-gradient(circle at 70% 20%, #1a2a0a, #0a0a0a);
-        }
-
-        /* ===== КОНТЕЙНЕР КОНТЕНТА ===== */
-        .block-content {
-            position: relative;
-            z-index: 2;
-            max-width: 750px;
-            width: 100%;
-            max-height: calc(100svh - 100px);
-            overflow-y: auto;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-        .block-content::-webkit-scrollbar {
-            display: none;
         }
 
         /* ===== CSS-ЛОГОТИПЫ 90-Х ===== */
@@ -321,6 +312,13 @@
             color: #aaccff;
             letter-spacing: 2px;
             text-transform: uppercase;
+        }
+
+        /* На мобилке скрываем логотипы */
+        @media (max-width: 600px) {
+            .logo-decor {
+                display: none;
+            }
         }
 
         /* ===== БЕГУЩАЯ СТРОКА ===== */
@@ -517,9 +515,9 @@
         /* ===== ОБРАТНЫЙ ОТСЧЁТ ===== */
         .countdown {
             display: flex;
-            gap: 15px;
+            gap: clamp(8px, 2vw, 15px);
             justify-content: center;
-            margin: 20px 0;
+            margin: clamp(12px, 2vh, 20px) 0;
             flex-wrap: wrap;
         }
         .countdown-item {
@@ -530,18 +528,18 @@
         }
         .countdown-num {
             font-family: 'Press Start 2P', monospace;
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            font-size: clamp(1.2rem, 4.5vw, 2.5rem);
             color: #ff00ff;
             text-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
-            min-width: 60px;
+            min-width: clamp(40px, 10vw, 60px);
             text-align: center;
             background: rgba(255, 0, 255, 0.08);
             border: 1px solid rgba(255, 0, 255, 0.3);
             border-radius: 10px;
-            padding: 8px 10px;
+            padding: clamp(4px, 1vh, 8px) clamp(6px, 1.5vw, 10px);
         }
         .countdown-label {
-            font-size: 0.65rem;
+            font-size: clamp(0.5rem, 1.5vw, 0.65rem);
             color: #aaa;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -557,7 +555,7 @@
             -webkit-text-fill-color: transparent;
             animation: gradientMove 4s ease infinite;
             letter-spacing: clamp(1px, 0.5vw, 3px);
-            margin-bottom: 10px;
+            margin-bottom: clamp(6px, 1vh, 10px);
             line-height: 1.4;
             will-change: background-position;
             position: relative;
@@ -605,11 +603,11 @@
         }
 
         .sub-neon {
-            font-size: clamp(0.9rem, 2vw, 1.3rem);
+            font-size: clamp(0.7rem, 1.8vw, 1.3rem);
             color: #ffcc00;
             text-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
-            letter-spacing: 4px;
-            margin-bottom: 20px;
+            letter-spacing: clamp(2px, 0.8vw, 4px);
+            margin-bottom: clamp(10px, 1.5vh, 20px);
         }
 
         .name-glow {
@@ -639,11 +637,11 @@
         .glass-card h2 {
             font-size: var(--fs-h2);
             color: #00ffff;
-            margin-bottom: 15px;
+            margin-bottom: clamp(10px, 1.5vh, 15px);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: clamp(8px, 1.5vw, 12px);
         }
         .glass-card p {
             font-size: var(--fs-body);
@@ -665,10 +663,10 @@
 
         /* ===== ИКОНКИ 90-Х ===== */
         .icon-90s {
-            font-size: clamp(2rem, 7vw, 4.5rem);
+            font-size: clamp(1.8rem, 6vw, 4.5rem);
             display: inline-block;
             filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.3));
-            margin: clamp(3px, 1vw, 8px);
+            margin: clamp(2px, 0.8vw, 8px);
             animation: float 4s ease-in-out infinite;
             will-change: transform;
         }
@@ -702,13 +700,13 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
-            margin-top: 15px;
+            gap: clamp(6px, 1.5vw, 10px);
+            margin-top: clamp(10px, 1.5vh, 15px);
         }
         .dress-item {
             background: rgba(255, 0, 255, 0.1);
             border: 1px solid #ff00ff;
-            padding: 7px 18px;
+            padding: clamp(4px, 0.8vw, 7px) clamp(10px, 2vw, 18px);
             border-radius: 30px;
             font-size: var(--fs-body-sm);
             color: #fff;
@@ -718,7 +716,7 @@
         /* ===== КАРТА ===== */
         .map-preview {
             display: block;
-            margin-top: 15px;
+            margin-top: clamp(10px, 1.5vh, 15px);
             border-radius: 16px;
             overflow: hidden;
             border: 2px solid rgba(0, 255, 255, 0.3);
@@ -742,14 +740,14 @@
 
         .map-button {
             display: inline-block;
-            margin-top: 12px;
-            padding: 11px 28px;
+            margin-top: clamp(8px, 1vh, 12px);
+            padding: clamp(8px, 1.5vw, 11px) clamp(16px, 3vw, 28px);
             background: linear-gradient(90deg, #ff00ff, #00ffff);
             border-radius: 30px;
             color: #0a0a0a;
             font-weight: bold;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: clamp(0.8rem, 1.5vw, 0.95rem);
             transition: all 0.3s;
             border: none;
             cursor: pointer;
@@ -765,13 +763,13 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-top: 14px;
-            padding: 11px 24px;
+            margin-top: clamp(10px, 1.5vh, 14px);
+            padding: clamp(8px, 1.5vw, 11px) clamp(14px, 2.5vw, 24px);
             background: transparent;
             border: 2px solid #ffcc00;
             border-radius: 30px;
             color: #ffcc00;
-            font-size: 0.9rem;
+            font-size: clamp(0.75rem, 1.3vw, 0.9rem);
             font-weight: bold;
             cursor: pointer;
             text-decoration: none;
@@ -787,9 +785,9 @@
             transform: translateY(0);
         }
         .calendar-hint {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: #555;
-            margin-top: 5px;
+            margin-top: 4px;
             display: block;
         }
 
@@ -798,19 +796,19 @@
             background: rgba(0, 255, 255, 0.03);
             border: 2px solid #ff00ff;
             border-radius: 20px;
-            padding: 25px 20px;
+            padding: clamp(16px, 3vw, 25px) clamp(12px, 2vw, 20px);
             width: 100%;
             touch-action: pan-y;
         }
         .form-card h2 {
             color: #ffcc00;
             font-size: var(--fs-h2);
-            margin-bottom: 10px;
+            margin-bottom: clamp(8px, 1.5vh, 10px);
             text-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
         }
 
         .form-group {
-            margin-bottom: 14px;
+            margin-bottom: clamp(10px, 1.5vh, 14px);
             text-align: left;
         }
         .form-group label {
@@ -824,7 +822,7 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 10px 14px;
+            padding: clamp(8px, 1.5vw, 10px) clamp(10px, 2vw, 14px);
             border-radius: 12px;
             border: 1px solid #444;
             background: rgba(0, 0, 0, 0.5);
@@ -836,7 +834,7 @@
             appearance: none;
         }
         .form-group textarea {
-            min-height: 70px;
+            min-height: 60px;
             resize: vertical;
         }
         .form-group input:focus,
@@ -877,9 +875,9 @@
 
         .step-indicator {
             color: #888;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: clamp(8px, 1vh, 12px);
             letter-spacing: 1px;
         }
         .step-indicator span {
@@ -898,21 +896,21 @@
         .checkbox-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4px;
+            gap: clamp(3px, 0.8vw, 4px);
             background: rgba(255, 255, 255, 0.03);
             border-radius: 12px;
-            padding: 8px;
+            padding: clamp(6px, 1vw, 8px);
             border: 1px solid rgba(255, 0, 255, 0.1);
         }
 
         .checkbox-item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: clamp(6px, 1.5vw, 10px);
             font-size: var(--fs-body-sm);
             color: #ddd;
             cursor: pointer;
-            padding: 8px 12px;
+            padding: clamp(4px, 0.8vw, 8px) clamp(6px, 1vw, 10px);
             border-radius: 6px;
             transition: all 0.2s;
             min-height: 44px;
@@ -1051,14 +1049,14 @@
         /* ===== КНОПКИ ===== */
         .btn-row {
             display: flex;
-            gap: 10px;
-            margin-top: 16px;
+            gap: clamp(6px, 1.5vw, 10px);
+            margin-top: clamp(12px, 2vh, 16px);
             justify-content: center;
             flex-wrap: wrap;
         }
         .btn-next,
         .btn-back {
-            padding: 10px 24px;
+            padding: clamp(8px, 1.5vw, 10px) clamp(16px, 3vw, 24px);
             border-radius: 30px;
             border: none;
             font-weight: bold;
@@ -1066,7 +1064,7 @@
             transition: all 0.3s;
             touch-action: manipulation;
             font-family: 'Press Start 2P', monospace;
-            font-size: 0.7rem;
+            font-size: clamp(0.55rem, 1.2vw, 0.7rem);
             text-transform: uppercase;
             border: 2px solid #ff00ff;
             image-rendering: pixelated;
@@ -1091,7 +1089,7 @@
         }
 
         .submit-btn {
-            padding: 10px 24px;
+            padding: clamp(8px, 1.5vw, 10px) clamp(16px, 3vw, 24px);
             border-radius: 30px;
             border: none;
             font-weight: bold;
@@ -1101,7 +1099,7 @@
             color: #0a0a0a;
             touch-action: manipulation;
             font-family: 'Press Start 2P', monospace;
-            font-size: 0.7rem;
+            font-size: clamp(0.55rem, 1.2vw, 0.7rem);
             text-transform: uppercase;
             letter-spacing: 2px;
         }
@@ -1119,12 +1117,12 @@
         .progress-bar {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 12px;
+            gap: clamp(6px, 1.5vw, 10px);
+            margin-bottom: clamp(8px, 1vh, 12px);
         }
         .progress-dot {
-            width: 30px;
-            height: 4px;
+            width: clamp(20px, 5vw, 30px);
+            height: 3px;
             border-radius: 2px;
             background: rgba(255, 255, 255, 0.1);
             transition: all 0.3s;
@@ -1180,6 +1178,8 @@
         /* ============================================================ */
         /* ===== АДАПТИВ =====                                           */
         /* ============================================================ */
+
+        /* Отключаем тяжёлые анимации на мобилках */
         @media (max-width: 600px) {
             .block-1::after,
             .block-2::after,
@@ -1252,12 +1252,10 @@
             .block-3,
             .block-5 {
                 padding-top: clamp(50px, 8vh, 60px);
+                padding-bottom: clamp(30px, 4vh, 40px);
             }
             .block-5 .block-content {
                 padding-bottom: clamp(60px, 10vh, 80px);
-            }
-            .block-content {
-                max-height: calc(100svh - 80px);
             }
 
             .success-screen h3 {
@@ -1287,32 +1285,36 @@
             .step-indicator {
                 font-size: 0.7rem;
             }
+
+            .block-1 .icon-90s:nth-child(5),
+            .block-1 .icon-90s:nth-child(6) {
+                display: none;
+            }
         }
 
+        /* ===== ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ ===== */
         @media (max-width: 400px) {
             .full-screen {
-                padding: 30px 10px 20px;
-                min-height: 450px;
+                padding: 25px 10px 15px;
+                min-height: 100dvh;
             }
-            .block-1 .icon-90s {
-                font-size: 1.4rem !important;
-            }
+
             .block-1 .glass-card {
                 padding: 12px 10px;
             }
             .block-1 .glass-card p {
                 font-size: var(--fs-body-sm);
             }
-            .block-1 .countdown-num {
-                font-size: 1rem;
-                min-width: 28px;
-                padding: 3px 4px;
-            }
             .block-1 .neon-title {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             .countdown {
                 gap: 4px;
+            }
+            .countdown-num {
+                font-size: 0.9rem;
+                min-width: 28px;
+                padding: 3px 4px;
             }
 
             .glass-card {
@@ -1365,16 +1367,21 @@
 
             .block-3,
             .block-5 {
-                padding-top: 50px;
-                min-height: 450px;
+                padding-top: 40px;
+                padding-bottom: 20px;
+                min-height: 100dvh;
             }
-            .block-content {
-                max-height: calc(100svh - 70px);
+            .block-5 .block-content {
+                padding-bottom: clamp(50px, 8vh, 60px);
             }
 
             .success-screen-away .btn-return {
                 font-size: 0.5rem;
                 padding: 8px 16px;
+            }
+            .map-button {
+                font-size: 0.75rem;
+                padding: 6px 14px;
             }
         }
 
@@ -1561,15 +1568,15 @@
         <div class="block-content">
             <div class="glass-card">
                 <h2>📍 Где и когда?</h2>
-                <p style="font-size:clamp(0.95rem,1.8vw,1.15rem);">
+                <p style="font-size:clamp(0.9rem, 1.8vw, 1.15rem);">
                     <span class="highlight">📅 Дата:</span> 12 сентября 2026 года<br>
                     <span class="highlight">⏰ Время:</span> Сбор гостей в <strong>16:00</strong><br>
                     <span class="highlight">🏠 Место:</span> Кафе «Ландринъ»<br>
-                    <span style="color:#aaa; font-size:0.85rem;">
+                    <span style="color:#aaa; font-size:0.8rem;">
                         г. Москва, ул. Сущёвская, д. 9, стр. 4
                     </span>
                     <br>
-                    <span style="color:#888; font-size:0.75rem;">
+                    <span style="color:#888; font-size:0.7rem;">
                         🚇 м. Новослободская — 1 минута пешком
                     </span>
                 </p>
@@ -1601,7 +1608,7 @@
                     </span>
                 </div>
 
-                <p style="color:#888; font-size:0.7rem; margin-top:10px;">
+                <p style="color:#888; font-size:0.65rem; margin-top:8px;">
                     📍 55.780496, 37.601149
                 </p>
             </div>
