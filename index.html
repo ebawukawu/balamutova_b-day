@@ -1371,85 +1371,53 @@
     </div>
 
     <!-- ============================================================ -->
-<!-- БЛОК 1: ВСТУПЛЕНИЕ с Polaroid-фото                           -->
+<!-- БЛОК 1.5: POLAROID-ФОТО МАШИ ИЗ 90-Х                        -->
 <!-- ============================================================ -->
-<section class="full-screen block-1" id="block1">
-    <div class="logo-decor" style="top:8%; left:2%; animation-delay:0s;">
-        <div style="font-size:2.5rem;">📼</div>
+<section class="full-screen block-photo" id="block-photo" style="
+    background: radial-gradient(circle at 30% 70%, #1a0a2e, #0a0a0a);
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    scroll-snap-align: start;
+    -webkit-scroll-snap-align: start;
+">
+    <div class="logo-decor" style="top:10%; left:3%; animation-delay:0.5s;">
+        <div style="font-size:2.5rem;">📸</div>
     </div>
-    <div class="logo-decor" style="top:22%; right:3%; animation-delay:1s;">
-        <div class="logo-mtv"><span>MTV</span></div>
+    <div class="logo-decor" style="bottom:20%; right:3%; animation-delay:1.5s;">
+        <div style="font-size:2.5rem;">🎞️</div>
     </div>
-    <div class="logo-decor" style="bottom:32%; left:2%; animation-delay:2s;">
-        <div class="logo-turbo">TURBO</div>
-    </div>
-    <div class="logo-decor" style="bottom:18%; right:2%; animation-delay:0.5s;">
-        <div class="logo-love-is">
-            <span class="love-heart">❤️</span>
-            <span class="love-text">Love Is</span>
-            <span class="love-sub">...sharing</span>
-        </div>
-    </div>
-
-    <!-- ===== POLAROID-ФОТО В УГЛУ ===== -->
-    <div class="polaroid-photo">
-        <div class="polaroid-frame">
-            <img src="images/masha-90s.png" 
-                 alt="Маша в 90-х" 
-                 loading="lazy"
-                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'padding:20px;color:#ff6699;font-size:0.8rem;\'>📸</div>';">
-            <div class="polaroid-caption">
-                📼 Маша, 90-е
-            </div>
-        </div>
+    <div class="logo-decor" style="top:30%; right:5%; animation-delay:2.5s;">
+        <div style="font-size:2rem;">🎬</div>
     </div>
 
-    <div class="block-content">
-        <div style="margin-bottom:8px;">
-            <span class="icon-90s">📼</span>
-            <span class="icon-90s">🎧</span>
-            <span class="icon-90s">🕹️</span>
-            <span class="icon-90s">📟</span>
-            <span class="icon-90s">💿</span>
-            <span class="icon-90s">📺</span>
-        </div>
-
-        <h1 class="neon-title" data-text="90-Е ВОЗВРАЩАЮТСЯ!">90-Е ВОЗВРАЩАЮТСЯ!</h1>
-        <div class="sub-neon">★ ДЕНЬ РОЖДЕНИЯ <span class="name-glow">МАШИ БАЛАГУРОВОЙ</span> ★</div>
-
-        <div class="countdown">
-            <div class="countdown-item">
-                <div class="countdown-num" id="cd-days">000</div>
-                <div class="countdown-label">Дней</div>
+    <div class="block-content" style="max-width:750px; width:100%;">
+        <div class="glass-card" style="padding:15px; background:rgba(0,0,0,0.8); border:2px solid rgba(255,0,255,0.3);">
+            <div style="position:relative; border-radius:12px; overflow:hidden; border:4px solid #ffcc00; box-shadow: 0 0 40px rgba(255,204,0,0.2);">
+                <img src="images/masha-90s.png" 
+                     alt="Маша в 90-х" 
+                     style="width:100%; max-height:70vh; object-fit:contain; display:block;"
+                     loading="lazy"
+                     onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'padding:40px; color:#ffcc00; font-size:1.2rem;\'>📸 Маша в 90-х</div>';">
             </div>
-            <div class="countdown-item">
-                <div class="countdown-num" id="cd-hours">00</div>
-                <div class="countdown-label">Часов</div>
+            <div style="display:flex; justify-content:space-between; margin-top:12px; padding:0 8px; flex-wrap:wrap; gap:5px;">
+                <span style="color:#ffcc00; font-size:0.8rem;">📼 90-е</span>
+                <span style="color:#ff6699; font-size:0.8rem; font-weight:bold;">❤️ Маша Балагурова</span>
+                <span style="color:#ffcc00; font-size:0.8rem;">🎞️</span>
             </div>
-            <div class="countdown-item">
-                <div class="countdown-num" id="cd-mins">00</div>
-                <div class="countdown-label">Минут</div>
-            </div>
-            <div class="countdown-item">
-                <div class="countdown-num" id="cd-secs">00</div>
-                <div class="countdown-label">Секунд</div>
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <h2>🎉 Дорогие друзья!</h2>
-            <p>
-                <span class="highlight-name">Маша Балагурова</span> приглашает вас на свой день рождения, чтобы вместе
-                <span class="highlight">окунуться в атмосферу лихих 90-х</span> —
-                время, когда музыка звучала громче, наряды были ярче,
-                а жизнь казалась большой дискотекой!<br><br>
-                Будем вспоминать, танцевать и создавать новые воспоминания
-                в лучших традициях эпохи. <span class="accent">Будет жарко!</span> 🔥
+            <p style="color:#888; font-size:0.7rem; margin-top:8px; font-style:italic;">
+                «Вспоминаем лучшие годы...»
             </p>
         </div>
     </div>
 
-    <a href="#block2" class="scroll-arrow" aria-label="Пролистать вниз к следующему блоку">
+    <a href="#block2" class="scroll-arrow" aria-label="Пролистать вниз">
         <span></span>
         <span></span>
         <span></span>
