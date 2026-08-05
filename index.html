@@ -1169,10 +1169,23 @@
         }
 
         /* ============================================================ */
-        /* ===== АДАПТИВ =====                                           */
+        /* ===== АДАПТИВ — ОСНОВНЫЕ ПРАВКИ =====                        */
         /* ============================================================ */
 
         @media (max-width: 600px) {
+            /* ===== SCROLL-SNAP: ПЕРЕЛИСТЫВАНИЕ ПО БЛОКАМ ===== */
+            html {
+                scroll-snap-type: y mandatory;
+                height: 100%;
+            }
+
+            body {
+                height: 100%;
+                overflow-y: scroll;
+                scroll-snap-type: y mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+
             .full-screen {
                 min-height: 100vh;
                 min-height: 100dvh;
@@ -1180,12 +1193,23 @@
                 justify-content: center;
                 padding-top: max(50px, env(safe-area-inset-top));
                 padding-bottom: max(20px, env(safe-area-inset-bottom));
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+                -webkit-scroll-snap-align: start;
             }
 
             .block-content {
                 width: 100%;
             }
 
+            /* Короткие блоки — контент по центру */
+            .block-1,
+            .block-2,
+            .block-4 {
+                justify-content: center;
+            }
+
+            /* Длинные блоки (карта, форма) — могут быть выше экрана, контент с верха */
             .block-3,
             .block-5 {
                 height: auto;
@@ -1194,12 +1218,17 @@
                 justify-content: flex-start;
                 padding-top: max(50px, env(safe-area-inset-top));
                 padding-bottom: max(30px, env(safe-area-inset-bottom));
+                scroll-snap-align: start;
+                scroll-snap-stop: normal;
+                -webkit-scroll-snap-align: start;
+                overflow: visible;
             }
 
             .block-5 .block-content {
                 padding-bottom: clamp(60px, 10vh, 80px);
             }
 
+            /* Отключаем тяжёлые анимации */
             .block-1::after,
             .block-2::after,
             .block-3::after,
@@ -2599,11 +2628,9 @@
                 'DESCRIPTION:Вечеринка в стиле 90-х в честь Маши Балагуровой!\\n'
                     + '⏰ Начало в 16:00\\n'
                     + '📍 Кафе Ландринъ\\, м. Новослободская\\n'
-                    + '👕 Дресс-код: стиль 90-х!\\n'
-                    + '🔗 https://ebawukawu.github.io/balamutova_b-day/',
+                    + '👕 Дресс-код: стиль 90-х!\\n',
                 'LOCATION:Кафе Ландринъ\\, г. Москва\\, ул. Сущёвская\\, д. 9\\, стр. 4',
                 'GEO:55.780496;37.601149',
-                'URL:https://ebawukawu.github.io/balamutova_b-day/',
                 'STATUS:CONFIRMED',
                 'TRANSP:OPAQUE',
                 'BEGIN:VALARM',
