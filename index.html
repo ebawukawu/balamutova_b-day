@@ -40,6 +40,8 @@
         html {
             scroll-behavior: smooth;
             scroll-snap-type: y mandatory;
+            /* Префиксы для iOS Safari */
+            -webkit-scroll-snap-type: y mandatory;
         }
 
         /* ===== УВАЖАЕМ ПРЕДПОЧТЕНИЯ ПОЛЬЗОВАТЕЛЕЙ ===== */
@@ -65,6 +67,7 @@
             position: relative;
             overflow: hidden;
             scroll-snap-align: start;
+            -webkit-scroll-snap-align: start;
         }
 
         /* ===== ДЛИННЫЕ БЛОКИ (3 и 5) ===== */
@@ -76,6 +79,7 @@
             padding-top: 70px;
             overflow-y: auto;
             scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
         }
         .block-3::-webkit-scrollbar,
         .block-5::-webkit-scrollbar {
@@ -152,6 +156,7 @@
             max-height: calc(100svh - 100px);
             overflow-y: auto;
             scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
         }
         .block-content::-webkit-scrollbar {
             display: none;
@@ -319,7 +324,7 @@
         }
         .marquee-track {
             display: inline-block;
-            animation: marqueeScroll 50s linear infinite;
+            animation: marqueeScroll 40s linear infinite;
             color: #ff00ff;
             font-size: 0.75rem;
             letter-spacing: 2px;
@@ -1888,7 +1893,7 @@
                             <button type="button" class="btn-back" onclick="prevStep(2)">
                                 ← Назад
                             </button>
-                            <button type="submit" class="submit-btn" id="submitBtn">
+                            <button type="button" class="btn-next" id="finalSubmitBtn" onclick="submitForm()">
                                 🎸 Всё, я в деле!
                             </button>
                         </div>
@@ -1913,6 +1918,11 @@
                     <button class="calendar-btn" onclick="downloadICS()" style="margin-top:12px;">
                         📅 Добавить в календарь
                     </button>
+                </div>
+
+                <!-- Сообщение об ошибке отправки -->
+                <div id="submitError" style="display:none; color:#ff4444; text-align:center; margin-top:15px;">
+                    ⚠️ Что-то пошло не так. Попробуй ещё раз или напиши имениннику напрямую 😊
                 </div>
 
             </div>
@@ -1992,6 +2002,7 @@
         const totalSteps = 4;
         let isSubmitted = false;
         let formStartTime = Date.now();
+        let submitTimeout = null;
 
         function updateProgress(step) {
             for (let i = 0; i < totalSteps; i++) {
@@ -2020,6 +2031,9 @@
         }
 
         function nextStep(step) {
+            // Если уже отправляем — блокируем повторные клики
+            if (isSubmitted) return;
+
             const attendance = document.getElementById('attendance').value;
             if (attendance === 'Нет, не смогу') {
                 const reason = document.getElementById('reason').value.trim();
@@ -2119,16 +2133,14 @@
                     const cb = item.querySelector('input[type="checkbox"]');
                     cb.checked = false;
                     item.classList.add('disabled');
-                    // Убираем подсветку, если она была
                     item.classList.remove('active-checkbox');
                 });
                 document.getElementById('drink_amount').removeAttribute('required');
-                document.getElementById('drink_amount').value = ''; // ← Очищаем значение
+                document.getElementById('drink_amount').value = '';
             } else {
                 drinkAmountField.style.display = 'block';
                 allItems.forEach(item => {
                     item.classList.remove('disabled');
-                    // Если чекбокс отмечен — добавляем подсветку
                     const cb = item.querySelector('input[type="checkbox"]');
                     if (cb.checked) {
                         item.classList.add('active-checkbox');
@@ -2169,6 +2181,8 @@
            7. ВАЛИДАЦИЯ АЛКОГОЛЯ
            ============================================================ */
         function validateAlcohol() {
+            if (isSubmitted) return;
+
             const alcoholChecked = document.querySelectorAll(
                 '#alcoholGroup input[type="checkbox"]:checked, ' +
                 '#alcoholGroup + .form-group input[type="checkbox"]:checked, ' +
@@ -2213,6 +2227,8 @@
            8. ВАЛИДАЦИЯ БЕЗАЛКОГОЛЬНОГО
            ============================================================ */
         function validateNonalcohol() {
+            if (isSubmitted) return;
+
             const nonalcoholChecked = document.querySelectorAll('#nonalcoholGroup input[type="checkbox"]:checked')
             .length;
             const noNonalcoholChecked = document.getElementById('noNonalcoholCheck').checked;
@@ -2249,10 +2265,13 @@
 
 
         /* ============================================================
-           9. ОТПРАВКА ФОРМЫ с honeypot-защитой
+           9. ОТПРАВКА ФОРМЫ с honeypot-защитой и таймаутом
            ============================================================ */
         function submitForm() {
             const form = document.getElementById('rsvpForm');
+
+            // Защита от повторной отправки
+            if (isSubmitted) return;
 
             // Honeypot: если бот заполнил скрытое поле — тихо не отправляем
             const gotcha = form.querySelector('input[name="_gotcha"]');
@@ -2266,12 +2285,64 @@
                 return;
             }
 
+            // Блокируем все кнопки
             isSubmitted = true;
             form.dataset.submitted = 'true';
+
+            const allButtons = document.querySelectorAll('.btn-next, .btn-back, .submit-btn');
+            allButtons.forEach(btn => btn.disabled = true);
+
             const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
-            btn.textContent = '⏳ Отправляем...';
+            if (btn) {
+                btn.disabled = true;
+                btn.textContent = '⏳ Отправляем...';
+            }
+
+            // Сразу скрываем форму и показываем "Отправляется..."
+            const formElements = document.getElementById('rsvpForm');
+            const formProgress = document.getElementById('formProgress');
+            const formTitle = document.getElementById('formTitle');
+            const stepIndicator = document.getElementById('stepIndicator');
+
+            if (formElements) formElements.style.display = 'none';
+            if (formProgress) formProgress.style.display = 'none';
+            if (formTitle) formTitle.style.display = 'none';
+            if (stepIndicator) stepIndicator.style.display = 'none';
+
+            // Показываем промежуточное сообщение
+            const loadingMsg = document.getElementById('loadingMessage') || (function() {
+                const div = document.createElement('div');
+                div.id = 'loadingMessage';
+                div.style.textAlign = 'center';
+                div.style.padding = '30px 20px';
+                div.style.color = '#ffcc00';
+                div.innerHTML = '⏳ <span style="font-size:1.2rem;">Отправляем твой ответ...</span>';
+                const formCard = document.querySelector('.form-card');
+                if (formCard) formCard.appendChild(div);
+                return div;
+            })();
+
+            // Отправляем форму
             form.submit();
+
+            // Таймаут-фоллбек: если через 30 секунд нет ответа — показываем ошибку
+            if (submitTimeout) clearTimeout(submitTimeout);
+            submitTimeout = setTimeout(function() {
+                if (isSubmitted && !document.getElementById('successScreen').classList.contains('show')) {
+                    const loadingMsg = document.getElementById('loadingMessage');
+                    if (loadingMsg) loadingMsg.style.display = 'none';
+                    document.getElementById('submitError').style.display = 'block';
+                    // Разблокируем кнопки для повторной попытки
+                    isSubmitted = false;
+                    const allButtons = document.querySelectorAll('.btn-next, .btn-back, .submit-btn');
+                    allButtons.forEach(btn => btn.disabled = false);
+                    // Показываем форму обратно
+                    if (formElements) formElements.style.display = '';
+                    if (formProgress) formProgress.style.display = '';
+                    if (formTitle) formTitle.style.display = '';
+                    if (stepIndicator) stepIndicator.style.display = '';
+                }
+            }, 30000);
         }
 
         const form = document.getElementById('rsvpForm');
@@ -2284,12 +2355,27 @@
         hiddenIframe.addEventListener('load', function() {
             if (!isSubmitted) return;
 
+            // Очищаем таймаут
+            if (submitTimeout) {
+                clearTimeout(submitTimeout);
+                submitTimeout = null;
+            }
+
+            // Скрываем загрузочное сообщение
+            const loadingMsg = document.getElementById('loadingMessage');
+            if (loadingMsg) loadingMsg.style.display = 'none';
+
+            // Скрываем ошибку, если была
+            document.getElementById('submitError').style.display = 'none';
+
+            // Показываем экран успеха
             form.style.display = 'none';
-            formProgress.style.display = 'none';
-            formTitle.style.display = 'none';
+            if (formProgress) formProgress.style.display = 'none';
+            if (formTitle) formTitle.style.display = 'none';
             if (stepIndicator) stepIndicator.style.display = 'none';
             successScreen.classList.add('show');
             floatBtn.classList.add('hidden');
+
             setTimeout(() => {
                 successScreen.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 300);
@@ -2308,8 +2394,10 @@
                 isSubmitted = true;
                 form.dataset.submitted = 'true';
                 const btn = document.getElementById('submitBtn');
-                btn.disabled = true;
-                btn.textContent = '⏳ Отправляем...';
+                if (btn) {
+                    btn.disabled = true;
+                    btn.textContent = '⏳ Отправляем...';
+                }
             }
         });
 
@@ -2318,18 +2406,33 @@
            10. ЧИСТАЯ ФОРМА ПРИ КАЖДОЙ ЗАГРУЗКЕ / ОБНОВЛЕНИИ
            ============================================================ */
         window.addEventListener('pageshow', function() {
+            // Очищаем таймаут, если был
+            if (submitTimeout) {
+                clearTimeout(submitTimeout);
+                submitTimeout = null;
+            }
+
             form.reset();
-            formStartTime = Date.now(); // ← Сбрасываем таймер
-            isSubmitted = false; // ← Сбрасываем флаг отправки
+            formStartTime = Date.now();
+            isSubmitted = false;
             form.dataset.submitted = 'false';
 
             // Возвращаем форму в видимое состояние
             form.style.display = '';
-            formProgress.style.display = '';
-            formTitle.style.display = '';
+            if (formProgress) formProgress.style.display = '';
+            if (formTitle) formTitle.style.display = '';
             if (stepIndicator) stepIndicator.style.display = '';
             successScreen.classList.remove('show');
             floatBtn.classList.remove('hidden');
+            document.getElementById('submitError').style.display = 'none';
+
+            // Удаляем загрузочное сообщение
+            const loadingMsg = document.getElementById('loadingMessage');
+            if (loadingMsg) loadingMsg.remove();
+
+            // Разблокируем все кнопки
+            const allButtons = document.querySelectorAll('.btn-next, .btn-back, .submit-btn');
+            allButtons.forEach(btn => btn.disabled = false);
 
             // Возвращаем воду на "Всё равно"
             document.getElementById('water').value = 'Всё равно';
@@ -2416,8 +2519,7 @@
             }
         }
 
-        // Инициализация только через pageshow (убираем дублирование)
-        // pageshow уже вызван при загрузке, так что дополнительная инициализация не нужна
+        // Инициализация через pageshow (уже вызван при загрузке)
     </script>
 
 </body>
