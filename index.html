@@ -73,7 +73,6 @@
             z-index: 0;
         }
 
-        /* VHS-шум поверх блока */
         .block-1::after,
         .block-2::after,
         .block-3::after,
@@ -141,7 +140,6 @@
             50% { transform: translateY(-15px) rotate(5deg); }
         }
 
-        /* MTV */
         .logo-mtv {
             width: 52px;
             height: 40px;
@@ -169,7 +167,6 @@
             padding: 2px 3px 2px 4px;
         }
 
-        /* TURBO */
         .logo-turbo {
             background: linear-gradient(135deg, #e60000, #ff4400);
             border-radius: 4px;
@@ -185,7 +182,6 @@
             text-shadow: 1px 1px 0 #000;
         }
 
-        /* LOVE IS */
         .logo-love-is {
             display: flex;
             flex-direction: column;
@@ -217,7 +213,6 @@
             opacity: 0.8;
         }
 
-        /* TERMINATOR */
         .logo-terminator {
             display: flex;
             flex-direction: column;
@@ -239,7 +234,6 @@
             text-align: center;
         }
 
-        /* YUPPIE */
         .logo-yuppie {
             background: linear-gradient(135deg, #0066cc, #0044aa);
             border-radius: 50%;
@@ -269,7 +263,7 @@
             text-transform: uppercase;
         }
 
-        /* ===== БЕГУЩАЯ СТРОКА (CSS-анимация вместо <marquee>) ===== */
+        /* ===== БЕГУЩАЯ СТРОКА (CSS-анимация) ===== */
         .marquee-bar {
             position: fixed;
             top: 0;
@@ -470,7 +464,6 @@
             100% { background-position: 0%; }
         }
 
-        /* Glitch-эффект */
         .neon-title::after {
             content: attr(data-text);
             position: absolute;
@@ -1004,7 +997,6 @@
                 display: none;
             }
 
-            /* НАВИГАЦИЯ — горизонтально внизу */
             .nav-dots {
                 right: auto;
                 left: 50%;
@@ -1019,7 +1011,6 @@
                 height: 8px;
             }
 
-            /* КНОПКА — смещена от точек */
             .float-btn {
                 padding: 10px 18px;
                 font-size: 0.8rem;
@@ -1209,7 +1200,7 @@
 </head>
 <body>
 
-    <!-- ===== БЕГУЩАЯ СТРОКА (CSS вместо marquee) ===== -->
+    <!-- ===== БЕГУЩАЯ СТРОКА ===== -->
     <div class="marquee-bar" role="marquee" aria-label="Бегущая строка с информацией о вечеринке">
         <div class="marquee-track">
             ★ 12 сентября 2026 ★ Кафе Ландринъ ★ Дресс-код: 90-е ★ Ждём тебя! ★
@@ -1317,7 +1308,7 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- БЛОК 2: ЧТО ЗА МЕРОПРИЯТИЕ                                 -->
+    <!-- БЛОК 2: ЧТО ЗА МЕРОПРИЯТИЕ (ОБНОВЛЁННЫЙ)                    -->
     <!-- ============================================================ -->
     <section class="full-screen block-2" id="block2">
         <div class="logo-decor" style="top:10%; left:2%; animation-delay:0.3s;">
@@ -1354,6 +1345,12 @@
                     🕺 Танцевальный батл «как в клипах MTV»<br>
                     📸 Фотозона с атрибутикой эпохи<br>
                     🍹 Коктейли с названиями из 90-х<br><br>
+                    <span class="accent">🔥 Творчество приветствуется!</span><br>
+                    🎸 Игра на гитаре · 💃 Танец · 🧠 Квиз · 🎤 Стендап · 🎭 Сценка<br>
+                    <span style="color:#aaa; font-size:0.9rem;">
+                        Любые творческие номера — вдохновляй и удивляй!
+                    </span>
+                    <br><br>
                     <span class="accent">Главное правило:</span> никаких скучных лиц,
                     только драйв и ностальгия!
                 </p>
@@ -1429,7 +1426,6 @@
                    🗺️ Открыть в Яндекс Картах
                 </a>
 
-                <!-- КНОПКА ДОБАВИТЬ В КАЛЕНДАРЬ -->
                 <div>
                     <button class="calendar-btn" onclick="downloadICS()">
                         📅 Добавить в календарь
@@ -1812,8 +1808,20 @@
                         </div>
                     </div>
 
-                    <!-- ===== ШАГ 4: Комментарий и отправка ===== -->
+                    <!-- ===== ШАГ 4: Комментарий + Творчество + Отправка ===== -->
                     <div class="form-step" id="step-3">
+                        <div class="form-group">
+                            <label for="creative">🎭 Что ты хочешь сделать на мероприятии?</label>
+                            <textarea id="creative"
+                                      name="entry.9999999999"
+                                      placeholder="Например: хочу сыграть на гитаре Цоя, нужна гитара 🎸"
+                                      rows="3"
+                                      style="min-height:70px;"></textarea>
+                            <div style="font-size:0.75rem; color:#666; margin-top:4px;">
+                                💡 Идеи: песня, танец, квиз, стихи, стендап — что угодно!
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="comment">💬 Пожелания, аллергии, вопросы</label>
                             <textarea id="comment"
@@ -1876,458 +1884,453 @@
     <!-- ============================================================ -->
     <!-- СКРИПТЫ                                                      -->
     <!-- ============================================================ -->
-  <script>
-    /* ============================================================
-       1. ОБРАТНЫЙ ОТСЧЁТ
-       ============================================================ */
-    function updateCountdown() {
-        const target = new Date('2026-09-12T16:00:00+03:00');
-        const now = new Date();
-        const diff = target - now;
+    <script>
+        /* ============================================================
+           1. ОБРАТНЫЙ ОТСЧЁТ
+           ============================================================ */
+        function updateCountdown() {
+            const target = new Date('2026-09-12T16:00:00+03:00');
+            const now = new Date();
+            const diff = target - now;
 
-        if (diff <= 0) {
-            document.getElementById('cd-days').textContent = '00';
-            document.getElementById('cd-hours').textContent = '00';
-            document.getElementById('cd-mins').textContent = '00';
-            document.getElementById('cd-secs').textContent = '00';
-            return;
+            if (diff <= 0) {
+                document.getElementById('cd-days').textContent = '00';
+                document.getElementById('cd-hours').textContent = '00';
+                document.getElementById('cd-mins').textContent = '00';
+                document.getElementById('cd-secs').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-days').textContent = String(days).padStart(3, '0');
+            document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+            document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
         }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-        document.getElementById('cd-days').textContent = String(days).padStart(3, '0');
-        document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
-        document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
-        document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
 
 
-    /* ============================================================
-       2. НАВИГАЦИОННЫЕ ТОЧКИ
-       ============================================================ */
-    const sections = document.querySelectorAll('.full-screen');
-    const dots = document.querySelectorAll('.nav-dot');
-    const floatBtn = document.getElementById('floatBtn');
+        /* ============================================================
+           2. НАВИГАЦИОННЫЕ ТОЧКИ
+           ============================================================ */
+        const sections = document.querySelectorAll('.full-screen');
+        const dots = document.querySelectorAll('.nav-dot');
+        const floatBtn = document.getElementById('floatBtn');
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            const idx = Array.from(sections).indexOf(entry.target);
-            dots.forEach((d, i) => {
-                d.classList.toggle('active', i === idx);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const idx = Array.from(sections).indexOf(entry.target);
+                dots.forEach((d, i) => {
+                    d.classList.toggle('active', i === idx);
+                });
+                floatBtn.classList.toggle('hidden', idx === sections.length - 1);
             });
-            floatBtn.classList.toggle('hidden', idx === sections.length - 1);
+        }, { threshold: 0, rootMargin: '-40% 0px -40% 0px' });
+
+        sections.forEach(s => observer.observe(s));
+
+        dots.forEach((dot, idx) => {
+            dot.addEventListener('click', function(e) {
+                e.preventDefault();
+                sections[idx].scrollIntoView({ behavior: 'smooth' });
+            });
         });
-    }, { threshold: 0, rootMargin: '-40% 0px -40% 0px' });
-
-    sections.forEach(s => observer.observe(s));
-
-    dots.forEach((dot, idx) => {
-        dot.addEventListener('click', function(e) {
-            e.preventDefault();
-            sections[idx].scrollIntoView({ behavior: 'smooth' });
-        });
-    });
 
 
-    /* ============================================================
-       3. МНОГОШАГОВАЯ ФОРМА
-       ============================================================ */
-    let currentStep = 0;
-    const totalSteps = 4;
-    let isSubmitted = false;
-    let formStartTime = Date.now();
+        /* ============================================================
+           3. МНОГОШАГОВАЯ ФОРМА
+           ============================================================ */
+        let currentStep = 0;
+        const totalSteps = 4;
+        let isSubmitted = false;
+        let formStartTime = Date.now();
 
-    function updateProgress(step) {
-        for (let i = 0; i < totalSteps; i++) {
-            const dot = document.getElementById('dot-' + i);
-            if (i < step) { dot.className = 'progress-dot done'; } else if (i === step) { dot
-                    .className = 'progress-dot active'; } else { dot.className = 'progress-dot'; }
+        function updateProgress(step) {
+            for (let i = 0; i < totalSteps; i++) {
+                const dot = document.getElementById('dot-' + i);
+                if (i < step) { dot.className = 'progress-dot done'; } else if (i === step) { dot
+                        .className = 'progress-dot active'; } else { dot.className = 'progress-dot'; }
+            }
+            const titles = [
+                '📝 Кто ты?',
+                '🍻 Алкоголь',
+                '🥤 Безалкогольное',
+                '💬 Почти готово!'
+            ];
+            document.getElementById('formTitle').textContent = titles[step];
+            document.getElementById('stepNum').textContent = step + 1;
+            saveProgress();
         }
-        const titles = [
-            '📝 Кто ты?',
-            '🍻 Алкоголь',
-            '🥤 Безалкогольное',
-            '💬 Почти готово!'
-        ];
-        document.getElementById('formTitle').textContent = titles[step];
-        document.getElementById('stepNum').textContent = step + 1;
-        saveProgress();
-    }
 
-    function scrollToError(element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        element.focus({ preventScroll: true });
-    }
+        function scrollToError(element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            element.focus({ preventScroll: true });
+        }
 
-    function nextStep(step) {
-        const attendance = document.getElementById('attendance').value;
-        if (attendance === 'Нет, не смогу') {
-            const reason = document.getElementById('reason').value.trim();
-            if (!reason) {
-                document.getElementById('reason').style.borderColor = '#ff4444';
-                document.getElementById('reason').style.boxShadow = '0 0 15px rgba(255,68,68,0.3)';
-                scrollToError(document.getElementById('reason'));
+        function nextStep(step) {
+            const attendance = document.getElementById('attendance').value;
+            if (attendance === 'Нет, не смогу') {
+                const reason = document.getElementById('reason').value.trim();
+                if (!reason) {
+                    document.getElementById('reason').style.borderColor = '#ff4444';
+                    document.getElementById('reason').style.boxShadow = '0 0 15px rgba(255,68,68,0.3)';
+                    scrollToError(document.getElementById('reason'));
+                    setTimeout(() => {
+                        document.getElementById('reason').style.borderColor = '#444';
+                        document.getElementById('reason').style.boxShadow = 'none';
+                    }, 2000);
+                    return;
+                }
+                submitForm();
+                return;
+            }
+
+            const currentInputs = document.querySelectorAll('#step-' + currentStep + ' [required]');
+            let valid = true;
+            let firstError = null;
+            currentInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.style.borderColor = '#ff4444';
+                    input.style.boxShadow = '0 0 15px rgba(255,68,68,0.3)';
+                    valid = false;
+                    if (!firstError) firstError = input;
+                    setTimeout(() => {
+                        input.style.borderColor = '#444';
+                        input.style.boxShadow = 'none';
+                    }, 2000);
+                }
+            });
+            if (!valid && firstError) {
+                scrollToError(firstError);
+                return;
+            }
+
+            document.getElementById('step-' + currentStep).classList.remove('active');
+            document.getElementById('step-' + step).classList.add('active');
+            currentStep = step;
+            updateProgress(step);
+        }
+
+        function prevStep(step) {
+            document.getElementById('step-' + currentStep).classList.remove('active');
+            document.getElementById('step-' + step).classList.add('active');
+            currentStep = step;
+            updateProgress(step);
+        }
+
+
+        /* ============================================================
+           4. ЛОГИКА: "НЕ ПРИДУ" → ПОЛЕ ДЛЯ ПРИЧИНЫ
+           ============================================================ */
+        function toggleAttendanceFields() {
+            const attendance = document.getElementById('attendance').value;
+            const reasonField = document.getElementById('reasonField');
+            const guestDetails = document.getElementById('guestDetails');
+            const kidsField = document.getElementById('kidsField');
+            const btnNext = document.querySelector('#step-0 .btn-next');
+            const reasonInput = document.getElementById('reason');
+
+            if (attendance === 'Нет, не смогу') {
+                reasonField.classList.add('show');
+                guestDetails.style.display = 'none';
+                kidsField.style.display = 'none';
+                btnNext.textContent = '📤 Отправить ответ';
+                reasonInput.setAttribute('required', 'required');
+                document.getElementById('companion').removeAttribute('required');
+                document.getElementById('kids').removeAttribute('required');
+            } else {
+                reasonField.classList.remove('show');
+                guestDetails.style.display = 'block';
+                kidsField.style.display = 'block';
+                btnNext.textContent = 'Выбрать напитки → 🍻';
+                reasonInput.removeAttribute('required');
+                document.getElementById('companion').setAttribute('required', 'required');
+                document.getElementById('kids').setAttribute('required', 'required');
+            }
+        }
+
+
+        /* ============================================================
+           5. ЛОГИКА: "НЕ ПЬЮ АЛКОГОЛЬ"
+           ============================================================ */
+        function checkAlcoholNone() {
+            const noAlcoholCheck = document.getElementById('noAlcoholCheck');
+            const drinkAmountField = document.getElementById('drinkAmountField');
+            const alcoholCheckboxes = document.querySelectorAll('input[name="alcohol"]');
+
+            if (noAlcoholCheck.checked) {
+                drinkAmountField.style.display = 'none';
+                alcoholCheckboxes.forEach(cb => {
+                    cb.checked = false;
+                    cb.disabled = true;
+                });
+                document.getElementById('drink_amount').removeAttribute('required');
+            } else {
+                drinkAmountField.style.display = 'block';
+                alcoholCheckboxes.forEach(cb => {
+                    cb.disabled = false;
+                });
+                document.getElementById('drink_amount').setAttribute('required', 'required');
+            }
+        }
+
+
+        /* ============================================================
+           6. ЛОГИКА: "НЕ ПЬЮ БЕЗАЛКОГОЛЬНОЕ"
+           ============================================================ */
+        function checkNonalcoholNone() {
+            const noNonalcoholCheck = document.getElementById('noNonalcoholCheck');
+            const nonalcoholCheckboxes = document.querySelectorAll('input[name="nonalcohol"]');
+
+            if (noNonalcoholCheck.checked) {
+                nonalcoholCheckboxes.forEach(cb => {
+                    cb.checked = false;
+                    cb.disabled = true;
+                });
+            } else {
+                nonalcoholCheckboxes.forEach(cb => {
+                    cb.disabled = false;
+                });
+            }
+        }
+
+
+        /* ============================================================
+           7. ВАЛИДАЦИЯ АЛКОГОЛЯ
+           ============================================================ */
+        function validateAlcohol() {
+            const alcoholChecked = document.querySelectorAll('input[name="alcohol"]:checked').length;
+            const noAlcoholChecked = document.getElementById('noAlcoholCheck').checked;
+            const errorEl = document.getElementById('alcoholError');
+
+            const firstAlcohol = document.querySelector('input[name="alcohol"]');
+            const isAlcoholDisabled = firstAlcohol ? firstAlcohol.disabled : false;
+
+            if (noAlcoholChecked || isAlcoholDisabled) {
+                errorEl.style.display = 'none';
+                nextStep(2);
+                return;
+            }
+
+            if (alcoholChecked === 0) {
+                errorEl.style.display = 'block';
+                scrollToError(errorEl);
+                return;
+            }
+            errorEl.style.display = 'none';
+
+            const drinkAmount = document.getElementById('drink_amount').value;
+            if (!drinkAmount) {
+                document.getElementById('drink_amount').style.borderColor = '#ff4444';
+                document.getElementById('drink_amount').style.boxShadow = '0 0 15px rgba(255,68,68,0.3)';
+                scrollToError(document.getElementById('drink_amount'));
                 setTimeout(() => {
-                    document.getElementById('reason').style.borderColor = '#444';
-                    document.getElementById('reason').style.boxShadow = 'none';
+                    document.getElementById('drink_amount').style.borderColor = '#444';
+                    document.getElementById('drink_amount').style.boxShadow = 'none';
                 }, 2000);
                 return;
             }
-            submitForm();
-            return;
-        }
 
-        const currentInputs = document.querySelectorAll('#step-' + currentStep + ' [required]');
-        let valid = true;
-        let firstError = null;
-        currentInputs.forEach(input => {
-            if (!input.value.trim()) {
-                input.style.borderColor = '#ff4444';
-                input.style.boxShadow = '0 0 15px rgba(255,68,68,0.3)';
-                valid = false;
-                if (!firstError) firstError = input;
-                setTimeout(() => {
-                    input.style.borderColor = '#444';
-                    input.style.boxShadow = 'none';
-                }, 2000);
-            }
-        });
-        if (!valid && firstError) {
-            scrollToError(firstError);
-            return;
-        }
-
-        document.getElementById('step-' + currentStep).classList.remove('active');
-        document.getElementById('step-' + step).classList.add('active');
-        currentStep = step;
-        updateProgress(step);
-    }
-
-    function prevStep(step) {
-        document.getElementById('step-' + currentStep).classList.remove('active');
-        document.getElementById('step-' + step).classList.add('active');
-        currentStep = step;
-        updateProgress(step);
-    }
-
-
-    /* ============================================================
-       4. ЛОГИКА: "НЕ ПРИДУ" → ПОЛЕ ДЛЯ ПРИЧИНЫ
-       ============================================================ */
-    function toggleAttendanceFields() {
-        const attendance = document.getElementById('attendance').value;
-        const reasonField = document.getElementById('reasonField');
-        const guestDetails = document.getElementById('guestDetails');
-        const kidsField = document.getElementById('kidsField');
-        const btnNext = document.querySelector('#step-0 .btn-next');
-        const reasonInput = document.getElementById('reason');
-
-        if (attendance === 'Нет, не смогу') {
-            reasonField.classList.add('show');
-            guestDetails.style.display = 'none';
-            kidsField.style.display = 'none';
-            btnNext.textContent = '📤 Отправить ответ';
-            reasonInput.setAttribute('required', 'required');
-            document.getElementById('companion').removeAttribute('required');
-            document.getElementById('kids').removeAttribute('required');
-        } else {
-            reasonField.classList.remove('show');
-            guestDetails.style.display = 'block';
-            kidsField.style.display = 'block';
-            btnNext.textContent = 'Выбрать напитки → 🍻';
-            reasonInput.removeAttribute('required');
-            document.getElementById('companion').setAttribute('required', 'required');
-            document.getElementById('kids').setAttribute('required', 'required');
-        }
-    }
-
-
-    /* ============================================================
-       5. ЛОГИКА: "НЕ ПЬЮ АЛКОГОЛЬ" — ИСПРАВЛЕННАЯ
-       ============================================================ */
-    function checkAlcoholNone() {
-        const noAlcoholCheck = document.getElementById('noAlcoholCheck');
-        const drinkAmountField = document.getElementById('drinkAmountField');
-        const alcoholCheckboxes = document.querySelectorAll('input[name="alcohol"]');
-
-        if (noAlcoholCheck.checked) {
-            // Если выбрано "Не пью" — скрываем поле "Сколько" и снимаем все чекбоксы алкоголя
-            drinkAmountField.style.display = 'none';
-            alcoholCheckboxes.forEach(cb => { 
-                cb.checked = false; 
-                cb.disabled = true; // ← БЛОКИРУЕМ чекбоксы, чтобы нельзя было нажать
-            });
-            document.getElementById('drink_amount').removeAttribute('required');
-        } else {
-            // Если сняли "Не пью" — ПОКАЗЫВАЕМ поле "Сколько" и РАЗБЛОКИРУЕМ чекбоксы
-            drinkAmountField.style.display = 'block';
-            alcoholCheckboxes.forEach(cb => { 
-                cb.disabled = false; // ← РАЗБЛОКИРУЕМ чекбоксы
-            });
-            document.getElementById('drink_amount').setAttribute('required', 'required');
-        }
-    }
-
-
-    /* ============================================================
-       6. ЛОГИКА: "НЕ ПЬЮ БЕЗАЛКОГОЛЬНОЕ"
-       ============================================================ */
-    function checkNonalcoholNone() {
-        const noNonalcoholCheck = document.getElementById('noNonalcoholCheck');
-        const nonalcoholCheckboxes = document.querySelectorAll('input[name="nonalcohol"]');
-
-        if (noNonalcoholCheck.checked) {
-            nonalcoholCheckboxes.forEach(cb => { 
-                cb.checked = false; 
-                cb.disabled = true; // ← тоже блокируем
-            });
-        } else {
-            nonalcoholCheckboxes.forEach(cb => { 
-                cb.disabled = false; // ← разблокируем
-            });
-        }
-    }
-
-
-    /* ============================================================
-       7. ВАЛИДАЦИЯ АЛКОГОЛЯ
-       ============================================================ */
-    function validateAlcohol() {
-        const alcoholChecked = document.querySelectorAll('input[name="alcohol"]:checked').length;
-        const noAlcoholChecked = document.getElementById('noAlcoholCheck').checked;
-        const errorEl = document.getElementById('alcoholError');
-
-        // Проверяем: если чекбоксы алкоголя заблокированы — значит выбрано "Не пью"
-        const firstAlcohol = document.querySelector('input[name="alcohol"]');
-        const isAlcoholDisabled = firstAlcohol ? firstAlcohol.disabled : false;
-
-        if (noAlcoholChecked || isAlcoholDisabled) {
-            // Если выбрано "Не пью" — пропускаем
-            errorEl.style.display = 'none';
             nextStep(2);
-            return;
         }
 
-        if (alcoholChecked === 0) {
-            errorEl.style.display = 'block';
-            scrollToError(errorEl);
-            return;
-        }
-        errorEl.style.display = 'none';
 
-        const drinkAmount = document.getElementById('drink_amount').value;
-        if (!drinkAmount) {
-            document.getElementById('drink_amount').style.borderColor = '#ff4444';
-            document.getElementById('drink_amount').style.boxShadow = '0 0 15px rgba(255,68,68,0.3)';
-            scrollToError(document.getElementById('drink_amount'));
-            setTimeout(() => {
-                document.getElementById('drink_amount').style.borderColor = '#444';
-                document.getElementById('drink_amount').style.boxShadow = 'none';
-            }, 2000);
-            return;
-        }
+        /* ============================================================
+           8. ВАЛИДАЦИЯ БЕЗАЛКОГОЛЬНОГО
+           ============================================================ */
+        function validateNonalcohol() {
+            const nonalcoholChecked = document.querySelectorAll('input[name="nonalcohol"]:checked').length;
+            const noNonalcoholChecked = document.getElementById('noNonalcoholCheck').checked;
+            const errorEl = document.getElementById('nonalcoholError');
 
-        nextStep(2);
-    }
+            const firstNonalcohol = document.querySelector('input[name="nonalcohol"]');
+            const isNonalcoholDisabled = firstNonalcohol ? firstNonalcohol.disabled : false;
 
+            if (noNonalcoholChecked || isNonalcoholDisabled) {
+                errorEl.style.display = 'none';
+            } else if (nonalcoholChecked === 0) {
+                errorEl.style.display = 'block';
+                scrollToError(errorEl);
+                return;
+            } else {
+                errorEl.style.display = 'none';
+            }
 
-    /* ============================================================
-       8. ВАЛИДАЦИЯ БЕЗАЛКОГОЛЬНОГО
-       ============================================================ */
-    function validateNonalcohol() {
-        const nonalcoholChecked = document.querySelectorAll('input[name="nonalcohol"]:checked').length;
-        const noNonalcoholChecked = document.getElementById('noNonalcoholCheck').checked;
-        const errorEl = document.getElementById('nonalcoholError');
+            const water = document.getElementById('water').value;
+            if (!water) {
+                document.getElementById('water').style.borderColor = '#ff4444';
+                document.getElementById('water').style.boxShadow = '0 0 15px rgba(255,68,68,0.3)';
+                scrollToError(document.getElementById('water'));
+                setTimeout(() => {
+                    document.getElementById('water').style.borderColor = '#444';
+                    document.getElementById('water').style.boxShadow = 'none';
+                }, 2000);
+                return;
+            }
 
-        // Проверяем: если чекбоксы безалкогольного заблокированы — значит выбрано "Не пью"
-        const firstNonalcohol = document.querySelector('input[name="nonalcohol"]');
-        const isNonalcoholDisabled = firstNonalcohol ? firstNonalcohol.disabled : false;
-
-        if (noNonalcoholChecked || isNonalcoholDisabled) {
-            errorEl.style.display = 'none';
-        } else if (nonalcoholChecked === 0) {
-            errorEl.style.display = 'block';
-            scrollToError(errorEl);
-            return;
-        } else {
-            errorEl.style.display = 'none';
+            nextStep(3);
         }
 
-        const water = document.getElementById('water').value;
-        if (!water) {
-            document.getElementById('water').style.borderColor = '#ff4444';
-            document.getElementById('water').style.boxShadow = '0 0 15px rgba(255,68,68,0.3)';
-            scrollToError(document.getElementById('water'));
-            setTimeout(() => {
-                document.getElementById('water').style.borderColor = '#444';
-                document.getElementById('water').style.boxShadow = 'none';
-            }, 2000);
-            return;
-        }
 
-        nextStep(3);
-    }
+        /* ============================================================
+           9. ОТПРАВКА ФОРМЫ
+           ============================================================ */
+        function submitForm() {
+            const form = document.getElementById('rsvpForm');
 
+            if (Date.now() - formStartTime < 3000) {
+                alert('Пожалуйста, заполните форму не спеша 😊');
+                return;
+            }
 
-    /* ============================================================
-       9. ОТПРАВКА ФОРМЫ
-       ============================================================ */
-    function submitForm() {
-        const form = document.getElementById('rsvpForm');
-
-        if (Date.now() - formStartTime < 3000) {
-            alert('Пожалуйста, заполните форму не спеша 😊');
-            return;
-        }
-
-        isSubmitted = true;
-        form.dataset.submitted = 'true';
-        const btn = document.getElementById('submitBtn');
-        btn.disabled = true;
-        btn.textContent = '⏳ Отправляем...';
-        form.submit();
-    }
-
-    const form = document.getElementById('rsvpForm');
-    const successScreen = document.getElementById('successScreen');
-    const formProgress = document.getElementById('formProgress');
-    const formTitle = document.getElementById('formTitle');
-    const hiddenIframe = document.getElementById('hidden_iframe');
-
-    hiddenIframe.addEventListener('load', function() {
-        if (!isSubmitted) return;
-        form.style.display = 'none';
-        formProgress.style.display = 'none';
-        formTitle.style.display = 'none';
-        document.getElementById('stepIndicator').style.display = 'none';
-        successScreen.classList.add('show');
-        floatBtn.classList.add('hidden');
-        setTimeout(() => {
-            successScreen.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 300);
-    });
-
-    form.addEventListener('submit', function(e) {
-        if (!isSubmitted) {
             isSubmitted = true;
             form.dataset.submitted = 'true';
             const btn = document.getElementById('submitBtn');
             btn.disabled = true;
             btn.textContent = '⏳ Отправляем...';
+            form.submit();
         }
-    });
 
+        const form = document.getElementById('rsvpForm');
+        const successScreen = document.getElementById('successScreen');
+        const formProgress = document.getElementById('formProgress');
+        const formTitle = document.getElementById('formTitle');
+        const hiddenIframe = document.getElementById('hidden_iframe');
 
-    /* ============================================================
-       10. LOCALSTORAGE
-       ============================================================ */
-    function saveProgress() {
-        try {
-            const data = {
-                name: document.getElementById('name').value,
-                attendance: document.getElementById('attendance').value,
-                companion: document.getElementById('companion').value,
-                kids: document.getElementById('kids').value,
-                step: currentStep
-            };
-            localStorage.setItem('rsvp_progress', JSON.stringify(data));
-        } catch (e) {}
-    }
+        hiddenIframe.addEventListener('load', function() {
+            if (!isSubmitted) return;
+            form.style.display = 'none';
+            formProgress.style.display = 'none';
+            formTitle.style.display = 'none';
+            document.getElementById('stepIndicator').style.display = 'none';
+            successScreen.classList.add('show');
+            floatBtn.classList.add('hidden');
+            setTimeout(() => {
+                successScreen.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        });
 
-    function loadProgress() {
-        try {
-            const saved = localStorage.getItem('rsvp_progress');
-            if (!saved) return;
-            const data = JSON.parse(saved);
-            if (data.name) document.getElementById('name').value = data.name;
-            if (data.attendance) {
-                document.getElementById('attendance').value = data.attendance;
-                toggleAttendanceFields();
+        form.addEventListener('submit', function(e) {
+            if (!isSubmitted) {
+                isSubmitted = true;
+                form.dataset.submitted = 'true';
+                const btn = document.getElementById('submitBtn');
+                btn.disabled = true;
+                btn.textContent = '⏳ Отправляем...';
             }
-            if (data.companion) document.getElementById('companion').value = data.companion;
-            if (data.kids) document.getElementById('kids').value = data.kids;
-            if (data.step && data.step > 0 && data.step < totalSteps) {
-                for (let i = 0; i <= data.step; i++) {
-                    document.getElementById('step-' + i).classList.add('active');
-                }
-                for (let i = data.step + 1; i < totalSteps; i++) {
-                    document.getElementById('step-' + i).classList.remove('active');
-                }
-                currentStep = data.step;
-                updateProgress(currentStep);
-            }
-        } catch (e) {}
-    }
-
-    loadProgress();
+        });
 
 
-    /* ============================================================
-       11. СКАЧАТЬ .ICS
-       ============================================================ */
-    function downloadICS() {
-        const icsContent = [
-            'BEGIN:VCALENDAR',
-            'VERSION:2.0',
-            'PRODID:-//Birthday 90s Party//RU',
-            'CALSCALE:GREGORIAN',
-            'METHOD:PUBLISH',
-            'BEGIN:VEVENT',
-            'UID:balamutova-bday-2026@github.io',
-            'DTSTART:20260912T130000Z',
-            'DTEND:20260912T210000Z',
-            'SUMMARY:🎉 День рождения в стиле 90-х!',
-            'DESCRIPTION:Вечеринка в стиле 90-х\\n'
-                + '⏰ Начало в 16:00\\n'
-                + '📍 Кафе Ландринъ\\, м. Новослободская\\n'
-                + '👕 Дресс-код: стиль 90-х!\\n'
-                + '🔗 https://ebawukawu.github.io/balamutova_b-day/',
-            'LOCATION:Кафе Ландринъ\\, г. Москва\\, ул. Сущёвская\\, д. 9\\, стр. 4',
-            'GEO:55.780496;37.601149',
-            'URL:https://ebawukawu.github.io/balamutova_b-day/',
-            'STATUS:CONFIRMED',
-            'TRANSP:OPAQUE',
-            'BEGIN:VALARM',
-            'TRIGGER:-P1D',
-            'ACTION:DISPLAY',
-            'DESCRIPTION:Завтра вечеринка в стиле 90-х! 🎉',
-            'END:VALARM',
-            'BEGIN:VALARM',
-            'TRIGGER:-PT2H',
-            'ACTION:DISPLAY',
-            'DESCRIPTION:Через 2 часа вечеринка! 🕺 Кафе Ландринъ',
-            'END:VALARM',
-            'END:VEVENT',
-            'END:VCALENDAR'
-        ].join('\r\n');
-
-        try {
-            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'birthday-90s-12-09-2026.ics';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setTimeout(() => URL.revokeObjectURL(url), 1000);
-        } catch (err) {
-            window.open('data:text/calendar;charset=utf8,' + encodeURIComponent(icsContent));
+        /* ============================================================
+           10. LOCALSTORAGE
+           ============================================================ */
+        function saveProgress() {
+            try {
+                const data = {
+                    name: document.getElementById('name').value,
+                    attendance: document.getElementById('attendance').value,
+                    companion: document.getElementById('companion').value,
+                    kids: document.getElementById('kids').value,
+                    step: currentStep
+                };
+                localStorage.setItem('rsvp_progress', JSON.stringify(data));
+            } catch (e) {}
         }
-    }
 
-    // Инициализация
-    toggleAttendanceFields();
-    checkAlcoholNone();
-    checkNonalcoholNone();
-    updateProgress(currentStep);
-</script>
+        function loadProgress() {
+            try {
+                const saved = localStorage.getItem('rsvp_progress');
+                if (!saved) return;
+                const data = JSON.parse(saved);
+                if (data.name) document.getElementById('name').value = data.name;
+                if (data.attendance) {
+                    document.getElementById('attendance').value = data.attendance;
+                    toggleAttendanceFields();
+                }
+                if (data.companion) document.getElementById('companion').value = data.companion;
+                if (data.kids) document.getElementById('kids').value = data.kids;
+                if (data.step && data.step > 0 && data.step < totalSteps) {
+                    for (let i = 0; i <= data.step; i++) {
+                        document.getElementById('step-' + i).classList.add('active');
+                    }
+                    for (let i = data.step + 1; i < totalSteps; i++) {
+                        document.getElementById('step-' + i).classList.remove('active');
+                    }
+                    currentStep = data.step;
+                    updateProgress(currentStep);
+                }
+            } catch (e) {}
+        }
+
+        loadProgress();
+
+
+        /* ============================================================
+           11. СКАЧАТЬ .ICS
+           ============================================================ */
+        function downloadICS() {
+            const icsContent = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Birthday 90s Party//RU',
+                'CALSCALE:GREGORIAN',
+                'METHOD:PUBLISH',
+                'BEGIN:VEVENT',
+                'UID:balamutova-bday-2026@github.io',
+                'DTSTART:20260912T130000Z',
+                'DTEND:20260912T210000Z',
+                'SUMMARY:🎉 День рождения в стиле 90-х!',
+                'DESCRIPTION:Вечеринка в стиле 90-х\\n'
+                    + '⏰ Начало в 16:00\\n'
+                    + '📍 Кафе Ландринъ\\, м. Новослободская\\n'
+                    + '👕 Дресс-код: стиль 90-х!\\n'
+                    + '🔗 https://ebawukawu.github.io/balamutova_b-day/',
+                'LOCATION:Кафе Ландринъ\\, г. Москва\\, ул. Сущёвская\\, д. 9\\, стр. 4',
+                'GEO:55.780496;37.601149',
+                'URL:https://ebawukawu.github.io/balamutova_b-day/',
+                'STATUS:CONFIRMED',
+                'TRANSP:OPAQUE',
+                'BEGIN:VALARM',
+                'TRIGGER:-P1D',
+                'ACTION:DISPLAY',
+                'DESCRIPTION:Завтра вечеринка в стиле 90-х! 🎉',
+                'END:VALARM',
+                'BEGIN:VALARM',
+                'TRIGGER:-PT2H',
+                'ACTION:DISPLAY',
+                'DESCRIPTION:Через 2 часа вечеринка! 🕺 Кафе Ландринъ',
+                'END:VALARM',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].join('\r\n');
+
+            try {
+                const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'birthday-90s-12-09-2026.ics';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+            } catch (err) {
+                window.open('data:text/calendar;charset=utf8,' + encodeURIComponent(icsContent));
+            }
+        }
+
+        // Инициализация
+        toggleAttendanceFields();
+        checkAlcoholNone();
+        checkNonalcoholNone();
+        updateProgress(currentStep);
+    </script>
 
 </body>
 </html>
