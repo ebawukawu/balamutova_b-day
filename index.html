@@ -771,26 +771,31 @@
             padding: 8px;
             border: 1px solid rgba(255, 0, 255, 0.1);
         }
+
         .checkbox-item {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-size: 0.85rem;
             color: #ddd;
             cursor: pointer;
-            padding: 4px 8px;
+            padding: 6px 10px;
             border-radius: 6px;
             transition: all 0.2s;
             min-height: 44px;
+            line-height: 1;
         }
+
         .checkbox-item:hover {
             background: rgba(255, 0, 255, 0.08);
         }
+
         .checkbox-item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             flex-shrink: 0;
             margin: 0;
+            align-self: center;
             appearance: none;
             -webkit-appearance: none;
             border: 2px solid #666;
@@ -801,15 +806,17 @@
             outline: none;
             cursor: pointer;
         }
+
         .checkbox-item input[type="checkbox"]:checked {
             border-color: #ff00ff;
             background: #ff00ff;
             box-shadow: 0 0 12px rgba(255, 0, 255, 0.4);
         }
+
         .checkbox-item input[type="checkbox"]:checked::after {
             content: '✓';
             color: #000;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
             position: absolute;
             top: 50%;
@@ -817,10 +824,11 @@
             transform: translate(-50%, -50%);
             line-height: 1;
         }
+
         .checkbox-item span {
-            display: inline-block;
+            display: flex;
+            align-items: center;
             line-height: 1.2;
-            vertical-align: middle;
         }
 
         /* Подсветка выбранного чекбокса */
@@ -1133,12 +1141,18 @@
             }
             .checkbox-item {
                 font-size: 0.8rem;
-                padding: 3px 6px;
+                padding: 4px 8px;
                 min-height: 40px;
+                line-height: 1;
+                align-items: center;
+                gap: 8px;
             }
             .checkbox-item input[type="checkbox"] {
-                width: 16px;
-                height: 16px;
+                width: 18px;
+                height: 18px;
+            }
+            .checkbox-item span {
+                line-height: 1.2;
             }
 
             .success-screen h3 {
@@ -1611,7 +1625,6 @@
                                 <option value="С женой / мужем">💑 С женой / мужем</option>
                                 <option value="С любимым / любимой">❤️ С любимым / любимой</option>
                                 <option value="С братом / сестрой">👬 С братом / сестрой</option>
-                                <option value="С друзьями">👥 С друзьями</option>
                                 <option value="С детьми">👨‍👩‍👧‍👦 С детьми</option>
                             </select>
                         </div>
@@ -1720,7 +1733,6 @@
                                 <option value="Немного (для настроения)">🍷 Немного (для настроения)</option>
                                 <option value="Умеренно">🍻 Умеренно</option>
                                 <option value="Много (буду отрываться!)">🔥 Много (буду отрываться!)</option>
-                                <option value="Буду за рулём — только безалкогольное">🚗 Буду за рулём</option>
                             </select>
                         </div>
 
@@ -2063,16 +2075,16 @@
 
 
         /* ============================================================
-           5. ЛОГИКА: "НЕ ПЬЮ АЛКОГОЛЬ" — ВИЗУАЛЬНАЯ БЛОКИРОВКА
+           5. ЛОГИКА: "НЕ ПЬЮ АЛКОГОЛЬ" — БЛОКИРУЕТ ВСЕ АЛКОГОЛЬНЫЕ НАПИТКИ
            ============================================================ */
         function checkAlcoholNone() {
             const noAlcoholCheck = document.getElementById('noAlcoholCheck');
             const drinkAmountField = document.getElementById('drinkAmountField');
-            const alcoholCheckboxes = document.querySelectorAll('#alcoholGroup .checkbox-item');
+            const allAlcoholItems = document.querySelectorAll('#alcoholGroup .checkbox-item');
 
             if (noAlcoholCheck.checked) {
                 drinkAmountField.style.display = 'none';
-                alcoholCheckboxes.forEach(item => {
+                allAlcoholItems.forEach(item => {
                     const cb = item.querySelector('input[type="checkbox"]');
                     cb.checked = false;
                     item.classList.add('disabled');
@@ -2080,7 +2092,7 @@
                 document.getElementById('drink_amount').removeAttribute('required');
             } else {
                 drinkAmountField.style.display = 'block';
-                alcoholCheckboxes.forEach(item => {
+                allAlcoholItems.forEach(item => {
                     item.classList.remove('disabled');
                 });
                 document.getElementById('drink_amount').setAttribute('required', 'required');
@@ -2089,20 +2101,20 @@
 
 
         /* ============================================================
-           6. ЛОГИКА: "НЕ ПЬЮ БЕЗАЛКОГОЛЬНОЕ" — ВИЗУАЛЬНАЯ БЛОКИРОВКА
+           6. ЛОГИКА: "НЕ ПЬЮ БЕЗАЛКОГОЛЬНОЕ"
            ============================================================ */
         function checkNonalcoholNone() {
             const noNonalcoholCheck = document.getElementById('noNonalcoholCheck');
-            const nonalcoholCheckboxes = document.querySelectorAll('#nonalcoholGroup .checkbox-item');
+            const nonalcoholItems = document.querySelectorAll('#nonalcoholGroup .checkbox-item');
 
             if (noNonalcoholCheck.checked) {
-                nonalcoholCheckboxes.forEach(item => {
+                nonalcoholItems.forEach(item => {
                     const cb = item.querySelector('input[type="checkbox"]');
                     cb.checked = false;
                     item.classList.add('disabled');
                 });
             } else {
-                nonalcoholCheckboxes.forEach(item => {
+                nonalcoholItems.forEach(item => {
                     item.classList.remove('disabled');
                 });
             }
@@ -2117,9 +2129,9 @@
             const noAlcoholChecked = document.getElementById('noAlcoholCheck').checked;
             const errorEl = document.getElementById('alcoholError');
 
-            const firstAlcohol = document.querySelector('#alcoholGroup input[type="checkbox"]');
-            const isAlcoholDisabled = firstAlcohol ? firstAlcohol.closest('.checkbox-item').classList.contains(
-                'disabled') : false;
+            // Проверяем, заблокированы ли чекбоксы алкоголя
+            const firstAlcoholItem = document.querySelector('#alcoholGroup .checkbox-item');
+            const isAlcoholDisabled = firstAlcoholItem ? firstAlcoholItem.classList.contains('disabled') : false;
 
             if (noAlcoholChecked || isAlcoholDisabled) {
                 errorEl.style.display = 'none';
@@ -2159,9 +2171,9 @@
             const noNonalcoholChecked = document.getElementById('noNonalcoholCheck').checked;
             const errorEl = document.getElementById('nonalcoholError');
 
-            const firstNonalcohol = document.querySelector('#nonalcoholGroup input[type="checkbox"]');
-            const isNonalcoholDisabled = firstNonalcohol ? firstNonalcohol.closest('.checkbox-item').classList
-                .contains('disabled') : false;
+            const firstNonalcoholItem = document.querySelector('#nonalcoholGroup .checkbox-item');
+            const isNonalcoholDisabled = firstNonalcoholItem ? firstNonalcoholItem.classList.contains('disabled') :
+                false;
 
             if (noNonalcoholChecked || isNonalcoholDisabled) {
                 errorEl.style.display = 'none';
