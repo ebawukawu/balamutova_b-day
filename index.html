@@ -845,6 +845,13 @@
             line-height: 1.2;
         }
 
+        /* Подсветка выбранного чекбокса — с fallback через JS-класс */
+        .checkbox-item.active-checkbox {
+            background: rgba(255, 0, 255, 0.12);
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            border-radius: 6px;
+        }
+        /* Поддержка :has() для современных браузеров */
         .checkbox-item:has(input:checked) {
             background: rgba(255, 0, 255, 0.12);
             border: 1px solid rgba(255, 0, 255, 0.3);
@@ -1467,7 +1474,8 @@
                    class="map-preview">
                     <img src="https://static-maps.yandex.ru/1.x/?ll=37.601149,55.780496&z=14&l=map&size=600,250&pt=37.601149,55.780496,pm2rdl"
                          alt="Карта с местом проведения — кафе Ландринъ"
-                         loading="lazy">
+                         loading="lazy"
+                         onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='🗺️ <span style=\'color:#00ffff;font-weight:bold;\'>Открыть карту →</span>';">
                 </a>
 
                 <a href="https://yandex.ru/maps/?pt=37.601149,55.780496&z=17&l=map"
@@ -2095,7 +2103,7 @@
 
 
         /* ============================================================
-           5. ЛОГИКА: "НЕ ПЬЮ АЛКОГОЛЬ" — БЛОКИРУЕТ ВСЕ ГРУППЫ
+           5. ЛОГИКА: "НЕ ПЬЮ АЛКОГОЛЬ"
            ============================================================ */
         function checkAlcoholNone() {
             const noAlcoholCheck = document.getElementById('noAlcoholCheck');
@@ -2111,12 +2119,20 @@
                     const cb = item.querySelector('input[type="checkbox"]');
                     cb.checked = false;
                     item.classList.add('disabled');
+                    // Убираем подсветку, если она была
+                    item.classList.remove('active-checkbox');
                 });
                 document.getElementById('drink_amount').removeAttribute('required');
+                document.getElementById('drink_amount').value = ''; // ← Очищаем значение
             } else {
                 drinkAmountField.style.display = 'block';
                 allItems.forEach(item => {
                     item.classList.remove('disabled');
+                    // Если чекбокс отмечен — добавляем подсветку
+                    const cb = item.querySelector('input[type="checkbox"]');
+                    if (cb.checked) {
+                        item.classList.add('active-checkbox');
+                    }
                 });
                 document.getElementById('drink_amount').setAttribute('required', 'required');
             }
@@ -2135,10 +2151,15 @@
                     const cb = item.querySelector('input[type="checkbox"]');
                     cb.checked = false;
                     item.classList.add('disabled');
+                    item.classList.remove('active-checkbox');
                 });
             } else {
                 nonalcoholItems.forEach(item => {
                     item.classList.remove('disabled');
+                    const cb = item.querySelector('input[type="checkbox"]');
+                    if (cb.checked) {
+                        item.classList.add('active-checkbox');
+                    }
                 });
             }
         }
@@ -2148,11 +2169,6 @@
            7. ВАЛИДАЦИЯ АЛКОГОЛЯ
            ============================================================ */
         function validateAlcohol() {
-            const allAlcoholCheckboxes = document.querySelectorAll(
-                '#alcoholGroup input[type="checkbox"], ' +
-                '#alcoholGroup + .form-group input[type="checkbox"], ' +
-                '#alcoholGroup + .form-group + .form-group input[type="checkbox"]'
-            );
             const alcoholChecked = document.querySelectorAll(
                 '#alcoholGroup input[type="checkbox"]:checked, ' +
                 '#alcoholGroup + .form-group input[type="checkbox"]:checked, ' +
@@ -2233,10 +2249,17 @@
 
 
         /* ============================================================
-           9. ОТПРАВКА ФОРМЫ
+           9. ОТПРАВКА ФОРМЫ с honeypot-защитой
            ============================================================ */
         function submitForm() {
             const form = document.getElementById('rsvpForm');
+
+            // Honeypot: если бот заполнил скрытое поле — тихо не отправляем
+            const gotcha = form.querySelector('input[name="_gotcha"]');
+            const honeypot = form.querySelector('input[name="_honeypot"]');
+            if ((gotcha && gotcha.value) || (honeypot && honeypot.value)) {
+                return;
+            }
 
             if (Date.now() - formStartTime < 3000) {
                 alert('Пожалуйста, заполните форму не спеша 😊');
@@ -2255,6 +2278,7 @@
         const successScreen = document.getElementById('successScreen');
         const formProgress = document.getElementById('formProgress');
         const formTitle = document.getElementById('formTitle');
+        const stepIndicator = document.getElementById('stepIndicator');
         const hiddenIframe = document.getElementById('hidden_iframe');
 
         hiddenIframe.addEventListener('load', function() {
@@ -2263,7 +2287,7 @@
             form.style.display = 'none';
             formProgress.style.display = 'none';
             formTitle.style.display = 'none';
-            document.getElementById('stepIndicator').style.display = 'none';
+            if (stepIndicator) stepIndicator.style.display = 'none';
             successScreen.classList.add('show');
             floatBtn.classList.add('hidden');
             setTimeout(() => {
@@ -2273,6 +2297,14 @@
 
         form.addEventListener('submit', function(e) {
             if (!isSubmitted) {
+                // Проверяем honeypot и в нативном событии
+                const gotcha = form.querySelector('input[name="_gotcha"]');
+                const honeypot = form.querySelector('input[name="_honeypot"]');
+                if ((gotcha && gotcha.value) || (honeypot && honeypot.value)) {
+                    e.preventDefault();
+                    return;
+                }
+
                 isSubmitted = true;
                 form.dataset.submitted = 'true';
                 const btn = document.getElementById('submitBtn');
@@ -2287,7 +2319,19 @@
            ============================================================ */
         window.addEventListener('pageshow', function() {
             form.reset();
+            formStartTime = Date.now(); // ← Сбрасываем таймер
+            isSubmitted = false; // ← Сбрасываем флаг отправки
+            form.dataset.submitted = 'false';
 
+            // Возвращаем форму в видимое состояние
+            form.style.display = '';
+            formProgress.style.display = '';
+            formTitle.style.display = '';
+            if (stepIndicator) stepIndicator.style.display = '';
+            successScreen.classList.remove('show');
+            floatBtn.classList.remove('hidden');
+
+            // Возвращаем воду на "Всё равно"
             document.getElementById('water').value = 'Всё равно';
 
             currentStep = 0;
@@ -2302,7 +2346,24 @@
 
 
         /* ============================================================
-           11. СКАЧАТЬ .ICS
+           11. ПОДСВЕТКА ЧЕКБОКСОВ (fallback для старых браузеров)
+           ============================================================ */
+        document.addEventListener('change', function(e) {
+            if (e.target && e.target.type === 'checkbox') {
+                const parent = e.target.closest('.checkbox-item');
+                if (parent) {
+                    if (e.target.checked) {
+                        parent.classList.add('active-checkbox');
+                    } else {
+                        parent.classList.remove('active-checkbox');
+                    }
+                }
+            }
+        });
+
+
+        /* ============================================================
+           12. СКАЧАТЬ .ICS
            ============================================================ */
         function downloadICS() {
             const icsContent = [
@@ -2355,11 +2416,8 @@
             }
         }
 
-        // Инициализация
-        toggleAttendanceFields();
-        checkAlcoholNone();
-        checkNonalcoholNone();
-        updateProgress(0);
+        // Инициализация только через pageshow (убираем дублирование)
+        // pageshow уже вызван при загрузке, так что дополнительная инициализация не нужна
     </script>
 
 </body>
