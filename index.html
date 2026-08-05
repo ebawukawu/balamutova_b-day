@@ -46,12 +46,10 @@
             color: #fff;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
-            /* Естественная прокрутка страницы — без сломанного snap */
         }
 
         html {
             scroll-behavior: smooth;
-            /* Убираем scroll-snap полностью — он конфликтует с длинными блоками */
         }
 
         /* ===== УВАЖАЕМ ПРЕДПОЧТЕНИЯ ПОЛЬЗОВАТЕЛЕЙ ===== */
@@ -64,11 +62,11 @@
             }
         }
 
-        /* ===== БЛОКИ — РАСТУТ ЕСТЕСТВЕННО ===== */
+        /* ===== БЛОКИ ===== */
         .full-screen {
-            min-height: 100vh;      /* fallback для старых браузеров */
-            min-height: 100dvh;     /* dynamic viewport height — лучший вариант для мобильных */
-            height: auto;           /* блок растёт, если контент не влезает */
+            min-height: 100vh;
+            min-height: 100dvh;
+            height: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -79,10 +77,9 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            /* scroll-snap удалён — конфликтует с длинными блоками */
         }
 
-        /* ===== ДЛИННЫЕ БЛОКИ (3 и 5) — БЕЗ ВНУТРЕННЕЙ ПРОКРУТКИ ===== */
+        /* ===== ДЛИННЫЕ БЛОКИ (3 и 5) ===== */
         .block-3,
         .block-5 {
             min-height: 100vh;
@@ -91,19 +88,16 @@
             justify-content: flex-start;
             padding-top: max(clamp(60px, 9vh, 70px), env(safe-area-inset-top));
             padding-bottom: max(clamp(40px, 5vh, 60px), env(safe-area-inset-bottom));
-            /* Убираем overflow-y: auto — прокрутка на уровне страницы */
         }
 
-        /* ===== КОНТЕЙНЕР КОНТЕНТА — БЕЗ ВНУТРЕННЕЙ ПРОКРУТКИ! ===== */
+        /* ===== КОНТЕЙНЕР КОНТЕНТА ===== */
         .block-content {
             position: relative;
             z-index: 2;
             max-width: 750px;
             width: 100%;
-            /* Убираем max-height и overflow-y — контент растёт естественно */
         }
 
-        /* БЕЗОПАСНЫЙ ОТСТУП СНИЗУ ДЛЯ ФОРМЫ — ЧТОБЫ НЕ ПЕРЕКРЫВАЛИ КНОПКИ */
         .block-5 .block-content {
             padding-bottom: clamp(80px, 12vh, 120px);
         }
@@ -126,7 +120,6 @@
             z-index: 0;
         }
 
-        /* VHS-шум — отключаем на мобилке для производительности */
         .block-1::after,
         .block-2::after,
         .block-3::after,
@@ -314,7 +307,6 @@
             text-transform: uppercase;
         }
 
-        /* На мобилке скрываем логотипы */
         @media (max-width: 600px) {
             .logo-decor {
                 display: none;
@@ -1176,11 +1168,40 @@
         }
 
         /* ============================================================ */
-        /* ===== АДАПТИВ =====                                           */
+        /* ===== АДАПТИВ — ОСНОВНЫЕ ПРАВКИ =====                        */
         /* ============================================================ */
 
-        /* Отключаем тяжёлые анимации на мобилках */
         @media (max-width: 600px) {
+            /* ===== ВСЕ БЛОКИ — РОВНО ЭКРАН ===== */
+            .full-screen {
+                min-height: 100vh;
+                min-height: 100dvh;
+                height: 100dvh;              /* фиксируем ровно экран */
+                justify-content: center;
+                padding-top: max(50px, env(safe-area-inset-top));
+                padding-bottom: max(20px, env(safe-area-inset-bottom));
+            }
+
+            .block-content {
+                width: 100%;
+            }
+
+            /* ===== ДЛИННЫЕ БЛОКИ 3 и 5 — МОГУТ БЫТЬ ВЫШЕ ЭКРАНА ===== */
+            .block-3,
+            .block-5 {
+                height: auto;
+                min-height: 100vh;
+                min-height: 100dvh;
+                justify-content: flex-start;
+                padding-top: max(50px, env(safe-area-inset-top));
+                padding-bottom: max(30px, env(safe-area-inset-bottom));
+            }
+
+            .block-5 .block-content {
+                padding-bottom: clamp(60px, 10vh, 80px);
+            }
+
+            /* Отключаем тяжёлые анимации */
             .block-1::after,
             .block-2::after,
             .block-3::after,
@@ -1249,15 +1270,6 @@
                 height: 24px;
             }
 
-            .block-3,
-            .block-5 {
-                padding-top: clamp(50px, 8vh, 60px);
-                padding-bottom: clamp(30px, 4vh, 40px);
-            }
-            .block-5 .block-content {
-                padding-bottom: clamp(60px, 10vh, 80px);
-            }
-
             .success-screen h3 {
                 font-size: 1.2rem;
             }
@@ -1296,7 +1308,21 @@
         @media (max-width: 400px) {
             .full-screen {
                 padding: 25px 10px 15px;
+                min-height: 100vh;
                 min-height: 100dvh;
+                height: 100dvh;
+            }
+
+            .block-3,
+            .block-5 {
+                height: auto;
+                min-height: 100vh;
+                min-height: 100dvh;
+                padding-top: max(40px, env(safe-area-inset-top));
+                padding-bottom: max(20px, env(safe-area-inset-bottom));
+            }
+            .block-5 .block-content {
+                padding-bottom: clamp(50px, 8vh, 60px);
             }
 
             .block-1 .glass-card {
@@ -1363,16 +1389,6 @@
             .nav-dot {
                 width: 6px;
                 height: 6px;
-            }
-
-            .block-3,
-            .block-5 {
-                padding-top: 40px;
-                padding-bottom: 20px;
-                min-height: 100dvh;
-            }
-            .block-5 .block-content {
-                padding-bottom: clamp(50px, 8vh, 60px);
             }
 
             .success-screen-away .btn-return {
