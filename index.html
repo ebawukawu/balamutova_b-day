@@ -40,7 +40,6 @@
         html {
             scroll-behavior: smooth;
             scroll-snap-type: y mandatory;
-            /* Префиксы для iOS Safari */
             -webkit-scroll-snap-type: y mandatory;
         }
 
@@ -364,34 +363,65 @@
             transform: scale(1.3);
         }
 
-        /* ===== ПЛАВАЮЩАЯ КНОПКА ===== */
-        .float-btn {
+        /* ===== ПЛАВАЮЩИЕ КНОПКИ (ДВЕ) ===== */
+        .float-buttons {
             position: fixed;
             bottom: 30px;
             right: 30px;
             z-index: 500;
-            background: linear-gradient(90deg, #ff00ff, #00ffff);
-            padding: 14px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .float-btn {
+            padding: 12px 24px;
             border-radius: 30px;
             color: #000;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.9rem;
             text-decoration: none;
             letter-spacing: 1px;
-            animation: pulse 2.5s ease-in-out infinite;
-            box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
-            white-space: nowrap;
-            will-change: transform, box-shadow;
             border: none;
             cursor: pointer;
             transition: all 0.3s;
             touch-action: manipulation;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+            white-space: nowrap;
         }
-        .float-btn:hover {
+
+        /* Кнопка "Карта" */
+        .float-btn-map {
+            background: linear-gradient(90deg, #00ccff, #0066ff);
+            animation: pulseMap 2.5s ease-in-out infinite;
+        }
+        .float-btn-map:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0, 100, 255, 0.5);
+        }
+        @keyframes pulseMap {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(0, 100, 255, 0.3);
+            }
+            50% {
+                transform: scale(1.04);
+                box-shadow: 0 0 40px rgba(0, 100, 255, 0.6);
+            }
+        }
+
+        /* Кнопка "Иду!" */
+        .float-btn-rsvp {
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+        .float-btn-rsvp:hover {
             animation: none;
             transform: scale(1.05);
             box-shadow: 0 0 50px rgba(255, 0, 255, 0.6);
         }
+
         .float-btn.hidden {
             opacity: 0;
             pointer-events: none;
@@ -1091,16 +1121,14 @@
                 height: 8px;
             }
 
-            .float-btn {
-                padding: 10px 18px;
-                font-size: 0.8rem;
-                bottom: 70px;
+            .float-buttons {
+                bottom: 20px;
                 right: 12px;
-                left: auto;
-                transform: none;
+                gap: 8px;
             }
-            .float-btn:hover {
-                transform: scale(1.05);
+            .float-btn {
+                padding: 8px 16px;
+                font-size: 0.75rem;
             }
 
             .scroll-arrow {
@@ -1255,11 +1283,14 @@
             .form-card {
                 padding: 12px 8px;
             }
-            .float-btn {
-                padding: 8px 14px;
-                font-size: 0.7rem;
-                bottom: 60px;
+            .float-buttons {
+                bottom: 15px;
                 right: 10px;
+                gap: 6px;
+            }
+            .float-btn {
+                padding: 6px 12px;
+                font-size: 0.65rem;
             }
             .nav-dots {
                 bottom: 15px;
@@ -1314,8 +1345,11 @@
         <a href="#block5" class="nav-dot" aria-label="Блок 5: Подтвердить участие"></a>
     </div>
 
-    <!-- ===== ПЛАВАЮЩАЯ КНОПКА ===== -->
-    <a href="#block5" class="float-btn" id="floatBtn">✅ Иду!</a>
+    <!-- ===== ПЛАВАЮЩИЕ КНОПКИ ===== -->
+    <div class="float-buttons">
+        <a href="#block3" class="float-btn float-btn-map" id="floatBtnMap">🗺️ Карта</a>
+        <a href="#block5" class="float-btn float-btn-rsvp" id="floatBtn">✅ Иду!</a>
+    </div>
 
     <!-- ============================================================ -->
     <!-- БЛОК 1: ВСТУПЛЕНИЕ                                           -->
@@ -1968,11 +2002,12 @@
 
 
         /* ============================================================
-           2. НАВИГАЦИОННЫЕ ТОЧКИ
+           2. НАВИГАЦИОННЫЕ ТОЧКИ + ПЛАВАЮЩИЕ КНОПКИ
            ============================================================ */
         const sections = document.querySelectorAll('.full-screen');
         const dots = document.querySelectorAll('.nav-dot');
         const floatBtn = document.getElementById('floatBtn');
+        const floatBtnMap = document.getElementById('floatBtnMap');
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1981,7 +2016,10 @@
                 dots.forEach((d, i) => {
                     d.classList.toggle('active', i === idx);
                 });
+                // Скрываем "Иду!" на последнем блоке (форма)
                 floatBtn.classList.toggle('hidden', idx === sections.length - 1);
+                // Скрываем "Карта" на блоке с картой (блок 3, индекс 2)
+                floatBtnMap.classList.toggle('hidden', idx === 2);
             });
         }, { threshold: 0, rootMargin: '-40% 0px -40% 0px' });
 
@@ -2031,7 +2069,6 @@
         }
 
         function nextStep(step) {
-            // Если уже отправляем — блокируем повторные клики
             if (isSubmitted) return;
 
             const attendance = document.getElementById('attendance').value;
@@ -2270,7 +2307,6 @@
         function submitForm() {
             const form = document.getElementById('rsvpForm');
 
-            // Защита от повторной отправки
             if (isSubmitted) return;
 
             // Honeypot: если бот заполнил скрытое поле — тихо не отправляем
@@ -2355,20 +2391,16 @@
         hiddenIframe.addEventListener('load', function() {
             if (!isSubmitted) return;
 
-            // Очищаем таймаут
             if (submitTimeout) {
                 clearTimeout(submitTimeout);
                 submitTimeout = null;
             }
 
-            // Скрываем загрузочное сообщение
             const loadingMsg = document.getElementById('loadingMessage');
             if (loadingMsg) loadingMsg.style.display = 'none';
 
-            // Скрываем ошибку, если была
             document.getElementById('submitError').style.display = 'none';
 
-            // Показываем экран успеха
             form.style.display = 'none';
             if (formProgress) formProgress.style.display = 'none';
             if (formTitle) formTitle.style.display = 'none';
@@ -2383,7 +2415,6 @@
 
         form.addEventListener('submit', function(e) {
             if (!isSubmitted) {
-                // Проверяем honeypot и в нативном событии
                 const gotcha = form.querySelector('input[name="_gotcha"]');
                 const honeypot = form.querySelector('input[name="_honeypot"]');
                 if ((gotcha && gotcha.value) || (honeypot && honeypot.value)) {
@@ -2406,7 +2437,6 @@
            10. ЧИСТАЯ ФОРМА ПРИ КАЖДОЙ ЗАГРУЗКЕ / ОБНОВЛЕНИИ
            ============================================================ */
         window.addEventListener('pageshow', function() {
-            // Очищаем таймаут, если был
             if (submitTimeout) {
                 clearTimeout(submitTimeout);
                 submitTimeout = null;
@@ -2417,7 +2447,6 @@
             isSubmitted = false;
             form.dataset.submitted = 'false';
 
-            // Возвращаем форму в видимое состояние
             form.style.display = '';
             if (formProgress) formProgress.style.display = '';
             if (formTitle) formTitle.style.display = '';
@@ -2426,15 +2455,12 @@
             floatBtn.classList.remove('hidden');
             document.getElementById('submitError').style.display = 'none';
 
-            // Удаляем загрузочное сообщение
             const loadingMsg = document.getElementById('loadingMessage');
             if (loadingMsg) loadingMsg.remove();
 
-            // Разблокируем все кнопки
             const allButtons = document.querySelectorAll('.btn-next, .btn-back, .submit-btn');
             allButtons.forEach(btn => btn.disabled = false);
 
-            // Возвращаем воду на "Всё равно"
             document.getElementById('water').value = 'Всё равно';
 
             currentStep = 0;
@@ -2445,6 +2471,9 @@
             checkAlcoholNone();
             checkNonalcoholNone();
             updateProgress(0);
+
+            // При обновлении — в начало
+            document.getElementById('block1').scrollIntoView({ behavior: 'auto' });
         });
 
 
@@ -2519,20 +2548,15 @@
             }
         }
 
-        // Инициализация через pageshow (уже вызван при загрузке)
-
-        /* ============================================================
-   13. ПРИ ОБНОВЛЕНИИ — В НАЧАЛО
-   ============================================================ */
-// При загрузке страницы прокручиваем к первому блоку
-window.addEventListener('load', function() {
-    // Если в URL нет якоря — прокручиваем к началу
-    if (!window.location.hash) {
-        window.scrollTo({ top: 0, behavior: 'auto' });
-    }
-});
-
-        
+        // При загрузке — в начало
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('block1').scrollIntoView({
+                    behavior: 'auto',
+                    block: 'start'
+                });
+            }, 100);
+        });
     </script>
 
 </body>
