@@ -41,6 +41,16 @@
             scroll-behavior: smooth;
         }
 
+        /* ===== УВАЖАЕМ ПРЕДПОЧТЕНИЯ ПОЛЬЗОВАТЕЛЕЙ ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
         /* ===== КАЖДЫЙ БЛОК — НА ВСЮ ВЫСОТУ ЭКРАНА ===== */
         .full-screen {
             min-height: 100svh;
@@ -52,6 +62,15 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+        }
+
+        /* ===== ДЛИННЫЕ БЛОКИ (3 и 5) — НЕ ЦЕНТРИРУЕМ ===== */
+        .block-3,
+        .block-5 {
+            justify-content: flex-start;
+            height: auto;
+            padding-top: 70px;
+            min-height: 100svh;
         }
 
         /* ===== ФОНОВЫЕ ЭФФЕКТЫ ===== */
@@ -128,7 +147,7 @@
         .logo-decor {
             position: absolute;
             z-index: 1;
-            opacity: 0.18;
+            opacity: 0.28;
             animation: floatSlow 6s ease-in-out infinite;
             pointer-events: none;
             user-select: none;
@@ -263,7 +282,15 @@
             text-transform: uppercase;
         }
 
-        /* ===== БЕГУЩАЯ СТРОКА (CSS-анимация) ===== */
+        /* На мобилке оставляем только 2 логотипа на блок */
+        @media (max-width: 600px) {
+            .logo-decor:nth-child(3),
+            .logo-decor:nth-child(4) {
+                display: none;
+            }
+        }
+
+        /* ===== БЕГУЩАЯ СТРОКА ===== */
         .marquee-bar {
             position: fixed;
             top: 0;
@@ -734,7 +761,7 @@
         .hidden-block { display: none; }
         .hidden-block.show { display: block; }
 
-        /* ===== ЧЕКБОКСЫ ===== */
+        /* ===== ЧЕКБОКСЫ (КВАДРАТНЫЕ, ТАЧ-ЗОНА 44px) ===== */
         .checkbox-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -753,7 +780,8 @@
             cursor: pointer;
             padding: 4px 8px;
             border-radius: 6px;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            min-height: 44px;
         }
         .checkbox-item:hover {
             background: rgba(255, 0, 255, 0.08);
@@ -766,7 +794,7 @@
             appearance: none;
             -webkit-appearance: none;
             border: 2px solid #666;
-            border-radius: 50%;
+            border-radius: 6px;
             background: transparent;
             transition: all 0.2s;
             position: relative;
@@ -793,6 +821,19 @@
             display: inline-block;
             line-height: 1.2;
             vertical-align: middle;
+        }
+
+        /* Подсветка выбранного чекбокса */
+        .checkbox-item:has(input:checked) {
+            background: rgba(255, 0, 255, 0.12);
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            border-radius: 6px;
+        }
+
+        /* Визуальная блокировка чекбоксов (замена disabled) */
+        .checkbox-item.disabled {
+            opacity: 0.4;
+            pointer-events: none;
         }
 
         /* ===== КНОПКИ ===== */
@@ -993,10 +1034,21 @@
                 font-size: 1rem;
             }
 
-            .logo-decor {
+            /* Отключаем blur на мобилке для производительности */
+            .glass-card,
+            .form-card {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                background: rgba(20, 20, 30, 0.9);
+            }
+
+            /* Логотипы — только 2 на блок */
+            .logo-decor:nth-child(3),
+            .logo-decor:nth-child(4) {
                 display: none;
             }
 
+            /* НАВИГАЦИЯ — горизонтально внизу */
             .nav-dots {
                 right: auto;
                 left: 50%;
@@ -1011,34 +1063,22 @@
                 height: 8px;
             }
 
+            /* КНОПКА — справа, выше точек */
             .float-btn {
                 padding: 10px 18px;
                 font-size: 0.8rem;
-                bottom: 60px;
-                right: 15px;
+                bottom: 70px;
+                right: 12px;
                 left: auto;
                 transform: none;
             }
             .float-btn:hover {
                 transform: scale(1.05);
             }
-            @keyframes pulse {
-                0%, 100% { transform: scale(1); }
-                50% { transform: scale(1.04); }
-            }
 
+            /* СТРЕЛКА — скрываем на мобилке (кнопка важнее) */
             .scroll-arrow {
-                bottom: 60px;
-            }
-            .scroll-arrow span {
-                width: 10px;
-                height: 10px;
-            }
-            .scroll-arrow span:nth-child(2) {
-                margin-top: -6px;
-            }
-            .scroll-arrow span:nth-child(3) {
-                margin-top: -6px;
+                display: none;
             }
 
             .map-preview img {
@@ -1094,6 +1134,7 @@
             .checkbox-item {
                 font-size: 0.8rem;
                 padding: 3px 6px;
+                min-height: 40px;
             }
             .checkbox-item input[type="checkbox"] {
                 width: 16px;
@@ -1117,6 +1158,12 @@
             .step-indicator {
                 font-size: 0.7rem;
             }
+
+            .block-3,
+            .block-5 {
+                padding-top: 60px;
+                min-height: 100svh;
+            }
         }
 
         @media (max-width: 400px) {
@@ -1138,6 +1185,9 @@
             .block-1 .neon-title {
                 font-size: 0.95rem;
             }
+            .countdown {
+                gap: 4px;
+            }
 
             .full-screen {
                 padding: 30px 10px 20px;
@@ -1158,6 +1208,7 @@
             }
             .checkbox-item {
                 font-size: 0.7rem;
+                min-height: 36px;
             }
             .checkbox-item input[type="checkbox"] {
                 width: 14px;
@@ -1169,7 +1220,7 @@
             .float-btn {
                 padding: 8px 14px;
                 font-size: 0.7rem;
-                bottom: 50px;
+                bottom: 60px;
                 right: 10px;
             }
             .nav-dots {
@@ -1180,8 +1231,9 @@
                 width: 6px;
                 height: 6px;
             }
-            .scroll-arrow {
-                bottom: 48px;
+            .block-3,
+            .block-5 {
+                padding-top: 50px;
             }
         }
 
@@ -1201,7 +1253,7 @@
 <body>
 
     <!-- ===== БЕГУЩАЯ СТРОКА ===== -->
-    <div class="marquee-bar" role="marquee" aria-label="Бегущая строка с информацией о вечеринке">
+    <div class="marquee-bar" aria-hidden="true">
         <div class="marquee-track">
             ★ 12 сентября 2026 ★ Кафе Ландринъ ★ Дресс-код: 90-е ★ Ждём тебя! ★
             🎶 Музыка 90-х ★ Фотозона ★ Танцы ★ Будет жарко! ★
@@ -1240,18 +1292,6 @@
                 <span class="love-heart">❤️</span>
                 <span class="love-text">Love Is</span>
                 <span class="love-sub">...sharing</span>
-            </div>
-        </div>
-        <div class="logo-decor" style="top:50%; left:1%; animation-delay:1.5s;">
-            <div class="logo-terminator">
-                <span class="term-eye">🤖</span>
-                <span class="term-text">T-800<br>ONLINE</span>
-            </div>
-        </div>
-        <div class="logo-decor" style="top:62%; right:1%; animation-delay:2.5s;">
-            <div class="logo-yuppie">
-                <span class="yuppie-text">YUPPIE</span>
-                <span class="yuppie-gum">gum</span>
             </div>
         </div>
 
@@ -1308,7 +1348,7 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- БЛОК 2: ЧТО ЗА МЕРОПРИЯТИЕ (ОБНОВЛЁННЫЙ)                    -->
+    <!-- БЛОК 2: ЧТО ЗА МЕРОПРИЯТИЕ                                   -->
     <!-- ============================================================ -->
     <section class="full-screen block-2" id="block2">
         <div class="logo-decor" style="top:10%; left:2%; animation-delay:0.3s;">
@@ -1322,16 +1362,6 @@
         </div>
         <div class="logo-decor" style="bottom:20%; right:2%; animation-delay:0.7s;">
             <div style="font-size:2.5rem;">🪩</div>
-        </div>
-        <div class="logo-decor" style="top:55%; left:1%; animation-delay:1.7s;">
-            <div class="logo-love-is">
-                <span class="love-heart">❤️</span>
-                <span class="love-text">Love Is</span>
-                <span class="love-sub">...sharing</span>
-            </div>
-        </div>
-        <div class="logo-decor" style="top:65%; right:1%; animation-delay:2.7s;">
-            <div style="font-size:2rem;">🎶</div>
         </div>
 
         <div class="block-content">
@@ -1382,16 +1412,6 @@
         </div>
         <div class="logo-decor" style="bottom:15%; right:2%; animation-delay:0.6s;">
             <div class="logo-turbo">TURBO</div>
-        </div>
-        <div class="logo-decor" style="top:50%; left:1%; animation-delay:1.6s;">
-            <div class="logo-mtv"><span>MTV</span></div>
-        </div>
-        <div class="logo-decor" style="top:60%; right:1%; animation-delay:2.6s;">
-            <div class="logo-love-is">
-                <span class="love-heart">❤️</span>
-                <span class="love-text">Love Is</span>
-                <span class="love-sub">...sharing</span>
-            </div>
         </div>
 
         <div class="block-content">
@@ -1470,12 +1490,6 @@
                 <span class="yuppie-gum">gum</span>
             </div>
         </div>
-        <div class="logo-decor" style="top:48%; left:1%; animation-delay:1.9s;">
-            <div style="font-size:2rem;">👖</div>
-        </div>
-        <div class="logo-decor" style="top:58%; right:1%; animation-delay:2.9s;">
-            <div class="logo-mtv"><span>MTV</span></div>
-        </div>
 
         <div class="block-content">
             <div class="glass-card">
@@ -1524,22 +1538,14 @@
         <div class="logo-decor" style="bottom:15%; right:2%; animation-delay:0.8s;">
             <div class="logo-mtv"><span>MTV</span></div>
         </div>
-        <div class="logo-decor" style="top:50%; left:1%; animation-delay:1.8s;">
-            <div class="logo-love-is">
-                <span class="love-heart">❤️</span>
-                <span class="love-text">Love Is</span>
-                <span class="love-sub">...sharing</span>
-            </div>
-        </div>
-        <div class="logo-decor" style="top:60%; right:1%; animation-delay:2.8s;">
-            <div class="logo-terminator">
-                <span class="term-eye">🤖</span>
-                <span class="term-text">T-800<br>ONLINE</span>
-            </div>
-        </div>
 
         <div class="block-content">
             <div class="form-card">
+
+                <!-- Стартовый заряд -->
+                <p style="color:#ffcc00; font-size:0.85rem; margin-bottom:15px; text-align:center; opacity:0.8;">
+                    Эй! Заполни по-быстрому — именинник уже нервно проверяет список 😅
+                </p>
 
                 <div class="progress-bar" id="formProgress">
                     <div class="progress-dot active" id="dot-0"></div>
@@ -1563,7 +1569,7 @@
                     <!-- ===== ШАГ 1: Кто ты? ===== -->
                     <div class="form-step active" id="step-0">
                         <div class="form-group">
-                            <label for="name">👤 Как тебя зовут? <span style="color:#ff4444;">*</span></label>
+                            <label for="name">👤 Как к тебе обращаться, легенда? <span style="color:#ff4444;">*</span></label>
                             <input type="text"
                                    id="name"
                                    name="entry.1111111111"
@@ -1575,7 +1581,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="attendance">✅ Ты придёшь? <span style="color:#ff4444;">*</span></label>
+                            <label for="attendance">✅ Ну как, придёшь? <span style="color:#ff4444;">*</span></label>
                             <select id="attendance"
                                     name="entry.2222222222"
                                     required
@@ -1596,7 +1602,7 @@
                         </div>
 
                         <div class="form-group" id="guestDetails">
-                            <label for="companion">👫 С кем придёшь? <span style="color:#ff4444;">*</span></label>
+                            <label for="companion">👫 Ты и кто ещё? <span style="color:#ff4444;">*</span></label>
                             <select id="companion"
                                     name="entry.3333333333"
                                     required>
@@ -1611,7 +1617,7 @@
                         </div>
 
                         <div class="form-group" id="kidsField">
-                            <label for="kids">👶 Дети с вами? <span style="color:#ff4444;">*</span></label>
+                            <label for="kids">👶 Берёшь мелких? (мы только за!) <span style="color:#ff4444;">*</span></label>
                             <select id="kids"
                                     name="entry.4444444444"
                                     required>
@@ -1641,19 +1647,19 @@
                             <label>🥃 Крепкий алкоголь:</label>
                             <div class="checkbox-grid">
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Водка" onchange="checkAlcoholNone()">
+                                    <input type="checkbox" name="entry.5555555555" value="Водка" onchange="checkAlcoholNone()">
                                     <span>🥃 Водка</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Виски" onchange="checkAlcoholNone()">
+                                    <input type="checkbox" name="entry.5555555555" value="Виски" onchange="checkAlcoholNone()">
                                     <span>🥃 Виски</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Коньяк" onchange="checkAlcoholNone()">
+                                    <input type="checkbox" name="entry.5555555555" value="Коньяк" onchange="checkAlcoholNone()">
                                     <span>🥃 Коньяк</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Текила" onchange="checkAlcoholNone()">
+                                    <input type="checkbox" name="entry.5555555555" value="Текила" onchange="checkAlcoholNone()">
                                     <span>🍸 Текила</span>
                                 </label>
                             </div>
@@ -1663,15 +1669,15 @@
                             <label>🍷 Вино и шампанское:</label>
                             <div class="checkbox-grid">
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Шампанское" onchange="checkAlcoholNone()">
+                                    <input type="checkbox" name="entry.6666666666" value="Шампанское" onchange="checkAlcoholNone()">
                                     <span>🥂 Шампанское</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Вино красное" onchange="checkAlcoholNone()">
+                                    <input type="checkbox" name="entry.6666666666" value="Вино красное" onchange="checkAlcoholNone()">
                                     <span>🍷 Вино красное</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Вино белое" onchange="checkAlcoholNone()">
+                                    <input type="checkbox" name="entry.6666666666" value="Вино белое" onchange="checkAlcoholNone()">
                                     <span>🍷 Вино белое</span>
                                 </label>
                             </div>
@@ -1681,15 +1687,15 @@
                             <label>🍸 Коктейли:</label>
                             <div class="checkbox-grid">
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Белый русский" onchange="checkAlcoholNone()">
+                                    <input type="checkbox" name="entry.7777777777" value="Белый русский" onchange="checkAlcoholNone()">
                                     <span>🍸 Белый русский</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Мартини с соком" onchange="checkAlcoholNone()">
+                                    <input type="checkbox" name="entry.7777777777" value="Мартини с соком" onchange="checkAlcoholNone()">
                                     <span>🍸 Мартини с соком</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="alcohol" value="Джин-тоник" onchange="checkAlcoholNone()">
+                                    <input type="checkbox" name="entry.7777777777" value="Джин-тоник" onchange="checkAlcoholNone()">
                                     <span>🍸 Джин-тоник</span>
                                 </label>
                             </div>
@@ -1699,16 +1705,16 @@
                             <label>🚫 Не пью алкоголь:</label>
                             <div class="checkbox-grid" style="grid-template-columns:1fr; border-color:rgba(255,100,100,0.2);">
                                 <label class="checkbox-item">
-                                    <input type="checkbox" id="noAlcoholCheck" name="no_alcohol" value="Не пью алкоголь" onchange="checkAlcoholNone()">
+                                    <input type="checkbox" id="noAlcoholCheck" name="entry.8888888889" value="Не пью алкоголь" onchange="checkAlcoholNone()">
                                     <span>🚫 Не пью алкоголь</span>
                                 </label>
                             </div>
                         </div>
 
                         <div class="form-group" id="drinkAmountField">
-                            <label for="drink_amount">🍺 Много ли вы планируете пить? <span style="color:#ff4444;">*</span></label>
+                            <label for="drink_amount">🍺 Оцени свои амбиции на вечер <span style="color:#ff4444;">*</span></label>
                             <select id="drink_amount"
-                                    name="entry.5555555555"
+                                    name="entry.9999999999"
                                     required>
                                 <option value="">Выбери вариант...</option>
                                 <option value="Немного (для настроения)">🍷 Немного (для настроения)</option>
@@ -1742,31 +1748,31 @@
                             <label>🧃 Безалкогольные напитки:</label>
                             <div class="checkbox-grid">
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="nonalcohol" value="Сок" onchange="checkNonalcoholNone()">
+                                    <input type="checkbox" name="entry.1010101010" value="Сок" onchange="checkNonalcoholNone()">
                                     <span>🧃 Сок</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="nonalcohol" value="Кола" onchange="checkNonalcoholNone()">
+                                    <input type="checkbox" name="entry.1010101010" value="Кола" onchange="checkNonalcoholNone()">
                                     <span>🥤 Кола</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="nonalcohol" value="Тархун" onchange="checkNonalcoholNone()">
+                                    <input type="checkbox" name="entry.1010101010" value="Тархун" onchange="checkNonalcoholNone()">
                                     <span>🍃 Тархун</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="nonalcohol" value="Морс" onchange="checkNonalcoholNone()">
+                                    <input type="checkbox" name="entry.1010101010" value="Морс" onchange="checkNonalcoholNone()">
                                     <span>🍒 Морс</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="nonalcohol" value="Лимонад" onchange="checkNonalcoholNone()">
+                                    <input type="checkbox" name="entry.1010101010" value="Лимонад" onchange="checkNonalcoholNone()">
                                     <span>🍋 Лимонад</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="nonalcohol" value="Компот" onchange="checkNonalcoholNone()">
+                                    <input type="checkbox" name="entry.1010101010" value="Компот" onchange="checkNonalcoholNone()">
                                     <span>🍎 Компот</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="nonalcohol" value="Минералка" onchange="checkNonalcoholNone()">
+                                    <input type="checkbox" name="entry.1010101010" value="Минералка" onchange="checkNonalcoholNone()">
                                     <span>💧 Минеральная вода</span>
                                 </label>
                             </div>
@@ -1776,16 +1782,16 @@
                             <label>🚫 Не пью безалкогольное:</label>
                             <div class="checkbox-grid" style="grid-template-columns:1fr; border-color:rgba(255,100,100,0.2);">
                                 <label class="checkbox-item">
-                                    <input type="checkbox" id="noNonalcoholCheck" name="no_nonalcohol" value="Не пью безалкогольное" onchange="checkNonalcoholNone()">
+                                    <input type="checkbox" id="noNonalcoholCheck" name="entry.1111111111" value="Не пью безалкогольное" onchange="checkNonalcoholNone()">
                                     <span>🚫 Не пью безалкогольное</span>
                                 </label>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="water">💧 Вода: <span style="color:#ff4444;">*</span></label>
+                            <label for="water">💧 Вода. Да-да, мы серьёзно спрашиваем 😏 <span style="color:#ff4444;">*</span></label>
                             <select id="water"
-                                    name="entry.6666666666"
+                                    name="entry.1212121212"
                                     required>
                                 <option value="">Выбери вариант...</option>
                                 <option value="Газированная">🫧 Газированная</option>
@@ -1811,9 +1817,9 @@
                     <!-- ===== ШАГ 4: Комментарий + Творчество + Отправка ===== -->
                     <div class="form-step" id="step-3">
                         <div class="form-group">
-                            <label for="creative">🎭 Что ты хочешь сделать на мероприятии?</label>
+                            <label for="creative">🎤 О чём мечтаешь на вечеринке? (спеть? станцевать? уснуть в салате?)</label>
                             <textarea id="creative"
-                                      name="entry.9999999999"
+                                      name="entry.1313131313"
                                       placeholder="Например: хочу сыграть на гитаре Цоя, нужна гитара 🎸"
                                       rows="3"
                                       style="min-height:70px;"></textarea>
@@ -1823,9 +1829,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="comment">💬 Пожелания, аллергии, вопросы</label>
+                            <label for="comment">💬 Тайные желания? Аллергия на оливье? Пиши всё</label>
                             <textarea id="comment"
-                                      name="entry.7777777777"
+                                      name="entry.1414141414"
                                       placeholder="Напиши что-нибудь..."></textarea>
                         </div>
 
@@ -1847,7 +1853,7 @@
                                 ← Назад
                             </button>
                             <button type="submit" class="submit-btn" id="submitBtn">
-                                🎸 Отправить ответ!
+                                🎸 Всё, я в деле!
                             </button>
                         </div>
                     </div>
@@ -1863,10 +1869,10 @@
                     <span class="success-emoji">🎉</span>
                     <h3>Ты в списке!</h3>
                     <p>
-                        Отлично, ответ получен!<br>
-                        Ждём тебя <span class="accent">12 сентября в 16:00</span><br>
-                        в кафе «Ландринъ».<br><br>
-                        Не забудь про дресс-код — <span class="accent">стиль 90-х!</span> 🕺
+                        Пути назад нет. Доставай малиновый пиджак,<br>
+                        вспоминай слова «Владимирского централа»<br>
+                        и готовься отрываться.<br><br>
+                        <span class="accent">До встречи в 90-х!</span> 🕺📼
                     </p>
                     <button class="calendar-btn" onclick="downloadICS()" style="margin-top:12px;">
                         📅 Добавить в календарь
@@ -2057,24 +2063,25 @@
 
 
         /* ============================================================
-           5. ЛОГИКА: "НЕ ПЬЮ АЛКОГОЛЬ"
+           5. ЛОГИКА: "НЕ ПЬЮ АЛКОГОЛЬ" — ВИЗУАЛЬНАЯ БЛОКИРОВКА
            ============================================================ */
         function checkAlcoholNone() {
             const noAlcoholCheck = document.getElementById('noAlcoholCheck');
             const drinkAmountField = document.getElementById('drinkAmountField');
-            const alcoholCheckboxes = document.querySelectorAll('input[name="alcohol"]');
+            const alcoholCheckboxes = document.querySelectorAll('#alcoholGroup .checkbox-item');
 
             if (noAlcoholCheck.checked) {
                 drinkAmountField.style.display = 'none';
-                alcoholCheckboxes.forEach(cb => {
+                alcoholCheckboxes.forEach(item => {
+                    const cb = item.querySelector('input[type="checkbox"]');
                     cb.checked = false;
-                    cb.disabled = true;
+                    item.classList.add('disabled');
                 });
                 document.getElementById('drink_amount').removeAttribute('required');
             } else {
                 drinkAmountField.style.display = 'block';
-                alcoholCheckboxes.forEach(cb => {
-                    cb.disabled = false;
+                alcoholCheckboxes.forEach(item => {
+                    item.classList.remove('disabled');
                 });
                 document.getElementById('drink_amount').setAttribute('required', 'required');
             }
@@ -2082,20 +2089,21 @@
 
 
         /* ============================================================
-           6. ЛОГИКА: "НЕ ПЬЮ БЕЗАЛКОГОЛЬНОЕ"
+           6. ЛОГИКА: "НЕ ПЬЮ БЕЗАЛКОГОЛЬНОЕ" — ВИЗУАЛЬНАЯ БЛОКИРОВКА
            ============================================================ */
         function checkNonalcoholNone() {
             const noNonalcoholCheck = document.getElementById('noNonalcoholCheck');
-            const nonalcoholCheckboxes = document.querySelectorAll('input[name="nonalcohol"]');
+            const nonalcoholCheckboxes = document.querySelectorAll('#nonalcoholGroup .checkbox-item');
 
             if (noNonalcoholCheck.checked) {
-                nonalcoholCheckboxes.forEach(cb => {
+                nonalcoholCheckboxes.forEach(item => {
+                    const cb = item.querySelector('input[type="checkbox"]');
                     cb.checked = false;
-                    cb.disabled = true;
+                    item.classList.add('disabled');
                 });
             } else {
-                nonalcoholCheckboxes.forEach(cb => {
-                    cb.disabled = false;
+                nonalcoholCheckboxes.forEach(item => {
+                    item.classList.remove('disabled');
                 });
             }
         }
@@ -2105,12 +2113,13 @@
            7. ВАЛИДАЦИЯ АЛКОГОЛЯ
            ============================================================ */
         function validateAlcohol() {
-            const alcoholChecked = document.querySelectorAll('input[name="alcohol"]:checked').length;
+            const alcoholChecked = document.querySelectorAll('#alcoholGroup input[type="checkbox"]:checked').length;
             const noAlcoholChecked = document.getElementById('noAlcoholCheck').checked;
             const errorEl = document.getElementById('alcoholError');
 
-            const firstAlcohol = document.querySelector('input[name="alcohol"]');
-            const isAlcoholDisabled = firstAlcohol ? firstAlcohol.disabled : false;
+            const firstAlcohol = document.querySelector('#alcoholGroup input[type="checkbox"]');
+            const isAlcoholDisabled = firstAlcohol ? firstAlcohol.closest('.checkbox-item').classList.contains(
+                'disabled') : false;
 
             if (noAlcoholChecked || isAlcoholDisabled) {
                 errorEl.style.display = 'none';
@@ -2145,12 +2154,14 @@
            8. ВАЛИДАЦИЯ БЕЗАЛКОГОЛЬНОГО
            ============================================================ */
         function validateNonalcohol() {
-            const nonalcoholChecked = document.querySelectorAll('input[name="nonalcohol"]:checked').length;
+            const nonalcoholChecked = document.querySelectorAll('#nonalcoholGroup input[type="checkbox"]:checked')
+            .length;
             const noNonalcoholChecked = document.getElementById('noNonalcoholCheck').checked;
             const errorEl = document.getElementById('nonalcoholError');
 
-            const firstNonalcohol = document.querySelector('input[name="nonalcohol"]');
-            const isNonalcoholDisabled = firstNonalcohol ? firstNonalcohol.disabled : false;
+            const firstNonalcohol = document.querySelector('#nonalcoholGroup input[type="checkbox"]');
+            const isNonalcoholDisabled = firstNonalcohol ? firstNonalcohol.closest('.checkbox-item').classList
+                .contains('disabled') : false;
 
             if (noNonalcoholChecked || isNonalcoholDisabled) {
                 errorEl.style.display = 'none';
