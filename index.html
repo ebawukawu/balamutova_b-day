@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎉 День рождения в стиле 90-х!</title>
+    <title>🎉 День рождения Маши Балагуровой в стиле 90-х!</title>
 
     <!-- ===== OG-ТЕГИ ===== -->
-    <meta property="og:title" content="День рождения в стиле 90-х 🎉">
+    <meta property="og:title" content="День рождения Маши Балагуровой в стиле 90-х 🎉">
     <meta property="og:description" content="12 сентября 2026 · Кафе Ландринъ · Дресс-код: 90-е!">
     <meta property="og:image" content="https://ebawukawu.github.io/balamutova_b-day/preview.jpg">
     <meta property="og:image:width" content="1200">
@@ -14,7 +14,7 @@
     <meta property="og:url" content="https://ebawukawu.github.io/balamutova_b-day/">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#ff00ff">
-    <meta name="description" content="Приглашение на день рождения в стиле 90-х! 12 сентября 2026, кафе Ландринъ">
+    <meta name="description" content="Приглашение на день рождения Маши Балагуровой в стиле 90-х! 12 сентября 2026, кафе Ландринъ">
 
     <!-- ===== ШРИФТ ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -363,99 +363,86 @@
             transform: scale(1.3);
         }
 
-       /* ===== ПЛАВАЮЩИЕ КНОПКИ (ДВЕ) ===== */
-.float-buttons {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 500;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-end;
-}
+        /* ===== ПЛАВАЮЩИЕ КНОПКИ (ДВЕ) ===== */
+        .float-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-end;
+        }
 
-.float-btn {
-    padding: 12px 24px;
-    border-radius: 30px;
-    color: #000;
-    font-weight: bold;
-    font-size: 0.9rem;
-    text-decoration: none;
-    letter-spacing: 1px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s;
-    touch-action: manipulation;
-    box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
-    white-space: nowrap;
-    min-width: 100px;
-    text-align: center;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
+        .float-btn {
+            padding: 12px 24px;
+            border-radius: 30px;
+            color: #000;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-decoration: none;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            touch-action: manipulation;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+            white-space: nowrap;
+            min-width: 100px;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-/* Кнопка "Карта" */
-.float-btn-map {
-    background: linear-gradient(90deg, #00ccff, #0066ff);
-    animation: pulseMap 2.5s ease-in-out infinite;
-}
-.float-btn-map:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 40px rgba(0, 100, 255, 0.5);
-}
-@keyframes pulseMap {
-    0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 0 20px rgba(0, 100, 255, 0.3);
-    }
-    50% {
-        transform: scale(1.04);
-        box-shadow: 0 0 40px rgba(0, 100, 255, 0.6);
-    }
-}
+        /* Кнопка "Карта" */
+        .float-btn-map {
+            background: linear-gradient(90deg, #00ccff, #0066ff);
+            animation: pulseMap 2.5s ease-in-out infinite;
+        }
+        .float-btn-map:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0, 100, 255, 0.5);
+        }
+        @keyframes pulseMap {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(0, 100, 255, 0.3);
+            }
+            50% {
+                transform: scale(1.04);
+                box-shadow: 0 0 40px rgba(0, 100, 255, 0.6);
+            }
+        }
 
-/* Кнопка "Иду!" */
-.float-btn-rsvp {
-    background: linear-gradient(90deg, #ff00ff, #00ffff);
-    animation: pulse 2.5s ease-in-out infinite;
-}
-.float-btn-rsvp:hover {
-    animation: none;
-    transform: scale(1.05);
-    box-shadow: 0 0 50px rgba(255, 0, 255, 0.6);
-}
+        /* Кнопка "Иду!" */
+        .float-btn-rsvp {
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+        .float-btn-rsvp:hover {
+            animation: none;
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(255, 0, 255, 0.6);
+        }
 
-.float-btn.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
+        .float-btn.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
 
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
-    }
-    50% {
-        transform: scale(1.04);
-        box-shadow: 0 0 50px rgba(255, 0, 255, 0.7);
-    }
-}
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
+            }
+            50% {
+                transform: scale(1.04);
+                box-shadow: 0 0 50px rgba(255, 0, 255, 0.7);
+            }
+        }
 
-/* ===== АДАПТИВ ДЛЯ МОБИЛОК ===== */
-@media (max-width: 600px) {
-    .float-buttons {
-        bottom: 20px;
-        right: 12px;
-        gap: 8px;
-    }
-    .float-btn {
-        padding: 8px 16px;
-        font-size: 0.75rem;
-        min-width: 70px;
-    }
-}
         /* ===== СТРЕЛКИ ===== */
         .scroll-arrow {
             position: absolute;
@@ -581,8 +568,16 @@
             font-size: clamp(0.9rem, 2vw, 1.3rem);
             color: #ffcc00;
             text-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
-            letter-spacing: 8px;
+            letter-spacing: 4px;
             margin-bottom: 20px;
+        }
+
+        /* Имя Маши в подзаголовке */
+        .name-glow {
+            color: #ff00ff;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.5), 0 0 40px rgba(255, 0, 255, 0.3);
+            font-size: 1.1em;
+            letter-spacing: 2px;
         }
 
         /* ===== СТЕКЛЯННЫЕ КАРТОЧКИ ===== */
@@ -622,6 +617,11 @@
         }
         .glass-card .accent {
             color: #ff00ff;
+        }
+        .glass-card .highlight-name {
+            color: #ff00ff;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
         }
 
         /* ===== ИКОНКИ 90-Х ===== */
@@ -1147,6 +1147,7 @@
             .float-btn {
                 padding: 8px 16px;
                 font-size: 0.75rem;
+                min-width: 70px;
             }
 
             .scroll-arrow {
@@ -1347,9 +1348,9 @@
     <!-- ===== БЕГУЩАЯ СТРОКА ===== -->
     <div class="marquee-bar" aria-hidden="true">
         <div class="marquee-track">
-            ★ 12 сентября 2026 ★ Кафе Ландринъ ★ Дресс-код: 90-е ★ Ждём тебя! ★
+            ★ 12 сентября 2026 ★ День рождения <span style="color:#ffcc00;">Маши Балагуровой</span> ★ Кафе Ландринъ ★ Дресс-код: 90-е ★ Ждём тебя! ★
             🎶 Музыка 90-х ★ Фотозона ★ Танцы ★ Будет жарко! ★
-            ★ 12 сентября 2026 ★ Кафе Ландринъ ★ Дресс-код: 90-е ★ Ждём тебя! ★
+            ★ 12 сентября 2026 ★ День рождения <span style="color:#ffcc00;">Маши Балагуровой</span> ★ Кафе Ландринъ ★ Дресс-код: 90-е ★ Ждём тебя! ★
             🎶 Музыка 90-х ★ Фотозона ★ Танцы ★ Будет жарко! ★
         </div>
     </div>
@@ -1401,7 +1402,7 @@
             </div>
 
             <h1 class="neon-title" data-text="90-Е ВОЗВРАЩАЮТСЯ!">90-Е ВОЗВРАЩАЮТСЯ!</h1>
-            <div class="sub-neon">★ ДЕНЬ РОЖДЕНИЯ ★</div>
+            <div class="sub-neon">★ ДЕНЬ РОЖДЕНИЯ <span class="name-glow">МАШИ БАЛАГУРОВОЙ</span> ★</div>
 
             <div class="countdown">
                 <div class="countdown-item">
@@ -1425,7 +1426,7 @@
             <div class="glass-card">
                 <h2>🎉 Дорогие друзья!</h2>
                 <p>
-                    Я приглашаю вас на свой день рождения, чтобы вместе
+                    <span class="highlight-name">Маша Балагурова</span> приглашает вас на свой день рождения, чтобы вместе
                     <span class="highlight">окунуться в атмосферу лихих 90-х</span> —
                     время, когда музыка звучала громче, наряды были ярче,
                     а жизнь казалась большой дискотекой!<br><br>
@@ -1463,7 +1464,7 @@
             <div class="glass-card">
                 <h2>📢 Что за мероприятие?</h2>
                 <p>
-                    <span class="highlight">Вечеринка в стиле 90-х</span> —
+                    <span class="highlight">Вечеринка в стиле 90-х</span> в честь <span class="highlight-name">Маши Балагуровой</span> —
                     это не просто день рождения, это настоящее путешествие во времени!
                     <br><br>
                     🎶 Музыка 90-х (от «Кар-Мэн» до «Сектора Газа»)<br>
@@ -1640,7 +1641,7 @@
 
                 <!-- Стартовый заряд -->
                 <p style="color:#ffcc00; font-size:0.85rem; margin-bottom:15px; text-align:center; opacity:0.8;">
-                    Эй! Заполни по-быстрому — именинник уже нервно проверяет список 😅
+                    Эй! Заполни по-быстрому — Маша уже нервно проверяет список 😅
                 </p>
 
                 <div class="progress-bar" id="formProgress">
@@ -1964,7 +1965,7 @@
                     <p>
                         Пути назад нет. Доставай малиновый пиджак,<br>
                         вспоминай слова «Владимирского централа»<br>
-                        и готовься отрываться.<br><br>
+                        и готовься отрываться вместе с <span class="accent">Машей</span>!<br><br>
                         <span class="accent">До встречи в 90-х!</span> 🕺📼
                     </p>
                     <button class="calendar-btn" onclick="downloadICS()" style="margin-top:12px;">
@@ -1974,7 +1975,7 @@
 
                 <!-- Сообщение об ошибке отправки -->
                 <div id="submitError" style="display:none; color:#ff4444; text-align:center; margin-top:15px;">
-                    ⚠️ Что-то пошло не так. Попробуй ещё раз или напиши имениннику напрямую 😊
+                    ⚠️ Что-то пошло не так. Попробуй ещё раз или напиши Маше напрямую 😊
                 </div>
 
             </div>
@@ -2526,8 +2527,8 @@
                 'UID:balamutova-bday-2026@github.io',
                 'DTSTART:20260912T130000Z',
                 'DTEND:20260912T210000Z',
-                'SUMMARY:🎉 День рождения в стиле 90-х!',
-                'DESCRIPTION:Вечеринка в стиле 90-х\\n'
+                'SUMMARY:🎉 День рождения Маши Балагуровой в стиле 90-х!',
+                'DESCRIPTION:Вечеринка в стиле 90-х в честь Маши Балагуровой!\\n'
                     + '⏰ Начало в 16:00\\n'
                     + '📍 Кафе Ландринъ\\, м. Новослободская\\n'
                     + '👕 Дресс-код: стиль 90-х!\\n'
