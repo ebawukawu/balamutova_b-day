@@ -1656,8 +1656,7 @@
                                 <option value="Без детей">Нет, без детей</option>
                                 <option value="1 ребёнок">1 ребёнок</option>
                                 <option value="2 ребёнка">2 ребёнка</option>
-                                <option value="3 ребёнка">3 ребёнка</option>
-                                <option value="4 и более">4 и более</option>
+                                <option value="3 и более">3 и более</option>
                             </select>
                         </div>
 
@@ -1732,7 +1731,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top:8px;">
                             <label>🚫 Не пью алкоголь:</label>
                             <div class="checkbox-grid" style="grid-template-columns:1fr; border-color:rgba(255,100,100,0.2);">
                                 <label class="checkbox-item">
@@ -1808,7 +1807,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top:8px;">
                             <label>🚫 Не пью безалкогольное:</label>
                             <div class="checkbox-grid" style="grid-template-columns:1fr; border-color:rgba(255,100,100,0.2);">
                                 <label class="checkbox-item">
@@ -1823,10 +1822,9 @@
                             <select id="water"
                                     name="entry.1616161616"
                                     required>
-                                <option value="">Выбери вариант...</option>
+                                <option value="Всё равно">🤷 Всё равно</option>
                                 <option value="Газированная">🫧 Газированная</option>
                                 <option value="Негазированная">💧 Негазированная</option>
-                                <option value="Всё равно">🤷 Всё равно</option>
                             </select>
                         </div>
 
@@ -2097,16 +2095,20 @@
 
 
         /* ============================================================
-           5. ЛОГИКА: "НЕ ПЬЮ АЛКОГОЛЬ"
+           5. ЛОГИКА: "НЕ ПЬЮ АЛКОГОЛЬ" — БЛОКИРУЕТ ВСЕ ГРУППЫ
            ============================================================ */
         function checkAlcoholNone() {
             const noAlcoholCheck = document.getElementById('noAlcoholCheck');
             const drinkAmountField = document.getElementById('drinkAmountField');
+            // Все группы алкоголя: крепкий, вино/шампанское, коктейли
             const allAlcoholItems = document.querySelectorAll('#alcoholGroup .checkbox-item');
+            const wineItems = document.querySelectorAll('#alcoholGroup + .form-group .checkbox-item');
+            const cocktailItems = document.querySelectorAll('#alcoholGroup + .form-group + .form-group .checkbox-item');
+            const allItems = [...allAlcoholItems, ...wineItems, ...cocktailItems];
 
             if (noAlcoholCheck.checked) {
                 drinkAmountField.style.display = 'none';
-                allAlcoholItems.forEach(item => {
+                allItems.forEach(item => {
                     const cb = item.querySelector('input[type="checkbox"]');
                     cb.checked = false;
                     item.classList.add('disabled');
@@ -2114,7 +2116,7 @@
                 document.getElementById('drink_amount').removeAttribute('required');
             } else {
                 drinkAmountField.style.display = 'block';
-                allAlcoholItems.forEach(item => {
+                allItems.forEach(item => {
                     item.classList.remove('disabled');
                 });
                 document.getElementById('drink_amount').setAttribute('required', 'required');
@@ -2147,12 +2149,21 @@
            7. ВАЛИДАЦИЯ АЛКОГОЛЯ
            ============================================================ */
         function validateAlcohol() {
-            const alcoholChecked = document.querySelectorAll('#alcoholGroup input[type="checkbox"]:checked').length;
+            const allAlcoholCheckboxes = document.querySelectorAll(
+                '#alcoholGroup input[type="checkbox"], ' +
+                '#alcoholGroup + .form-group input[type="checkbox"], ' +
+                '#alcoholGroup + .form-group + .form-group input[type="checkbox"]'
+            );
+            const alcoholChecked = document.querySelectorAll(
+                '#alcoholGroup input[type="checkbox"]:checked, ' +
+                '#alcoholGroup + .form-group input[type="checkbox"]:checked, ' +
+                '#alcoholGroup + .form-group + .form-group input[type="checkbox"]:checked'
+            ).length;
             const noAlcoholChecked = document.getElementById('noAlcoholCheck').checked;
             const errorEl = document.getElementById('alcoholError');
 
-            const firstAlcoholItem = document.querySelector('#alcoholGroup .checkbox-item');
-            const isAlcoholDisabled = firstAlcoholItem ? firstAlcoholItem.classList.contains('disabled') : false;
+            const firstItem = document.querySelector('#alcoholGroup .checkbox-item');
+            const isAlcoholDisabled = firstItem ? firstItem.classList.contains('disabled') : false;
 
             if (noAlcoholChecked || isAlcoholDisabled) {
                 errorEl.style.display = 'none';
@@ -2223,7 +2234,7 @@
 
 
         /* ============================================================
-           9. ОТПРАВКА ФОРМЫ + ОЧИСТКА LOCALSTORAGE
+           9. ОТПРАВКА ФОРМЫ
            ============================================================ */
         function submitForm() {
             const form = document.getElementById('rsvpForm');
@@ -2276,15 +2287,15 @@
            10. ЧИСТАЯ ФОРМА ПРИ КАЖДОЙ ЗАГРУЗКЕ / ОБНОВЛЕНИИ
            ============================================================ */
         window.addEventListener('pageshow', function() {
-            // Сбрасываем форму
             form.reset();
 
-            // Возвращаемся на первый шаг
+            // Возвращаем воду на "Всё равно"
+            document.getElementById('water').value = 'Всё равно';
+
             currentStep = 0;
             document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
             document.getElementById('step-0').classList.add('active');
 
-            // Пересчитываем зависимую логику под пустую форму
             toggleAttendanceFields();
             checkAlcoholNone();
             checkNonalcoholNone();
