@@ -1592,7 +1592,8 @@
                 <form id="rsvpForm"
                       action="https://docs.google.com/forms/d/e/СЮДА_ВСТАВЬ_ТВОЙ_ID/formResponse"
                       method="POST"
-                      target="hidden_iframe">
+                      target="hidden_iframe"
+                      autocomplete="off">
 
                     <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                     <input type="text" name="_honeypot" style="display:none" tabindex="-1" autocomplete="off">
@@ -1608,7 +1609,7 @@
                                    required
                                    pattern=".*\S.*"
                                    title="Введи имя"
-                                   autocomplete="given-name">
+                                   autocomplete="off">
                         </div>
 
                         <div class="form-group">
@@ -1989,8 +1990,13 @@
         function updateProgress(step) {
             for (let i = 0; i < totalSteps; i++) {
                 const dot = document.getElementById('dot-' + i);
-                if (i < step) { dot.className = 'progress-dot done'; } else if (i === step) { dot
-                        .className = 'progress-dot active'; } else { dot.className = 'progress-dot'; }
+                if (i < step) {
+                    dot.className = 'progress-dot done';
+                } else if (i === step) {
+                    dot.className = 'progress-dot active';
+                } else {
+                    dot.className = 'progress-dot';
+                }
             }
             const titles = [
                 '📝 Кто ты?',
@@ -2000,7 +2006,6 @@
             ];
             document.getElementById('formTitle').textContent = titles[step];
             document.getElementById('stepNum').textContent = step + 1;
-            saveProgress();
         }
 
         function scrollToError(element) {
@@ -2245,8 +2250,6 @@
         hiddenIframe.addEventListener('load', function() {
             if (!isSubmitted) return;
 
-            localStorage.removeItem('rsvp_progress');
-
             form.style.display = 'none';
             formProgress.style.display = 'none';
             formTitle.style.display = 'none';
@@ -2270,50 +2273,23 @@
 
 
         /* ============================================================
-           10. LOCALSTORAGE — НЕ ВОССТАНАВЛИВАЕМ ДАЛЬШЕ ШАГА 1
+           10. ЧИСТАЯ ФОРМА ПРИ КАЖДОЙ ЗАГРУЗКЕ / ОБНОВЛЕНИИ
            ============================================================ */
-        function saveProgress() {
-            if (isSubmitted) return;
+        window.addEventListener('pageshow', function() {
+            // Сбрасываем форму
+            form.reset();
 
-            try {
-                const data = {
-                    name: document.getElementById('name').value,
-                    attendance: document.getElementById('attendance').value,
-                    companion: document.getElementById('companion').value,
-                    kids: document.getElementById('kids').value,
-                    step: currentStep
-                };
-                localStorage.setItem('rsvp_progress', JSON.stringify(data));
-            } catch (e) {}
-        }
+            // Возвращаемся на первый шаг
+            currentStep = 0;
+            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step-0').classList.add('active');
 
-        function loadProgress() {
-            if (isSubmitted) return;
-
-            try {
-                const saved = localStorage.getItem('rsvp_progress');
-                if (!saved) return;
-                const data = JSON.parse(saved);
-
-                // Восстанавливаем только поля шага 1
-                if (data.name) document.getElementById('name').value = data.name;
-                if (data.attendance) {
-                    document.getElementById('attendance').value = data.attendance;
-                    toggleAttendanceFields();
-                }
-                if (data.companion) document.getElementById('companion').value = data.companion;
-                if (data.kids) document.getElementById('kids').value = data.kids;
-
-                // НЕ ВОССТАНАВЛИВАЕМ ШАГ ДАЛЬШЕ 1 (безопасность)
-                // Если был на шаге > 1, просто остаёмся на шаге 1
-                if (data.step && data.step > 0) {
-                    // Остаёмся на шаге 0 (1-й шаг), чтобы гость не запутался
-                    // с пустыми напитками
-                }
-            } catch (e) {}
-        }
-
-        loadProgress();
+            // Пересчитываем зависимую логику под пустую форму
+            toggleAttendanceFields();
+            checkAlcoholNone();
+            checkNonalcoholNone();
+            updateProgress(0);
+        });
 
 
         /* ============================================================
@@ -2374,7 +2350,7 @@
         toggleAttendanceFields();
         checkAlcoholNone();
         checkNonalcoholNone();
-        updateProgress(currentStep);
+        updateProgress(0);
     </script>
 
 </body>
