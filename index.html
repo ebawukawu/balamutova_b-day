@@ -1195,7 +1195,6 @@
                 padding-bottom: max(20px, env(safe-area-inset-bottom));
                 scroll-snap-align: start;
                 scroll-snap-stop: always;
-                -webkit-scroll-snap-align: start;
             }
 
             .block-content {
@@ -1220,7 +1219,6 @@
                 padding-bottom: max(30px, env(safe-area-inset-bottom));
                 scroll-snap-align: start;
                 scroll-snap-stop: normal;
-                -webkit-scroll-snap-align: start;
                 overflow: visible;
             }
 
@@ -2099,7 +2097,7 @@
             const diff = target - now;
 
             if (diff <= 0) {
-                document.getElementById('cd-days').textContent = '00';
+                document.getElementById('cd-days').textContent = '000';
                 document.getElementById('cd-hours').textContent = '00';
                 document.getElementById('cd-mins').textContent = '00';
                 document.getElementById('cd-secs').textContent = '00';
@@ -2178,6 +2176,9 @@
             ];
             document.getElementById('formTitle').textContent = titles[step];
             document.getElementById('stepNum').textContent = step + 1;
+            
+            // Сбрасываем таймер при переходе на другой шаг
+            formStartTime = Date.now();
         }
 
         function scrollToError(element) {
@@ -2248,19 +2249,22 @@
             const guestDetails = document.getElementById('guestDetails');
             const btnNext = document.querySelector('#step-0 .btn-next');
             const reasonInput = document.getElementById('reason');
+            const companionInput = document.getElementById('companion');
 
             if (attendance === 'Нет, не смогу') {
                 reasonField.classList.add('show');
                 guestDetails.style.display = 'none';
                 btnNext.textContent = '📤 Отправить ответ';
                 reasonInput.setAttribute('required', 'required');
-                document.getElementById('companion').removeAttribute('required');
+                companionInput.removeAttribute('required');
+                companionInput.value = ''; // Очищаем поле о сопровождающих
             } else {
                 reasonField.classList.remove('show');
                 guestDetails.style.display = 'block';
                 btnNext.textContent = 'Выбрать напитки → 🍻';
                 reasonInput.removeAttribute('required');
-                document.getElementById('companion').setAttribute('required', 'required');
+                companionInput.setAttribute('required', 'required');
+                reasonInput.value = ''; // Очищаем поле причины
             }
         }
 
@@ -2271,14 +2275,11 @@
         function checkAlcoholNone() {
             const noAlcoholCheck = document.getElementById('noAlcoholCheck');
             const drinkAmountField = document.getElementById('drinkAmountField');
-            const allAlcoholItems = document.querySelectorAll('#alcoholGroup .checkbox-item');
-            const wineItems = document.querySelectorAll('#alcoholGroup + .form-group .checkbox-item');
-            const cocktailItems = document.querySelectorAll('#alcoholGroup + .form-group + .form-group .checkbox-item');
-            const allItems = [...allAlcoholItems, ...wineItems, ...cocktailItems];
+            const allAlcoholItems = document.querySelectorAll('#alcoholGroup .checkbox-item, #alcoholGroup + .form-group .checkbox-item, #alcoholGroup + .form-group + .form-group .checkbox-item');
 
             if (noAlcoholCheck.checked) {
                 drinkAmountField.style.display = 'none';
-                allItems.forEach(item => {
+                allAlcoholItems.forEach(item => {
                     const cb = item.querySelector('input[type="checkbox"]');
                     cb.checked = false;
                     item.classList.add('disabled');
@@ -2288,7 +2289,7 @@
                 document.getElementById('drink_amount').value = '';
             } else {
                 drinkAmountField.style.display = 'block';
-                allItems.forEach(item => {
+                allAlcoholItems.forEach(item => {
                     item.classList.remove('disabled');
                     const cb = item.querySelector('input[type="checkbox"]');
                     if (cb.checked) {
@@ -2438,10 +2439,10 @@
             const allButtons = document.querySelectorAll('.btn-next, .btn-back, .submit-btn');
             allButtons.forEach(btn => btn.disabled = true);
 
-            const btn = document.getElementById('submitBtn');
-            if (btn) {
-                btn.disabled = true;
-                btn.textContent = '⏳ Отправляем...';
+            const finalSubmitBtn = document.getElementById('finalSubmitBtn');
+            if (finalSubmitBtn) {
+                finalSubmitBtn.disabled = true;
+                finalSubmitBtn.textContent = '⏳ Отправляем...';
             }
 
             const formElements = document.getElementById('rsvpForm');
@@ -2540,10 +2541,10 @@
 
                 isSubmitted = true;
                 form.dataset.submitted = 'true';
-                const btn = document.getElementById('submitBtn');
-                if (btn) {
-                    btn.disabled = true;
-                    btn.textContent = '⏳ Отправляем...';
+                const finalSubmitBtn = document.getElementById('finalSubmitBtn');
+                if (finalSubmitBtn) {
+                    finalSubmitBtn.disabled = true;
+                    finalSubmitBtn.textContent = '⏳ Отправляем...';
                 }
             }
         });
