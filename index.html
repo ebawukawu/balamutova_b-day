@@ -1126,7 +1126,7 @@
         .checkbox-item {
             display: flex;
             align-items: center;
-            gap: clamp(6px, 1.5vw, 10px);
+            gap: clamp(8px, 1.5vw, 12px);
             font-size: var(--fs-body-sm);
             color: #ddd;
             cursor: pointer;
@@ -1134,7 +1134,7 @@
             border-radius: 6px;
             transition: all 0.2s;
             min-height: 44px;
-            line-height: 1;
+            line-height: 1.2;
         }
 
         .checkbox-item:hover {
@@ -1146,7 +1146,6 @@
             height: 24px;
             flex-shrink: 0;
             margin: 0;
-            align-self: center;
             appearance: none;
             -webkit-appearance: none;
             border: 2px solid #666;
@@ -1180,6 +1179,7 @@
             display: flex;
             align-items: center;
             line-height: 1.2;
+            flex: 1;
         }
 
         .checkbox-item.active-checkbox {
@@ -1210,7 +1210,6 @@
         .btn-back {
             padding: clamp(8px, 1.5vw, 10px) clamp(16px, 3vw, 24px);
             border-radius: 30px;
-            border: none;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
@@ -1220,23 +1219,24 @@
             text-transform: uppercase;
             image-rendering: pixelated;
             letter-spacing: 2px;
-            border: 2px solid transparent;
-            background-clip: padding-box;
+            border: none;
             position: relative;
+            overflow: hidden;
         }
+        
         .btn-next {
             background: linear-gradient(90deg, #ff00ff, #00ffff);
             color: #0a0a0a;
-            border-color: transparent;
         }
         .btn-next:hover {
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
         }
+        
         .btn-back {
             background: rgba(255, 255, 255, 0.08);
             color: #aaa;
-            border-color: #555;
+            border: 2px solid #555;
         }
         .btn-back:hover {
             background: rgba(255, 255, 255, 0.15);
@@ -1256,8 +1256,8 @@
             font-size: clamp(0.55rem, 1.2vw, 0.7rem);
             text-transform: uppercase;
             letter-spacing: 2px;
-            background-clip: padding-box;
-            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
         .submit-btn:hover {
             transform: scale(1.05);
@@ -1366,8 +1366,8 @@
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            background-clip: padding-box;
-            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
         .success-screen-away .btn-return:hover {
             transform: scale(1.05);
