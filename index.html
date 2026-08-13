@@ -307,6 +307,233 @@
             text-transform: uppercase;
         }
 
+        /* ===== TAMAGOTCHI ===== */
+        .logo-tamagotchi {
+            width: 48px;
+            height: 56px;
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+            border-radius: 50% 50% 40% 40%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            border: 2px solid #cc7700;
+            box-shadow: 0 0 15px rgba(255, 200, 0, 0.4);
+        }
+        .logo-tamagotchi .tama-screen {
+            width: 28px;
+            height: 20px;
+            background: #9bbc0f;
+            border: 2px solid #333;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        .logo-tamagotchi .tama-screen::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 8px;
+            width: 8px;
+            height: 8px;
+            background: #333;
+            border-radius: 50%;
+            animation: tamaBlink 2s infinite;
+        }
+        .logo-tamagotchi .tama-screen::after {
+            content: '';
+            position: absolute;
+            bottom: 1px;
+            right: 3px;
+            width: 6px;
+            height: 3px;
+            background: #333;
+            border-radius: 50%;
+        }
+        .logo-tamagotchi .tama-buttons {
+            display: flex;
+            gap: 4px;
+        }
+        .logo-tamagotchi .tama-btn {
+            width: 6px;
+            height: 6px;
+            background: #333;
+            border-radius: 50%;
+        }
+        @keyframes tamaBlink {
+            0%, 90%, 100% { transform: scaleY(1); }
+            95% { transform: scaleY(0.1); }
+        }
+
+        /* ===== NOKIA 3310 ===== */
+        .logo-nokia {
+            width: 40px;
+            height: 70px;
+            background: linear-gradient(180deg, #1a1a2e, #0d0d1a);
+            border-radius: 8px;
+            border: 2px solid #444;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 6px 4px;
+            gap: 4px;
+            box-shadow: 0 0 20px rgba(0, 150, 255, 0.3);
+        }
+        .logo-nokia .nokia-screen {
+            width: 28px;
+            height: 20px;
+            background: #9bbc0f;
+            border: 2px solid #333;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+        .logo-nokia .nokia-screen::before {
+            content: 'NOKIA';
+            position: absolute;
+            top: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Arial Black', sans-serif;
+            font-size: 0.35rem;
+            color: #333;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+        .logo-nokia .nokia-screen::after {
+            content: '📶';
+            position: absolute;
+            bottom: 0;
+            left: 2px;
+            font-size: 0.35rem;
+        }
+        .logo-nokia .nokia-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+        .logo-nokia .nokia-btn {
+            width: 6px;
+            height: 6px;
+            background: #666;
+            border-radius: 1px;
+            border: 1px solid #888;
+        }
+
+        /* ===== SEGA / DENDY ===== */
+        .logo-sega {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        .logo-sega .sega-text {
+            font-family: 'Arial Black', sans-serif;
+            font-weight: 900;
+            font-size: 0.9rem;
+            color: #fff;
+            background: linear-gradient(135deg, #003366, #0066cc);
+            padding: 3px 8px;
+            border-radius: 3px;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 0 #000;
+            border: 1px solid #0044aa;
+        }
+        .logo-sega .sega-controller {
+            width: 36px;
+            height: 18px;
+            background: #333;
+            border-radius: 10px;
+            position: relative;
+            border: 2px solid #555;
+        }
+        .logo-sega .sega-controller::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 5px;
+            width: 4px;
+            height: 4px;
+            background: #ff0000;
+            border-radius: 50%;
+            box-shadow: 8px 0 0 #ffcc00, 16px 0 0 #00ff00;
+        }
+        .logo-sega .sega-controller::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            right: 3px;
+            width: 8px;
+            height: 3px;
+            background: #666;
+            border-radius: 2px;
+        }
+
+        /* ===== WINDOWS 95 ===== */
+        .logo-win95 {
+            width: 50px;
+            height: 40px;
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #ffffff #404040 #404040 #ffffff;
+            position: relative;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .logo-win95 .win-title {
+            background: linear-gradient(90deg, #000080, #1084d0);
+            height: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 3px;
+            position: relative;
+        }
+        .logo-win95 .win-title-text {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.4rem;
+            color: #fff;
+            font-weight: bold;
+        }
+        .logo-win95 .win-buttons {
+            display: flex;
+            gap: 2px;
+        }
+        .logo-win95 .win-btn {
+            width: 8px;
+            height: 8px;
+            background: #c0c0c0;
+            border: 1px solid;
+            border-color: #ffffff #404040 #404040 #ffffff;
+            font-size: 0.35rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+        }
+        .logo-win95 .win-content {
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: calc(100% - 10px);
+        }
+        .logo-win95 .win-flag {
+            display: flex;
+            gap: 2px;
+        }
+        .logo-win95 .win-flag span {
+            width: 6px;
+            height: 6px;
+            display: block;
+        }
+        .logo-win95 .win-flag .red { background: #ff0000; }
+        .logo-win95 .win-flag .green { background: #00cc00; }
+        .logo-win95 .win-flag .blue { background: #0000ff; }
+        .logo-win95 .win-flag .yellow { background: #ffff00; }
+
         @media (max-width: 600px) {
             .logo-decor {
                 display: none;
@@ -1489,6 +1716,26 @@
                 <span class="love-sub">...sharing</span>
             </div>
         </div>
+        <div class="logo-decor" style="top:45%; left:1%; animation-delay:1.5s;">
+            <div class="logo-tamagotchi">
+                <div class="tama-screen"></div>
+                <div class="tama-buttons">
+                    <span class="tama-btn"></span>
+                    <span class="tama-btn"></span>
+                    <span class="tama-btn"></span>
+                </div>
+            </div>
+        </div>
+        <div class="logo-decor" style="top:60%; right:1%; animation-delay:2.5s;">
+            <div class="logo-nokia">
+                <div class="nokia-screen"></div>
+                <div class="nokia-buttons">
+                    <span class="nokia-btn"></span><span class="nokia-btn"></span><span class="nokia-btn"></span>
+                    <span class="nokia-btn"></span><span class="nokia-btn"></span><span class="nokia-btn"></span>
+                    <span class="nokia-btn"></span><span class="nokia-btn"></span><span class="nokia-btn"></span>
+                </div>
+            </div>
+        </div>
 
         <div class="block-content">
             <div style="margin-bottom:8px;">
@@ -1558,6 +1805,32 @@
         <div class="logo-decor" style="bottom:20%; right:2%; animation-delay:0.7s;">
             <div style="font-size:2.5rem;">🪩</div>
         </div>
+        <div class="logo-decor" style="top:50%; left:1%; animation-delay:1.8s;">
+            <div class="logo-sega">
+                <span class="sega-text">SEGA</span>
+                <div class="sega-controller"></div>
+            </div>
+        </div>
+        <div class="logo-decor" style="top:65%; right:2%; animation-delay:2.8s;">
+            <div class="logo-win95">
+                <div class="win-title">
+                    <span class="win-title-text">Windows 95</span>
+                    <div class="win-buttons">
+                        <span class="win-btn">_</span>
+                        <span class="win-btn">□</span>
+                        <span class="win-btn">×</span>
+                    </div>
+                </div>
+                <div class="win-content">
+                    <div class="win-flag">
+                        <span class="red"></span>
+                        <span class="green"></span>
+                        <span class="blue"></span>
+                        <span class="yellow"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="block-content">
             <div class="glass-card">
@@ -1607,6 +1880,22 @@
         </div>
         <div class="logo-decor" style="bottom:15%; right:2%; animation-delay:0.6s;">
             <div class="logo-turbo">TURBO</div>
+        </div>
+        <div class="logo-decor" style="top:55%; left:1%; animation-delay:1.7s;">
+            <div class="logo-tamagotchi">
+                <div class="tama-screen"></div>
+                <div class="tama-buttons">
+                    <span class="tama-btn"></span>
+                    <span class="tama-btn"></span>
+                    <span class="tama-btn"></span>
+                </div>
+            </div>
+        </div>
+        <div class="logo-decor" style="top:70%; right:1%; animation-delay:2.7s;">
+            <div class="logo-sega">
+                <span class="sega-text">SEGA</span>
+                <div class="sega-controller"></div>
+            </div>
         </div>
 
         <div class="block-content">
@@ -1687,6 +1976,36 @@
                 <span class="yuppie-gum">gum</span>
             </div>
         </div>
+        <div class="logo-decor" style="top:55%; left:1%; animation-delay:1.9s;">
+            <div class="logo-nokia">
+                <div class="nokia-screen"></div>
+                <div class="nokia-buttons">
+                    <span class="nokia-btn"></span><span class="nokia-btn"></span><span class="nokia-btn"></span>
+                    <span class="nokia-btn"></span><span class="nokia-btn"></span><span class="nokia-btn"></span>
+                    <span class="nokia-btn"></span><span class="nokia-btn"></span><span class="nokia-btn"></span>
+                </div>
+            </div>
+        </div>
+        <div class="logo-decor" style="top:70%; right:1%; animation-delay:2.9s;">
+            <div class="logo-win95">
+                <div class="win-title">
+                    <span class="win-title-text">Windows 95</span>
+                    <div class="win-buttons">
+                        <span class="win-btn">_</span>
+                        <span class="win-btn">□</span>
+                        <span class="win-btn">×</span>
+                    </div>
+                </div>
+                <div class="win-content">
+                    <div class="win-flag">
+                        <span class="red"></span>
+                        <span class="green"></span>
+                        <span class="blue"></span>
+                        <span class="yellow"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="block-content">
             <div class="glass-card">
@@ -1734,6 +2053,22 @@
         </div>
         <div class="logo-decor" style="bottom:15%; right:2%; animation-delay:0.8s;">
             <div class="logo-mtv"><span>MTV</span></div>
+        </div>
+        <div class="logo-decor" style="top:55%; left:1%; animation-delay:1.6s;">
+            <div class="logo-tamagotchi">
+                <div class="tama-screen"></div>
+                <div class="tama-buttons">
+                    <span class="tama-btn"></span>
+                    <span class="tama-btn"></span>
+                    <span class="tama-btn"></span>
+                </div>
+            </div>
+        </div>
+        <div class="logo-decor" style="top:70%; right:1%; animation-delay:2.6s;">
+            <div class="logo-sega">
+                <span class="sega-text">SEGA</span>
+                <div class="sega-controller"></div>
+            </div>
         </div>
 
         <div class="block-content">
