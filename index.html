@@ -1198,74 +1198,6 @@
             pointer-events: none;
         }
 
-        /* ===== КОНЦОВКА ДЛЯ "НЕ ПРИДУ" ===== */
-        .success-screen-away {
-            display: none;
-            text-align: center;
-            padding: 30px 20px;
-        }
-        .success-screen-away.show {
-            display: block;
-            animation: fadeIn 0.6s ease;
-        }
-
-        .success-screen-away .sad-emoji {
-            font-size: 4rem;
-            display: block;
-            margin-bottom: 15px;
-            animation: shake 2s ease-in-out infinite;
-        }
-
-        .success-screen-away h3 {
-            font-size: 1.8rem;
-            color: #ff6699;
-            margin-bottom: 12px;
-        }
-
-        .success-screen-away p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #ddd;
-        }
-
-        .success-screen-away .accent {
-            color: #ff00ff;
-        }
-
-        .success-screen-away .btn-return {
-            margin-top: 20px;
-            padding: 12px 30px;
-            background: linear-gradient(90deg, #ff6699, #ff3366);
-            border: none;
-            border-radius: 30px;
-            color: #fff;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .success-screen-away .btn-return:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 51, 102, 0.5);
-        }
-
-        @keyframes shake {
-            0%,
-            100% {
-                transform: rotate(0deg);
-            }
-            25% {
-                transform: rotate(-10deg);
-            }
-            75% {
-                transform: rotate(10deg);
-            }
-        }
-
         /* ===== КНОПКИ ===== */
         .btn-row {
             display: flex;
@@ -1286,9 +1218,11 @@
             font-family: 'Press Start 2P', monospace;
             font-size: clamp(0.55rem, 1.2vw, 0.7rem);
             text-transform: uppercase;
-            border: 2px solid #ff00ff;
             image-rendering: pixelated;
             letter-spacing: 2px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
         }
         .btn-next {
             background: linear-gradient(90deg, #ff00ff, #00ffff);
@@ -1322,6 +1256,8 @@
             font-size: clamp(0.55rem, 1.2vw, 0.7rem);
             text-transform: uppercase;
             letter-spacing: 2px;
+            background-clip: padding-box;
+            border: 2px solid transparent;
         }
         .submit-btn:hover {
             transform: scale(1.05);
@@ -1379,6 +1315,76 @@
             font-size: 1.1rem;
             line-height: 1.8;
             color: #ddd;
+        }
+
+        /* ===== КОНЦОВКА ДЛЯ "НЕ ПРИДУ" ===== */
+        .success-screen-away {
+            display: none;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .success-screen-away.show {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .success-screen-away .sad-emoji {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 15px;
+            animation: shake 2s ease-in-out infinite;
+        }
+
+        .success-screen-away h3 {
+            font-size: 1.8rem;
+            color: #ff6699;
+            margin-bottom: 12px;
+        }
+
+        .success-screen-away p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ddd;
+        }
+
+        .success-screen-away .accent {
+            color: #ff00ff;
+        }
+
+        .success-screen-away .btn-return {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(90deg, #ff6699, #ff3366);
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background-clip: padding-box;
+            border: 2px solid transparent;
+        }
+        .success-screen-away .btn-return:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 51, 102, 0.5);
+        }
+
+        @keyframes shake {
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(-10deg);
+            }
+            75% {
+                transform: rotate(10deg);
+            }
         }
 
         /* ===== ПОДВАЛ ===== */
@@ -2160,7 +2166,7 @@
                             <div class="checkbox-grid">
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="entry.2033964391" value="Водка" onchange="checkAlcoholNone()">
-                                    <span>🥃 Водка</span>
+                                    <span>🍾 Водка</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="entry.2033964391" value="Виски" onchange="checkAlcoholNone()">
@@ -2168,11 +2174,11 @@
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="entry.2033964391" value="Коньяк" onchange="checkAlcoholNone()">
-                                    <span>🥃 Коньяк</span>
+                                    <span>🍷 Коньяк</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="entry.2033964391" value="Текила" onchange="checkAlcoholNone()">
-                                    <span>🍸 Текила</span>
+                                    <span>🧂 Текила</span>
                                 </label>
                             </div>
                         </div>
@@ -2190,7 +2196,7 @@
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="entry.1250500333" value="Вино белое" onchange="checkAlcoholNone()">
-                                    <span>🍷 Вино белое</span>
+                                    <span>🥂 Вино белое</span>
                                 </label>
                             </div>
                         </div>
@@ -2200,7 +2206,7 @@
                             <div class="checkbox-grid">
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="entry.914767711" value="Белый русский" onchange="checkAlcoholNone()">
-                                    <span>🍸 Белый русский</span>
+                                    <span>🥛 Белый русский</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="entry.914767711" value="Мартини с соком" onchange="checkAlcoholNone()">
@@ -2208,7 +2214,7 @@
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="entry.914767711" value="Джин-тоник" onchange="checkAlcoholNone()">
-                                    <span>🍸 Джин-тоник</span>
+                                    <span>🍹 Джин-тоник</span>
                                 </label>
                             </div>
                         </div>
