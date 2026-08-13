@@ -80,14 +80,15 @@
         }
 
         /* ===== ДЛИННЫЕ БЛОКИ (3 и 5) ===== */
-       .block-3,
-.block-5 {
-    min-height: 100vh;
-    min-height: 100dvh;
-    height: auto;
-    justify-content: center;  /* ← Изменили на center */
-    padding-top: max(clamp(60px, 9vh, 70px), env(safe-area-inset-top));
-    padding-bottom: max(clamp(40px, 5vh, 60px), env(safe-area-inset-bottom));
+        .block-3,
+        .block-5 {
+            min-height: 100vh;
+            min-height: 100dvh;
+            height: auto;
+            justify-content: center;
+            padding-top: max(clamp(60px, 9vh, 70px), env(safe-area-inset-top));
+            padding-bottom: max(clamp(40px, 5vh, 60px), env(safe-area-inset-bottom));
+        }
 
         /* ===== КОНТЕЙНЕР КОНТЕНТА ===== */
         .block-content {
@@ -1433,25 +1434,26 @@
                 width: 100%;
             }
 
-            /* Короткие блоки — контент по центру */
+            /* Все блоки — контент по центру */
             .block-1,
             .block-2,
-            .block-4 {
+            .block-3,
+            .block-4,
+            .block-5 {
                 justify-content: center;
             }
 
-            /* Длинные блоки (карта, форма) — могут быть выше экрана, контент с верха */
-           .block-3,
-.block-5 {
-    height: auto;
-    min-height: 100vh;
-    min-height: 100dvh;
-    justify-content: center;  /* ← Изменили на center */
-    padding-top: max(50px, env(safe-area-inset-top));
-    padding-bottom: max(30px, env(safe-area-inset-bottom));
-    scroll-snap-align: start;
-    scroll-snap-stop: normal;
-    overflow: visible;
+            /* Длинные блоки (карта, форма) — могут быть выше экрана */
+            .block-3,
+            .block-5 {
+                height: auto;
+                min-height: 100vh;
+                min-height: 100dvh;
+                padding-top: max(50px, env(safe-area-inset-top));
+                padding-bottom: max(30px, env(safe-area-inset-bottom));
+                scroll-snap-align: start;
+                scroll-snap-stop: normal;
+                overflow: visible;
             }
 
             .block-5 .block-content {
