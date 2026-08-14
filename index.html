@@ -725,6 +725,71 @@
             }
         }
 
+        /* ===== МОБИЛЬНАЯ СТРЕЛКА-ИНДИКАТОР СКРОЛЛА ===== */
+        .mobile-scroll-hint {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 400;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            pointer-events: none;
+            animation: mobileScrollPulse 2s ease-in-out infinite;
+        }
+
+        .mobile-scroll-hint span {
+            display: block;
+            width: 12px;
+            height: 12px;
+            border-right: 2px solid #ff00ff;
+            border-bottom: 2px solid #ff00ff;
+            transform: rotate(45deg);
+            opacity: 0.7;
+            filter: drop-shadow(0 0 6px rgba(255, 0, 255, 0.5));
+        }
+
+        .mobile-scroll-hint span:nth-child(2) {
+            opacity: 0.4;
+            margin-top: -6px;
+        }
+
+        .mobile-scroll-hint span:nth-child(3) {
+            opacity: 0.2;
+            margin-top: -6px;
+        }
+
+        .mobile-scroll-hint .hint-text {
+            font-size: 0.6rem;
+            color: #ff00ff;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+            margin-top: 4px;
+        }
+
+        @keyframes mobileScrollPulse {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(6px);
+            }
+        }
+
+        /* Показываем только на мобильных */
+        @media (max-width: 600px) {
+            .mobile-scroll-hint {
+                display: flex;
+            }
+            
+            .mobile-scroll-hint.hidden {
+                display: none;
+            }
+        }
+
         /* ===== КАРТОЧКИ ===== */
         .glass-card,
         .form-card,
@@ -1113,94 +1178,95 @@
         }
 
         /* ===== ЧЕКБОКСЫ-КАРТОЧКИ ===== */
-.checkbox-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(6px, 1vw, 10px);
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 12px;
-    padding: clamp(6px, 1vw, 8px);
-    border: 1px solid rgba(255, 0, 255, 0.1);
-}
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(6px, 1vw, 10px);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: clamp(6px, 1vw, 8px);
+            border: 1px solid rgba(255, 0, 255, 0.1);
+        }
 
-.checkbox-item {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-size: var(--fs-body-sm);
-    color: #ddd;
-    cursor: pointer;
-    padding: clamp(8px, 1.5vw, 12px) clamp(6px, 1vw, 10px);
-    border-radius: 10px;
-    transition: all 0.3s;
-    min-height: 44px;
-    line-height: 1.2;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    user-select: none;
-    background-clip: padding-box;
-}
+        .checkbox-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: var(--fs-body-sm);
+            color: #ddd;
+            cursor: pointer;
+            padding: clamp(8px, 1.5vw, 12px) clamp(6px, 1vw, 10px);
+            border-radius: 10px;
+            transition: all 0.3s;
+            min-height: 44px;
+            line-height: 1.2;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            user-select: none;
+            background-clip: padding-box;
+        }
 
-.checkbox-item:hover {
-    background: rgba(255, 0, 255, 0.08);
-    border-color: rgba(255, 0, 255, 0.3);
-    background-clip: padding-box;
-}
+        .checkbox-item:hover {
+            background: rgba(255, 0, 255, 0.08);
+            border-color: rgba(255, 0, 255, 0.3);
+            background-clip: padding-box;
+        }
 
-.checkbox-item input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-    pointer-events: none;
-}
+        .checkbox-item input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
 
-.checkbox-item input[type="checkbox"]:checked ~ span {
-    color: #0a0a0a;
-    font-weight: bold;
-}
+        .checkbox-item input[type="checkbox"]:checked ~ span {
+            color: #0a0a0a;
+            font-weight: bold;
+        }
 
-.checkbox-item:has(input:checked) {
-    background: linear-gradient(135deg, #ff00ff, #00ffff);
-    border: 1px solid transparent;
-    background-clip: padding-box;
-    box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
-    color: #0a0a0a;
-}
+        .checkbox-item:has(input:checked) {
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            border: 1px solid transparent;
+            background-clip: padding-box;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+            color: #0a0a0a;
+        }
 
-.checkbox-item:has(input:checked) span {
-    color: #0a0a0a;
-    font-weight: bold;
-}
+        .checkbox-item:has(input:checked) span {
+            color: #0a0a0a;
+            font-weight: bold;
+        }
 
-.checkbox-item.active-checkbox {
-    background: linear-gradient(135deg, #ff00ff, #00ffff);
-    border: 1px solid transparent;
-    background-clip: padding-box;
-    box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
-}
+        .checkbox-item.active-checkbox {
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            border: 1px solid transparent;
+            background-clip: padding-box;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
 
-.checkbox-item.active-checkbox span {
-    color: #0a0a0a;
-    font-weight: bold;
-}
+        .checkbox-item.active-checkbox span {
+            color: #0a0a0a;
+            font-weight: bold;
+        }
 
-.checkbox-item span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    line-height: 1.2;
-    pointer-events: none;
-    text-align: center;
-}
+        .checkbox-item span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            line-height: 1.2;
+            pointer-events: none;
+            text-align: center;
+        }
 
-.checkbox-item.disabled {
-    opacity: 0.4;
-    pointer-events: none;
-}
+        .checkbox-item.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
         /* ===== КНОПКИ ===== */
         .btn-row {
             display: flex;
@@ -1672,6 +1738,14 @@
     </style>
 </head>
 <body>
+
+    <!-- ===== МОБИЛЬНАЯ ПОДСКАЗКА СКРОЛЛА ===== -->
+    <div class="mobile-scroll-hint" id="mobileScrollHint" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="hint-text">Листай вниз</span>
+    </div>
 
     <!-- ===== БЕГУЩАЯ СТРОКА ===== -->
     <div class="marquee-bar" aria-hidden="true">
@@ -2999,6 +3073,40 @@
                 window.open('data:text/calendar;charset=utf8,' + encodeURIComponent(icsContent));
             }
         }
+
+        /* ============================================================
+           13. МОБИЛЬНАЯ ПОДСКАЗКА СКРОЛЛА
+           ============================================================ */
+        const mobileScrollHint = document.getElementById('mobileScrollHint');
+
+        // Скрываем подсказку на последнем блоке
+        const scrollHintObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    mobileScrollHint.classList.add('hidden');
+                } else {
+                    mobileScrollHint.classList.remove('hidden');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Наблюдаем за последним блоком
+        const lastSection = sections[sections.length - 1];
+        if (lastSection) {
+            scrollHintObserver.observe(lastSection);
+        }
+
+        // Дополнительно: скрываем при прокрутке вниз на мобильных
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Если прокрутили вниз больше чем на 100px — скрываем подсказку
+            if (scrollTop > 100) {
+                mobileScrollHint.classList.add('hidden');
+            } else {
+                mobileScrollHint.classList.remove('hidden');
+            }
+        });
 
         // При загрузке — в начало
         window.addEventListener('load', function() {
