@@ -725,17 +725,19 @@
             }
         }
 
-        /* ===== МОБИЛЬНАЯ СТРЕЛКА-ИНДИКАТОР СКРОЛЛА ===== */
+        /* ===== МОБИЛЬНАЯ ПОДСКАЗКА СКРОЛЛА ===== */
         .mobile-scroll-hint {
             display: none;
-            position: fixed;
-            bottom: 80px;
+            position: absolute;
+            bottom: 70px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 400;
             align-items: center;
             gap: 10px;
-            pointer-events: none;
+            pointer-events: auto;
+            cursor: pointer;
+            text-decoration: none;
             animation: mobileScrollPulse 2s ease-in-out infinite;
             background: rgba(0, 0, 0, 0.5);
             padding: 8px 16px;
@@ -743,6 +745,7 @@
             border: 1px solid rgba(255, 0, 255, 0.3);
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
+            touch-action: manipulation;
         }
 
         .mobile-scroll-hint .arrow-container {
@@ -796,10 +799,6 @@
         @media (max-width: 600px) {
             .mobile-scroll-hint {
                 display: flex;
-            }
-            
-            .mobile-scroll-hint.hidden {
-                display: none;
             }
         }
 
@@ -1752,16 +1751,6 @@
 </head>
 <body>
 
-    <!-- ===== МОБИЛЬНАЯ ПОДСКАЗКА СКРОЛЛА ===== -->
-    <div class="mobile-scroll-hint" id="mobileScrollHint" aria-hidden="true">
-        <div class="arrow-container">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <span class="hint-text">Листай вниз</span>
-    </div>
-
     <!-- ===== БЕГУЩАЯ СТРОКА ===== -->
     <div class="marquee-bar" aria-hidden="true">
         <div class="marquee-track">
@@ -1873,10 +1862,13 @@
             </div>
         </div>
 
-        <a href="#block2" class="scroll-arrow" aria-label="Пролистать вниз к следующему блоку">
-            <span></span>
-            <span></span>
-            <span></span>
+        <a href="#block2" class="mobile-scroll-hint">
+            <div class="arrow-container">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span class="hint-text">Листай вниз</span>
         </a>
     </section>
 
@@ -1946,10 +1938,13 @@
             </div>
         </div>
 
-        <a href="#block3" class="scroll-arrow" aria-label="Пролистать вниз к следующему блоку">
-            <span></span>
-            <span></span>
-            <span></span>
+        <a href="#block3" class="mobile-scroll-hint">
+            <div class="arrow-container">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span class="hint-text">Там ещё есть!</span>
         </a>
     </section>
 
@@ -2038,10 +2033,13 @@
             </div>
         </div>
 
-        <a href="#block4" class="scroll-arrow" aria-label="Пролистать вниз к следующему блоку">
-            <span></span>
-            <span></span>
-            <span></span>
+        <a href="#block4" class="mobile-scroll-hint">
+            <div class="arrow-container">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span class="hint-text">Ещё немного!</span>
         </a>
     </section>
 
@@ -2122,10 +2120,13 @@
             </div>
         </div>
 
-        <a href="#block5" class="scroll-arrow" aria-label="Пролистать вниз к следующему блоку">
-            <span></span>
-            <span></span>
-            <span></span>
+        <a href="#block5" class="mobile-scroll-hint">
+            <div class="arrow-container">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span class="hint-text">Последний шаг!</span>
         </a>
     </section>
 
@@ -3088,40 +3089,6 @@
                 window.open('data:text/calendar;charset=utf8,' + encodeURIComponent(icsContent));
             }
         }
-
-        /* ============================================================
-           13. МОБИЛЬНАЯ ПОДСКАЗКА СКРОЛЛА
-           ============================================================ */
-        const mobileScrollHint = document.getElementById('mobileScrollHint');
-
-        // Скрываем подсказку на последнем блоке
-        const scrollHintObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    mobileScrollHint.classList.add('hidden');
-                } else {
-                    mobileScrollHint.classList.remove('hidden');
-                }
-            });
-        }, { threshold: 0.5 });
-
-        // Наблюдаем за последним блоком
-        const lastSection = sections[sections.length - 1];
-        if (lastSection) {
-            scrollHintObserver.observe(lastSection);
-        }
-
-        // Дополнительно: скрываем при прокрутке вниз на мобильных
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Если прокрутили вниз больше чем на 100px — скрываем подсказку
-            if (scrollTop > 100) {
-                mobileScrollHint.classList.add('hidden');
-            } else {
-                mobileScrollHint.classList.remove('hidden');
-            }
-        });
 
         // При загрузке — в начало
         window.addEventListener('load', function() {
