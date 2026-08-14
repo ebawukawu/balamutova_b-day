@@ -680,127 +680,78 @@
             }
         }
 
-        /* ===== СТРЕЛКИ ===== */
+        /* ===== СТРЕЛКИ С ПОДСКАЗКАМИ ===== */
         .scroll-arrow {
             position: absolute;
-            bottom: 20px;
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
             cursor: pointer;
             text-decoration: none;
             animation: bounce 2s ease-in-out infinite;
             will-change: transform;
             pointer-events: auto;
             touch-action: manipulation;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
         }
-        .scroll-arrow span {
+
+        .scroll-arrow .arrow-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .scroll-arrow .arrow-container span {
             display: block;
-            width: 14px;
-            height: 14px;
+            width: 10px;
+            height: 10px;
             border-right: 2px solid #ff00ff;
             border-bottom: 2px solid #ff00ff;
             transform: rotate(45deg);
             opacity: 0.7;
+            filter: drop-shadow(0 0 6px rgba(255, 0, 255, 0.5));
         }
-        .scroll-arrow span:nth-child(2) {
+
+        .scroll-arrow .arrow-container span:nth-child(2) {
             opacity: 0.4;
-            margin-top: -8px;
+            margin-top: -4px;
         }
-        .scroll-arrow span:nth-child(3) {
+
+        .scroll-arrow .arrow-container span:nth-child(3) {
             opacity: 0.2;
-            margin-top: -8px;
+            margin-top: -4px;
         }
+
+        .scroll-arrow .scroll-text {
+            font-size: 0.6rem;
+            color: #ff00ff;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+            white-space: nowrap;
+            font-weight: bold;
+        }
+
         @keyframes bounce {
             0%,
             100% {
                 transform: translateX(-50%) translateY(0);
             }
             50% {
-                transform: translateX(-50%) translateY(6px);
+                transform: translateX(-50%) translateY(4px);
             }
         }
-
-       /* ===== МОБИЛЬНАЯ ПОДСКАЗКА СКРОЛЛА ===== */
-.mobile-scroll-hint {
-    display: none;
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 400;
-    align-items: center;
-    gap: 10px;
-    pointer-events: auto;
-    cursor: pointer;
-    text-decoration: none;
-    animation: mobileScrollPulse 2s ease-in-out infinite;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 6px 14px;
-    border-radius: 30px;
-    border: 1px solid rgba(255, 0, 255, 0.3);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    touch-action: manipulation;
-}
-
-.mobile-scroll-hint .arrow-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-}
-
-.mobile-scroll-hint .arrow-container span {
-    display: block;
-    width: 8px;
-    height: 8px;
-    border-right: 2px solid #ff00ff;
-    border-bottom: 2px solid #ff00ff;
-    transform: rotate(45deg);
-    opacity: 0.7;
-    filter: drop-shadow(0 0 6px rgba(255, 0, 255, 0.5));
-}
-
-.mobile-scroll-hint .arrow-container span:nth-child(2) {
-    opacity: 0.4;
-    margin-top: -3px;
-}
-
-.mobile-scroll-hint .arrow-container span:nth-child(3) {
-    opacity: 0.2;
-    margin-top: -3px;
-}
-
-.mobile-scroll-hint .hint-text {
-    font-size: 0.6rem;
-    color: #ff00ff;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
-    white-space: nowrap;
-    font-weight: bold;
-}
-
-@keyframes mobileScrollPulse {
-    0%, 100% {
-        transform: translateX(-50%) translateY(0);
-    }
-    50% {
-        transform: translateX(-50%) translateY(4px);
-    }
-}
-
-/* Показываем только на мобильных */
-@media (max-width: 600px) {
-    .mobile-scroll-hint {
-        display: flex;
-    }
-}
 
         /* ===== КАРТОЧКИ ===== */
         .glass-card,
@@ -1590,7 +1541,12 @@
             }
 
             .scroll-arrow {
-                display: none;
+                bottom: 10px;
+                padding: 6px 12px;
+            }
+
+            .scroll-arrow .scroll-text {
+                font-size: 0.55rem;
             }
 
             .map-preview img {
@@ -1862,13 +1818,13 @@
             </div>
         </div>
 
-        <a href="#block2" class="mobile-scroll-hint">
+        <a href="#block2" class="scroll-arrow" aria-label="Пролистать вниз к следующему блоку">
             <div class="arrow-container">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <span class="hint-text">Листай вниз</span>
+            <span class="scroll-text">Листай вниз</span>
         </a>
     </section>
 
@@ -1938,13 +1894,13 @@
             </div>
         </div>
 
-        <a href="#block3" class="mobile-scroll-hint">
+        <a href="#block3" class="scroll-arrow" aria-label="Пролистать вниз к следующему блоку">
             <div class="arrow-container">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <span class="hint-text">Там ещё есть!</span>
+            <span class="scroll-text">Там ещё есть!</span>
         </a>
     </section>
 
@@ -2033,13 +1989,13 @@
             </div>
         </div>
 
-        <a href="#block4" class="mobile-scroll-hint">
+        <a href="#block4" class="scroll-arrow" aria-label="Пролистать вниз к следующему блоку">
             <div class="arrow-container">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <span class="hint-text">Ещё немного!</span>
+            <span class="scroll-text">Ещё немного!</span>
         </a>
     </section>
 
@@ -2120,13 +2076,13 @@
             </div>
         </div>
 
-        <a href="#block5" class="mobile-scroll-hint">
+        <a href="#block5" class="scroll-arrow" aria-label="Пролистать вниз к следующему блоку">
             <div class="arrow-container">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <span class="hint-text">Последний шаг!</span>
+            <span class="scroll-text">Последний шаг!</span>
         </a>
     </section>
 
