@@ -733,17 +733,29 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 400;
-            flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 10px;
             pointer-events: none;
             animation: mobileScrollPulse 2s ease-in-out infinite;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
         }
 
-        .mobile-scroll-hint span {
+        .mobile-scroll-hint .arrow-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .mobile-scroll-hint .arrow-container span {
             display: block;
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-right: 2px solid #ff00ff;
             border-bottom: 2px solid #ff00ff;
             transform: rotate(45deg);
@@ -751,23 +763,24 @@
             filter: drop-shadow(0 0 6px rgba(255, 0, 255, 0.5));
         }
 
-        .mobile-scroll-hint span:nth-child(2) {
+        .mobile-scroll-hint .arrow-container span:nth-child(2) {
             opacity: 0.4;
-            margin-top: -6px;
+            margin-top: -4px;
         }
 
-        .mobile-scroll-hint span:nth-child(3) {
+        .mobile-scroll-hint .arrow-container span:nth-child(3) {
             opacity: 0.2;
-            margin-top: -6px;
+            margin-top: -4px;
         }
 
         .mobile-scroll-hint .hint-text {
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             color: #ff00ff;
             letter-spacing: 1px;
             text-transform: uppercase;
             text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
-            margin-top: 4px;
+            white-space: nowrap;
+            font-weight: bold;
         }
 
         @keyframes mobileScrollPulse {
@@ -1741,9 +1754,11 @@
 
     <!-- ===== МОБИЛЬНАЯ ПОДСКАЗКА СКРОЛЛА ===== -->
     <div class="mobile-scroll-hint" id="mobileScrollHint" aria-hidden="true">
-        <span></span>
-        <span></span>
-        <span></span>
+        <div class="arrow-container">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <span class="hint-text">Листай вниз</span>
     </div>
 
